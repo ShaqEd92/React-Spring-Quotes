@@ -1,9 +1,9 @@
 package com.shaquille.quotes.repos;
 
-import com.shaquille.quotes.models.Quote;
+import com.shaquille.quotes.models.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface QuoteRepository extends JpaRepository<Quote, Integer> {
+public interface TagRepository extends JpaRepository<Tag, Integer> {
     Integer findByName(String name);
 }
 

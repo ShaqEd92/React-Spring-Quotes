@@ -1,26 +1,34 @@
 package com.shaquille.quotes.models;
 
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import org.springframework.lang.NonNull;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Quote {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id;
 
-    @NonNull
+    @NotBlank
+    @NotEmpty
+    @NotNull
     private String content;
 
-    @NonNull
+    @NotBlank
+    @NotEmpty
+    @NotNull
     private String author;
 
-    private List<String> tags;
+    @ManyToMany
+    private List<Tag> tags;
 
     public Quote() { };
 
@@ -29,11 +37,11 @@ public class Quote {
         this.author = author;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -53,11 +61,11 @@ public class Quote {
         this.author = author;
     }
 
-    public List<String> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 
