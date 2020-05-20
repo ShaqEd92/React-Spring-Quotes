@@ -1,11 +1,23 @@
 package com.shaquille.quotes.models;
 
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import org.springframework.lang.NonNull;
 import java.util.List;
 
+@Entity
 public class Quote {
 
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @NonNull
     private String content;
 
+    @NonNull
     private String author;
 
     private List<String> tags;
@@ -15,6 +27,14 @@ public class Quote {
     public Quote(String content, String author) {
         this.content = content;
         this.author = author;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getContent() {
@@ -40,4 +60,10 @@ public class Quote {
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
+
+    @Override
+    public String toString(){
+        return "'" + content + "' by " + author;
+    }
+
 }
