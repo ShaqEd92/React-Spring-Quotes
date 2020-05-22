@@ -8,12 +8,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tag")
+@Table(name = "tags")
 public class Tag {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long tagId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long tag_id;
 
     @NotBlank
     @NotEmpty
@@ -25,17 +25,17 @@ public class Tag {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             },
-            mappedBy = "tag")
+            mappedBy = "tags")
     private Set<Quote> quotes = new HashSet<>();
 
     public Tag() { }
 
     public long getId() {
-        return tagId;
+        return tag_id;
     }
 
-    public void setId(long tagId) {
-        this.tagId = tagId;
+    public void setId(long tag_id) {
+        this.tag_id = tag_id;
     }
 
     public Tag(String name) {

@@ -5,6 +5,7 @@ import com.shaquille.quotes.models.Quote;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -29,11 +30,13 @@ public class QuoteController {
     private QuoteRepository quoteRepository;
 
     @GetMapping("/quotes")
-    public Iterable<Quote> getQuotes(){
-        return quoteRepository.findAll();
+    public ResponseEntity<?> getQuotes(){
+        Optional<List<Quote>> quotes = Optional.of(quoteRepository.findAll());
+        return quotes.map(resp -> ResponseEntity.ok().body(resp))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/quotes/{id}")
+    @GetMapping("/quote/{id}")
     public ResponseEntity<?> getQuote(@PathVariable Long id){
         Optional<Quote> quote = quoteRepository.findById(id);
         return quote.map(resp -> ResponseEntity.ok().body(resp))

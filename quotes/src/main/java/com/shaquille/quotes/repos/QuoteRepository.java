@@ -1,9 +1,11 @@
 package com.shaquille.quotes.repos;
 
 import com.shaquille.quotes.models.Quote;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface QuoteRepository extends CrudRepository<Quote, Long> {
+@Repository
+public interface QuoteRepository extends JpaRepository<Quote, Long> {
 
 }
 

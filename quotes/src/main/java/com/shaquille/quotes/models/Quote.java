@@ -8,12 +8,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "quote")
+@Table(name = "quotes")
 public class Quote {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long quoteId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long quote_id;
 
     @NotBlank
     @NotEmpty
@@ -30,9 +30,9 @@ public class Quote {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             })
-    @JoinTable(name = "hasTag",
-            joinColumns = { @JoinColumn(name = "quoteId") },
-            inverseJoinColumns = { @JoinColumn(name = "tagId") })
+    @JoinTable(name = "quote_tags",
+            joinColumns = { @JoinColumn(name = "quote_id") },
+            inverseJoinColumns = { @JoinColumn(name = "tag_id") })
     private Set<Tag> tags = new HashSet<>();
 
     public Quote() { };
@@ -43,11 +43,11 @@ public class Quote {
     }
 
     public long getId() {
-        return quoteId;
+        return quote_id;
     }
 
-    public void setId(long quoteId) {
-        this.quoteId = quoteId;
+    public void setId(long quote_id) {
+        this.quote_id = quote_id;
     }
 
     public String getContent() {

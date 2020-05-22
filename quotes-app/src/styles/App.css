@@ -1,3 +1,11 @@
+#colorPalette{
+  color: #738290;
+  color: #A1B5D8;
+  color: #FFFCF7;
+  color: #E4F0D0;
+  color: #C2D8B9;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +13,24 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #738290;
+  color: #C2D8B9;
+  text-align: center;
+  width: 100%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.Quotes{
+  padding-top: 2%;
+}
+
+.tab{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+

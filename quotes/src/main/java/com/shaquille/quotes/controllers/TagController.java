@@ -29,11 +29,11 @@ public class TagController {
     private TagRepository tagRepository;
 
     @GetMapping("/tags")
-    public Iterable<Tag> getTags(){
+    public List<Tag> getTags(){
         return tagRepository.findAll();
     }
 
-    @GetMapping("/tags/{id}")
+    @GetMapping("/tag/{id}")
     public ResponseEntity<?> getTag(@PathVariable Long id){
         Optional<Tag> tag = tagRepository.findById(id);
         return tag.map(resp -> ResponseEntity.ok().body(resp))
