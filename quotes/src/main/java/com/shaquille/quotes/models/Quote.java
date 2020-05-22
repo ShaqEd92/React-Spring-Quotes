@@ -1,21 +1,19 @@
 package com.shaquille.quotes.models;
 
-import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "quote")
 public class Quote {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long quoteId;
 
     @NotBlank
     @NotEmpty
@@ -27,8 +25,15 @@ public class Quote {
     @NotNull
     private String author;
 
-    @ManyToMany
-    private List<Tag> tags;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "hasTag",
+            joinColumns = { @JoinColumn(name = "quoteId") },
+            inverseJoinColumns = { @JoinColumn(name = "tagId") })
+    private Set<Tag> tags = new HashSet<>();
 
     public Quote() { };
 
@@ -37,12 +42,12 @@ public class Quote {
         this.author = author;
     }
 
-    public int getId() {
-        return id;
+    public long getId() {
+        return quoteId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(long quoteId) {
+        this.quoteId = quoteId;
     }
 
     public String getContent() {
@@ -61,11 +66,11 @@ public class Quote {
         this.author = author;
     }
 
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(HashSet<Tag> tags) {
         this.tags = tags;
     }
 

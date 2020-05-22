@@ -1,36 +1,41 @@
 package com.shaquille.quotes.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
+@Table(name = "tag")
 public class Tag {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long tagId;
 
     @NotBlank
     @NotEmpty
     @NotNull
     private String name;
 
-    private List<Quote> quotes;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "tag")
+    private Set<Quote> quotes = new HashSet<>();
 
     public Tag() { }
 
-    public int getId() {
-        return id;
+    public long getId() {
+        return tagId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(long tagId) {
+        this.tagId = tagId;
     }
 
     public Tag(String name) {
@@ -45,11 +50,11 @@ public class Tag {
         this.name = name;
     }
 
-    public List<Quote> getQuotes() {
+    public Set<Quote> getQuotes() {
         return quotes;
     }
 
-    public void setQuotes(List<Quote> quotes) {
+    public void setQuotes(HashSet<Quote> quotes) {
         this.quotes = quotes;
     }
 

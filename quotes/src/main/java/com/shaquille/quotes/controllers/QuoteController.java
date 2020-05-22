@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequestMapping("/api")
 public class QuoteController {
 
@@ -29,12 +29,12 @@ public class QuoteController {
     private QuoteRepository quoteRepository;
 
     @GetMapping("/quotes")
-    public List<Quote> getQuotes(){
+    public Iterable<Quote> getQuotes(){
         return quoteRepository.findAll();
     }
 
     @GetMapping("/quotes/{id}")
-    public ResponseEntity<?> getQuote(@PathVariable Integer id){
+    public ResponseEntity<?> getQuote(@PathVariable Long id){
         Optional<Quote> quote = quoteRepository.findById(id);
         return quote.map(resp -> ResponseEntity.ok().body(resp))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -53,7 +53,7 @@ public class QuoteController {
     }
 
     @DeleteMapping("/quote/{id}")
-    public ResponseEntity<?> deleteQuote(@PathVariable Integer id) {
+    public ResponseEntity<?> deleteQuote(@PathVariable Long id) {
         quoteRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
