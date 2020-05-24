@@ -1,13 +1,11 @@
-import React from 'react';
-import { Segment } from 'semantic-ui-react';
+import React, {Fragment} from 'react';
 import '../styles/App.css';
 
 const AddQuote = () => {
     return(
-        <Segment basic>
+        <Fragment>
             <h1>Add a Quote</h1>
-
-        </Segment>
+        </Fragment>
     )
 }
 

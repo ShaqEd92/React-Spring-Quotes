@@ -75,22 +75,24 @@ export default class App extends Component {
         </Sidebar>
 
         <Sidebar.Pusher style={{ background: '#EFF1F3' }} >
-          {this.state.view === 'home' &&
-            <QuoteList quotes={this.state.quotes} />
-          }
-          {this.state.view === 'add' &&
-            <AddQuote />
-          }
-          {this.state.view === 'edit' &&
-            <EditQuote />
-          }
-          {this.state.view === 'delete' &&
-            <DeleteQuote />
-          }
-          {this.state.view === 'tags' &&
-            <ViewTags />
-          }
-
+          <Segment basic style={{width: this.state.visible ? '75%' : '100%'}} >
+            <Icon onClick={() => this.setVisible(true)} link size="huge" name='sidebar' className="showBar" />
+            {this.state.view === 'home' &&
+              <QuoteList quotes={this.state.quotes} />
+            }
+            {this.state.view === 'add' &&
+              <AddQuote />
+            }
+            {this.state.view === 'edit' &&
+              <EditQuote />
+            }
+            {this.state.view === 'delete' &&
+              <DeleteQuote />
+            }
+            {this.state.view === 'tags' &&
+              <ViewTags />
+            }
+          </Segment>
         </Sidebar.Pusher>
 
       </Sidebar.Pushable>

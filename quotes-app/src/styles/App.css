@@ -17,17 +17,21 @@ body {
 }
 
 h1{
+  font-size: 2.6em;
   font-family: oblique;
 }
 
-.Quotes{
-  padding-top: 2%;
+#quotes{
+  padding: 1%;
+  width: 65%;
+  margin: auto;
 }
 
-.tab{
-  position: absolute;
+.showBar{
+  position: fixed;
   top: 0;
   left: 0;
+  cursor: pointer;
 }
 
 .ui.card>.content{
@@ -45,4 +49,6 @@ h1{
 
 .ui.segment {
   min-height: 100vh;
+  margin: 0 auto;
 }
+
