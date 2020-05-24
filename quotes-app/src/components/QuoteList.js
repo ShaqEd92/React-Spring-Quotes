@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Segment, Icon } from 'semantic-ui-react';
 import '../styles/App.css';
 
 const QuoteList = (props) => {
@@ -12,9 +12,13 @@ const QuoteList = (props) => {
     )
 
     return (
-        <div className='Quotes'>
-            {allQuotes}
-        </div>
+        <Segment basic>
+            <h1>Quotes</h1>
+            <Icon onClick={() => this.setVisible(true)} bordered color="#586BA4" link size="large" name='sidebar' className="tab" />
+            <div className='Quotes'>
+                {allQuotes}
+            </div>
+        </Segment>
     );
 };
 

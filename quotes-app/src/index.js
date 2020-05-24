@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
-import AppSidebar from './components/AppSidebar';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppSidebar />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,27 +1,23 @@
 #colorPalette{
-  color: #738290;
-  color: #A1B5D8;
-  color: #FFFCF7;
-  color: #E4F0D0;
-  color: #C2D8B9;
+  color: #0F1108;
+  color: #FED766;
+  color: #009FB7;
+  color: #696773;
+  color: #EFF1F3;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: oblique;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #738290;
-  color: #C2D8B9;
+  color: #009FB7;
   text-align: center;
   width: 100%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1{
+  font-family: oblique;
 }
 
 .Quotes{
@@ -34,3 +30,19 @@ code {
   left: 0;
 }
 
+.ui.card>.content{
+  background-color: #696773;
+}
+
+.ui.card>.content.extra {
+  background-color: #696773;
+  font-style: italic;
+}
+
+.ui.card>.content>.description{
+  color: #EFF1F3;
+}
+
+.ui.segment {
+  min-height: 100vh;
+}
