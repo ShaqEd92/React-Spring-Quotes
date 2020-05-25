@@ -9,21 +9,27 @@ import '../styles/App.css';
 
 export default class App extends Component {
 
-  constructor() {
-    super();
-    this.state = { quotes: [], visible: true, view: 'home' }
+  state = { quotes: [], tags: [], visible: true, view: 'add' }
+
+  fetchQuotesData = async () => {
+    const resp = await fetch('/api/quotes')
+    const quotesData = await resp.json();
+    this.setState({
+      quotes: quotesData
+    })
   };
 
-  fetchData = async () => {
-    const resp = await fetch('/api/quotes')
-    const data = await resp.json();
+  fetchTagsData = async () => {
+    const resp = await fetch('/api/tags')
+    const tagsData = await resp.json();
     this.setState({
-      quotes: data
+      tags: tagsData
     })
   };
 
   componentDidMount() {
-    this.fetchData();
+    this.fetchQuotesData();
+    this.fetchTagsData();
   };
 
   setVisible = (val) => {
@@ -81,7 +87,7 @@ export default class App extends Component {
               <QuoteList quotes={this.state.quotes} />
             }
             {this.state.view === 'add' &&
-              <AddQuote />
+              <AddQuote tags={this.state.tags}/>
             }
             {this.state.view === 'edit' &&
               <EditQuote />

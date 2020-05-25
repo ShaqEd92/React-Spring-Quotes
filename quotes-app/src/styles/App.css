@@ -52,3 +52,23 @@ h1{
   margin: 0 auto;
 }
 
+.ui.form {
+  display: inline-block;
+  position: absolute;
+  top: 17%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%)
+}
+
+.ui.form .field{
+  font-size: 1.15em; 
+  display: inline-block;
+}
+
+.ui.form .field label {
+  font: 1.15em oblique;
+  color: #696773;
+  margin-top: 3%;
+}
+
