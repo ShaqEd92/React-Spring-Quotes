@@ -21,6 +21,12 @@ h1{
   font-family: oblique;
 }
 
+h4{
+  font-size: 1.1em;
+  font-family: oblique;
+  text-decoration: underline;
+}
+
 #quotes{
   padding: 1%;
   width: 65%;
@@ -55,10 +61,25 @@ h1{
 .ui.form {
   display: inline-block;
   position: absolute;
-  top: 17%;
+  width: 50%;
+  top: 16%;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%)
+}
+
+#tagForm{
+  top: 78%;
+}
+
+.tagsList{
+  display: inline-block;
+  position: absolute;
+  width: 20%;
+  top: 18%;
+  left: 95%;
+  -webkit-transform: translateX(-95%);
+  transform: translateX(-95%)
 }
 
 .ui.form .field{
@@ -67,9 +88,9 @@ h1{
 }
 
 .ui.form .field label {
-  font: 1.15em oblique;
+  font: 1.1em oblique;
   color: #696773;
-  margin-top: 3%;
+  margin-top: 2%;
 }
 
 .ui.form .field button {
@@ -77,3 +98,4 @@ h1{
   color: #696773;
   margin-top: 3%;
 }
+

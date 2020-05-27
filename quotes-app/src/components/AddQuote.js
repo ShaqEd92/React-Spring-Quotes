@@ -4,48 +4,48 @@ import '../styles/App.css';
 
 export default class AddQuote extends Component {
 
-    state = { quoteContent: '', authorName: '', newTag: '', newTags: [] }
+    state = { newTags: [], assignedTags: [] }
 
     options = this.props.tags.map(t => ({ key: t.tag_id, text: t.name, value: t.name }))
 
-    addedTags = this.state.newTags.map(t => <button key={t}>{t}</button>)
+    addedTags = this.state.newTags.map(t => <p><button key={t}>{t}</button></p>)
 
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
-        if(event.target.name === 'addedTag'){
-            this.setState({
-                newTag: event.target.value
-            })
-        }
     }
 
-    handleClick = () => {
-        this.setState({
-            newTags: [...this.state.newTags, this.state.newTag]
-        })
-    }
-
-    addTag = () => {
-        this.setState({
-            newTags: [...this.state.newTags, this.state.newTag],
-            newTag: ''
-        })
-    }
-
-    handleSubmit = (event) => {
+    handleTagSubmit = (event) => {
         event.preventDefault();
-        console.log(`Quote content is ${event.target.quote.value}`);
-        console.log(`Author is ${event.target.author.value}`);
-        console.log(`Added tag is ${event.target.addedTag.value}`);
-        console.log(this.state.newTags)
+        this.setState({
+            newTags: [...this.state.newTags, event.target.addedTag.value]
+        })
+        event.target.addedTag.value = '';
+    }
+
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        const postData = {
+            content: event.target.quote.value,
+            author: event.target.author.value
+        }
+        await fetch('/api/quotes', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData),
+        });
     }
 
     render() {
         return (
             <Fragment>
+
                 <h1>Add a Quote</h1>
+
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group>
                         <Form.TextArea
@@ -65,27 +65,32 @@ export default class AddQuote extends Component {
                             onChange={this.handleChange}
                         />
                     </Form.Group>
-                        <Form.Group widths='equal'>
-                            <Form.Select
-                                label='Select appropriate tag(s)'
-                                options={this.options}
-                                placeholder='Select tag'
-                                name='existingTag'
-                                onClick={this.handleClick}
-                            />
-                            <Form.Input
-                                label='Add new tag(s)'
-                                name='addedTag'
-                                onChange={this.handleChange}
-                            />
-                            <Form.Button 
-                                label='&nbsp;' 
-                                onClick={this.addTag}> +
-                            </Form.Button>
-                        </Form.Group>
-                    <Form.Button>Submit</Form.Button>
-                    {this.addedTags}
+                    <Form.Select
+                        label='Select appropriate tag(s)'
+                        options={this.options}
+                        placeholder='Select tag'
+                        name='existingTag'
+                        onChange={this.handleChange}
+                    />
+                    <br />
+                    <Form.Button>Submit Quote</Form.Button>
                 </Form>
+
+                <Form id="tagForm" onSubmit={this.handleTagSubmit}>
+                    <Form.Input
+                        label='Add new tag(s)'
+                        name='addedTag'
+                        onChange={this.handleChange}
+                    />
+                    <br />
+                    <Form.Button>+</Form.Button>
+                </Form>
+
+                <div className='tagsList'>
+                    <h4>Added Tags</h4>
+                    {this.addedTags}
+                </div>
+
             </Fragment >
         )
     }

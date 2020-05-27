@@ -34,7 +34,7 @@ public class Quote {
     public Quote() {
     }
 
-    public Quote(String content, String author) {
+    public Quote(@NotBlank @NotEmpty @NotNull String content, @NotBlank @NotEmpty @NotNull String author) {
         this.content = content;
         this.author = author;
     }
