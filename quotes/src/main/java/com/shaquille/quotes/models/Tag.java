@@ -7,34 +7,29 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "tags")
+@Entity(name = "tags")
 public class Tag {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long tag_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long tag_id;
 
     @NotBlank
     @NotEmpty
     @NotNull
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "tags")
+    @ManyToMany(mappedBy = "tags")
     private Set<Quote> quotes = new HashSet<>();
 
-    public Tag() { }
+    public Tag() {
+    }
 
-    public long getId() {
+    public Long getId() {
         return tag_id;
     }
 
-    public void setId(long tag_id) {
+    public void setId(Long tag_id) {
         this.tag_id = tag_id;
     }
 
@@ -59,7 +54,7 @@ public class Tag {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.name;
     }
 

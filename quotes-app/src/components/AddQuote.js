@@ -1,26 +1,45 @@
 import React, { Fragment, Component } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 import '../styles/App.css';
 
 export default class AddQuote extends Component {
 
-    state = { quoteContent: '', authorName: '', newTags: '' }
+    state = { quoteContent: '', authorName: '', newTag: '', newTags: [] }
 
-    options = this.props.tags.map(t => ({ key: t.name, text: t.name, value: t.name }))
+    options = this.props.tags.map(t => ({ key: t.tag_id, text: t.name, value: t.name }))
+
+    addedTags = this.state.newTags.map(t => <button key={t}>{t}</button>)
 
     handleChange = (event) => {
-        const value = event.target.value;
         this.setState({
-            [event.target.name]: value
+            [event.target.name]: event.target.value
         })
-        console.log()
+        if(event.target.name === 'addedTag'){
+            this.setState({
+                newTag: event.target.value
+            })
+        }
+    }
+
+    handleClick = () => {
+        this.setState({
+            newTags: [...this.state.newTags, this.state.newTag]
+        })
+    }
+
+    addTag = () => {
+        this.setState({
+            newTags: [...this.state.newTags, this.state.newTag],
+            newTag: ''
+        })
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         console.log(`Quote content is ${event.target.quote.value}`);
         console.log(`Author is ${event.target.author.value}`);
-        console.log(`Tag is ${event.target.tag.value}`);
+        console.log(`Added tag is ${event.target.addedTag.value}`);
+        console.log(this.state.newTags)
     }
 
     render() {
@@ -46,18 +65,26 @@ export default class AddQuote extends Component {
                             onChange={this.handleChange}
                         />
                     </Form.Group>
-                    <Form.Group widths='equal'>
-                        <Form.Select
-                            label='Select appropriate tag(s)'
-                            options={this.options}
-                            placeholder='Select tag' />
-                        <Form.Input
-                            label='Add new tag(s)'
-                            name='tag'
-                            onChange={this.handleChange}
-                        />
-                    </Form.Group>
-                    <Form.Field control={Button}>Submit</Form.Field>
+                        <Form.Group widths='equal'>
+                            <Form.Select
+                                label='Select appropriate tag(s)'
+                                options={this.options}
+                                placeholder='Select tag'
+                                name='existingTag'
+                                onClick={this.handleClick}
+                            />
+                            <Form.Input
+                                label='Add new tag(s)'
+                                name='addedTag'
+                                onChange={this.handleChange}
+                            />
+                            <Form.Button 
+                                label='&nbsp;' 
+                                onClick={this.addTag}> +
+                            </Form.Button>
+                        </Form.Group>
+                    <Form.Button>Submit</Form.Button>
+                    {this.addedTags}
                 </Form>
             </Fragment >
         )

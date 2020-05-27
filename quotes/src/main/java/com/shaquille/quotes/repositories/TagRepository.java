@@ -1,4 +1,4 @@
-package com.shaquille.quotes.repos;
+package com.shaquille.quotes.repositories;
 
 import com.shaquille.quotes.models.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -7,13 +7,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "quotes")
+@Entity(name = "quotes")
 public class Quote {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long quote_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long quote_id;
 
     @NotBlank
     @NotEmpty
@@ -25,28 +24,26 @@ public class Quote {
     @NotNull
     private String author;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "quote_tags",
-            joinColumns = { @JoinColumn(name = "quote_id") },
-            inverseJoinColumns = { @JoinColumn(name = "tag_id") })
+    @ManyToMany
+    @JoinTable(
+            name = "quote_tags",
+            joinColumns = {@JoinColumn(name = "quote_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private Set<Tag> tags = new HashSet<>();
 
-    public Quote() { };
+    public Quote() {
+    }
 
     public Quote(String content, String author) {
         this.content = content;
         this.author = author;
     }
 
-    public long getId() {
+    public Long getId() {
         return quote_id;
     }
 
-    public void setId(long quote_id) {
+    public void setId(Long quote_id) {
         this.quote_id = quote_id;
     }
 
@@ -75,7 +72,7 @@ public class Quote {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "'" + content + "' by " + author;
     }
 
