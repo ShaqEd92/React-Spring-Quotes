@@ -25,16 +25,16 @@ public class Tag {
     public Tag() {
     }
 
+    public Tag(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return tag_id;
     }
 
     public void setId(Long tag_id) {
         this.tag_id = tag_id;
-    }
-
-    public Tag(String name) {
-        this.name = name;
     }
 
     public String getName() {

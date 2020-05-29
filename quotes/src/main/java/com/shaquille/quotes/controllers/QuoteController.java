@@ -1,11 +1,14 @@
 package com.shaquille.quotes.controllers;
 
 import com.shaquille.quotes.models.Quote;
+import com.shaquille.quotes.models.Tag;
 import com.shaquille.quotes.repositories.QuoteRepository;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,9 +43,18 @@ public class QuoteController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Quote> update(@PathVariable Long id, @Valid @RequestBody Quote quote) throws URISyntaxException {
+    public ResponseEntity<Quote> update(@PathVariable Long id, @Valid @RequestBody Quote quote) {
         Quote result = quoteRepository.save(quote);
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("{id}/add")
+    public ResponseEntity<Quote> addTag(@PathVariable Long id, @Valid @RequestBody Quote quote, @Valid @RequestBody Tag tag){
+        Quote result = quoteRepository.getOne(id);
+        Set<Tag> updatedTags = result.getTags();
+        updatedTags.add(tag);
+        result.setTags((HashSet<Tag>) updatedTags);
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("{id}")
@@ -50,6 +62,5 @@ public class QuoteController {
         quoteRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
 
 }

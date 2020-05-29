@@ -1,11 +1,17 @@
 package com.shaquille.quotes.models;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "quotes")
 public class Quote {
@@ -37,6 +43,7 @@ public class Quote {
     public Quote(@NotBlank @NotEmpty @NotNull String content, @NotBlank @NotEmpty @NotNull String author) {
         this.content = content;
         this.author = author;
+        this.tags = new HashSet<>();
     }
 
     public Long getId() {
