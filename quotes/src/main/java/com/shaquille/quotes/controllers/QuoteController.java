@@ -1,6 +1,7 @@
 package com.shaquille.quotes.controllers;
 
 import com.shaquille.quotes.models.Quote;
+import com.shaquille.quotes.models.QuoteWrapper;
 import com.shaquille.quotes.models.Tag;
 import com.shaquille.quotes.repositories.QuoteRepository;
 import java.net.URI;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import javax.validation.Valid;
+
+import com.shaquille.quotes.repositories.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,9 @@ public class QuoteController {
 
     @Autowired
     private QuoteRepository quoteRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     @GetMapping
     public ResponseEntity<?> list(){
@@ -37,9 +43,14 @@ public class QuoteController {
     }
 
     @PostMapping
-    public ResponseEntity<Quote> create(@Valid @RequestBody Quote quote) throws URISyntaxException {
-        Quote result = quoteRepository.save(quote);
-        return ResponseEntity.created(new URI("api/quote/" + result.getId())).body(result);
+    public ResponseEntity<Quote> create(@Valid @RequestBody QuoteWrapper quoteWithTags) throws URISyntaxException {
+        Quote quote = quoteWithTags.getTheQuote();
+        quoteRepository.save(quote);
+        for(Tag tag : quoteWithTags.getTheTags()){
+            tagRepository.save(tag);
+            quote.addTag(tag);
+        }
+        return ResponseEntity.created(new URI("api/quote/" + quote.getId())).body(quote);
     }
 
     @PutMapping("{id}")

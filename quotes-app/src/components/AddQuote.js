@@ -4,7 +4,7 @@ import '../styles/App.css';
 
 export default class AddQuote extends Component {
 
-    state = { newTags: [], assignedTags: [] }
+    state = { newTags: [], assignedTags: [], quoteSubmitted: false}
 
     options = this.props.tags.map(t => ({ key: t.tag_id, text: t.name, value: t.name }))
 
@@ -16,34 +16,30 @@ export default class AddQuote extends Component {
         })
     }
 
-    handleTagSubmit = async (event) => {
+    handleTagSubmit = (event) => {
         event.preventDefault();
         let value = event.target.addedTag.value;
         event.target.addedTag.value = '';
-        const postData = {
+        const newTag = {
             name: value,
         }
-        const config = {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(postData),
-        };
-        const data = await fetch('/api/tags', config)
         this.setState({
-            newTags: [...this.state.newTags, postData]
+            newTags: [...this.state.newTags, newTag]
         })
-        console.log(this.state.newTags);
     }
 
     handleSubmit = async (event) => {
         event.preventDefault();
+        let content = event.target.quote.value;
+        let author = event.target.author.value;
+        event.target.quote.value = '';
+        event.target.author.value = '';
         const postData = {
-            content: event.target.quote.value,
-            author: event.target.author.value,
-            tags: this.state.newTags
+            theQuote: {
+                content: content,
+                author: author
+            },
+            theTags: this.state.newTags
         }
         await fetch('/api/quotes', {
             method: 'POST',
@@ -53,6 +49,7 @@ export default class AddQuote extends Component {
             },
             body: JSON.stringify(postData),
         });
+        this.props.fetchData();
     }
 
     render() {

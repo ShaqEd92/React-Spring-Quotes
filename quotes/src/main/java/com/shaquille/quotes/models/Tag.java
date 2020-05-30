@@ -1,5 +1,7 @@
 package com.shaquille.quotes.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -19,6 +21,7 @@ public class Tag {
     @NotNull
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "tags")
     private Set<Quote> quotes = new HashSet<>();
 

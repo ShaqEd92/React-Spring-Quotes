@@ -78,6 +78,10 @@ public class Quote {
         this.tags = tags;
     }
 
+    public void addTag(Tag tag){
+        this.tags.add(tag);
+    }
+
     @Override
     public String toString() {
         return "'" + content + "' by " + author;

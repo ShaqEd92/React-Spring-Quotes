@@ -27,9 +27,13 @@ export default class App extends Component {
     })
   };
 
-  componentDidMount() {
+  fetchData = () => {
     this.fetchQuotesData();
     this.fetchTagsData();
+  }
+
+  componentDidMount() {
+    this.fetchData();
   };
 
   setVisible = (val) => {
@@ -87,7 +91,7 @@ export default class App extends Component {
               <QuoteList quotes={this.state.quotes} />
             }
             {this.state.view === 'add' &&
-              <AddQuote tags={this.state.tags}/>
+              <AddQuote tags={this.state.tags} fetchData={this.fetchData}/>
             }
             {this.state.view === 'edit' &&
               <EditQuote />
