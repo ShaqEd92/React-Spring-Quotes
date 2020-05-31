@@ -1,6 +1,6 @@
 #colorPalette{
   color: #0F1108;
-  color: #FED766;
+  color: #fed766;
   color: #009FB7;
   color: #696773;
   color: #EFF1F3;
@@ -28,7 +28,7 @@ h4{
 }
 
 #quotes{
-  padding: 1%;
+  padding: 1% 5%;
   width: 65%;
   margin: auto;
 }
@@ -97,5 +97,20 @@ h4{
   font: 1em oblique;
   color: #696773;
   margin-top: 3%;
+}
+
+.loading{
+  transform: translate(-50%,-50%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+.ui .icon{
+  color: #009FB7;
+}
+
+.ui .menu .item{
+  position: static;
 }
 

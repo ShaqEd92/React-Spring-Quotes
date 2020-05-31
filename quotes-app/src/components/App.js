@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Menu, Sidebar, Segment } from 'semantic-ui-react';
+import { Icon, Menu, Sidebar, Segment, Sticky } from 'semantic-ui-react';
 import QuoteList from './QuoteList';
 import AddQuote from './AddQuote';
 import EditQuote from './EditQuote';
@@ -9,7 +9,7 @@ import '../styles/App.css';
 
 export default class App extends Component {
 
-  state = { quotes: [], tags: [], visible: true, view: 'add' }
+  state = { loaded: false, quotes: [], tags: [], visible: true, view: '' }
 
   fetchQuotesData = async () => {
     const resp = await fetch('/api/quotes')
@@ -34,6 +34,12 @@ export default class App extends Component {
 
   componentDidMount() {
     this.fetchData();
+    setTimeout(() => {
+      this.setState({
+        loaded: true,
+        view: 'home'
+      })      
+    }, 2000);
   };
 
   setVisible = (val) => {
@@ -51,6 +57,7 @@ export default class App extends Component {
   render() {
     return (
       <Sidebar.Pushable as={Segment} style={{ border: 'none' }}>
+        
         <Sidebar
           as={Menu}
           animation='overlay'
@@ -61,6 +68,7 @@ export default class App extends Component {
           visible={this.state.visible}
           width='thin'
           style={{ background: '#0F1108' }}
+          id='sticky'
         >
           <Menu.Item as='a' onClick={() => this.handleClick('home')}>
             <Icon name='home' />
@@ -83,10 +91,13 @@ export default class App extends Component {
             View Tags
           </Menu.Item>
         </Sidebar>
-
+        
         <Sidebar.Pusher style={{ background: '#EFF1F3' }} >
           <Segment basic style={{width: this.state.visible ? '75%' : '100%'}} >
             <Icon onClick={() => this.setVisible(true)} link size="huge" name='sidebar' className="showBar" />
+            {!this.state.loaded &&
+              <img src='../loading.gif' className="loading"></img>
+            }            
             {this.state.view === 'home' &&
               <QuoteList quotes={this.state.quotes} />
             }
