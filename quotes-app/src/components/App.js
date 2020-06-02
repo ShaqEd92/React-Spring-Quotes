@@ -63,7 +63,6 @@ export default class App extends Component {
           animation='overlay'
           icon='labeled'
           inverted
-          onHide={() => this.setVisible(false)}
           vertical
           visible={this.state.visible}
           width='thin'
@@ -93,8 +92,7 @@ export default class App extends Component {
         </Sidebar>
         
         <Sidebar.Pusher style={{ background: '#EFF1F3' }} >
-          <Segment basic style={{width: this.state.visible ? '75%' : '100%'}} >
-            <Icon onClick={() => this.setVisible(true)} link size="huge" name='sidebar' className="showBar" />
+          <Segment basic style={{width: '75%'}}>
             {!this.state.loaded &&
               <img src='../loading.gif' className="loading"></img>
             }            

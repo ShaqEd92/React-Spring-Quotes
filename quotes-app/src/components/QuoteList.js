@@ -31,6 +31,7 @@ export default class QuoteList extends Component {
         return (
             <Fragment>
                 <h1>Quotes</h1>
+                <br/>
                 <div id="quotes" className='ui grid container'>
                     {this.state.showAll ? this.allQuotes :
                         <Card ui centered card>

@@ -3,6 +3,7 @@ package com.shaquille.quotes.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -61,4 +62,16 @@ public class Tag {
         return this.name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tag tag = (Tag) o;
+        return name.equals(tag.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

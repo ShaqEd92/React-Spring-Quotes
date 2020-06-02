@@ -40,6 +40,11 @@ h4{
   cursor: pointer;
 }
 
+.ui.card{
+  height: 25vh;
+  margin: 2%;
+}
+
 .ui.card>.content{
   background-color: #696773;
 }

@@ -11,10 +11,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "quotes")
-public class Quote {
+public class Quote implements Comparable<Quote>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -87,4 +88,21 @@ public class Quote {
         return "'" + content + "' by " + author;
     }
 
+    @Override
+    public int compareTo(Quote o) {
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Quote quote = (Quote) o;
+        return content.equals(quote.content);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(content);
+    }
 }
