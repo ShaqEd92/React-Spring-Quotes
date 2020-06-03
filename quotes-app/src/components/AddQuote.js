@@ -55,9 +55,9 @@ export default class AddQuote extends Component {
     render() {
         return (
             <Fragment>
-
+                <br/>
                 <h1>Add a Quote</h1>
-
+                <br/>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group>
                         <Form.TextArea

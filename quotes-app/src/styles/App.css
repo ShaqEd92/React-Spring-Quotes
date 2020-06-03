@@ -1,9 +1,9 @@
 #colorPalette{
-  color: #0F1108;
-  color: #fed766;
-  color: #009FB7;
-  color: #696773;
-  color: #EFF1F3;
+  color: #7A306C;
+  color: #8E8DBE;
+  color: #A9E4EF;
+  color: #C1CEFE;
+  color: #7189FF;
 }
 
 body {
@@ -11,7 +11,8 @@ body {
   font-family: oblique;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #009FB7;
+  color: #7A306C;
+  background-color: #8E8DBE;
   text-align: center;
   width: 100%;
 }
@@ -27,40 +28,46 @@ h4{
   text-decoration: underline;
 }
 
-#quotes{
-  padding: 1% 5%;
-  width: 65%;
-  margin: auto;
-}
-
-.showBar{
+.home{
   position: fixed;
   top: 0;
   left: 0;
+  padding: 1%;
   cursor: pointer;
 }
 
+.add{
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 1%;
+  cursor: pointer;
+}
+
+#quotes{
+  padding: 1% 5%;
+  width: 90%;
+  margin: auto;
+  vertical-align:top;
+}
+
 .ui.card{
-  height: 25vh;
+  width: 90%;
   margin: 2%;
 }
 
 .ui.card>.content{
-  background-color: #696773;
+  background-color: #A9E4EF;
+  font-size: 1.15em;
 }
 
 .ui.card>.content.extra {
-  background-color: #696773;
+  background-color: #A9E4EF;
   font-style: italic;
 }
 
 .ui.card>.content>.description{
-  color: #EFF1F3;
-}
-
-.ui.segment {
-  min-height: 100vh;
-  margin: 0 auto;
+  color: #7189FF;
 }
 
 .ui.form {
@@ -94,13 +101,13 @@ h4{
 
 .ui.form .field label {
   font: 1.1em oblique;
-  color: #696773;
+  color: #7A306C;
   margin-top: 2%;
 }
 
 .ui.form .field button {
   font: 1em oblique;
-  color: #696773;
+  color: #7A306C;
   margin-top: 3%;
 }
 
