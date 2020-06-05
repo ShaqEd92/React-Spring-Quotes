@@ -1,9 +1,7 @@
 #colorPalette{
   color: #7A306C;
   color: #8E8DBE;
-  color: #A9E4EF;
-  color: #C1CEFE;
-  color: #7189FF;
+  color: #242038;
 }
 
 body {
@@ -57,27 +55,17 @@ h4{
 }
 
 .ui.card>.content{
-  background-color: #A9E4EF;
+  background-color: #242038;
   font-size: 1.15em;
 }
 
 .ui.card>.content.extra {
-  background-color: #A9E4EF;
+  background-color: #242038;
   font-style: italic;
 }
 
 .ui.card>.content>.description{
-  color: #7189FF;
-}
-
-.ui.form {
-  display: inline-block;
-  position: absolute;
-  width: 50%;
-  top: 16%;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%)
+  color: #8E8DBE;
 }
 
 #tagForm{
@@ -118,11 +106,23 @@ h4{
   left: 50%;
 }
 
-.ui .icon{
-  color: #009FB7;
+.form-container{
+  border: 3px solid #8E8DBE;
+  border-radius: 15%;
+  width: 60%;
+  display: inline-block;
+  position: absolute;
+  padding: 0 3% 2% 3%;
+  top: 16%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background-color: #242038;
+  color: #8E8DBE;
 }
 
-.ui .menu .item{
-  position: static;
+.single-quote{
+  font-size: 1.8em;
+  font-style: italic;
+  margin: 2%;
 }
-

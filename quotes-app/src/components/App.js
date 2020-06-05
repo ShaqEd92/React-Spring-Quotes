@@ -58,7 +58,7 @@ export default class App extends Component {
         {this.state.view === 'home' &&
           <Icon name='add' title='Add a Quote' size='huge' className='add circle' onClick={() => this.handleClick('add')} />
         }
-        {(this.state.view != 'home' && this.state.loaded) &&
+        {(this.state.view !== 'home' && this.state.loaded) &&
           <Icon name='home' size='huge' className='home' onClick={() => this.handleClick('home')} />
         }
 
@@ -66,7 +66,7 @@ export default class App extends Component {
           <img src='../loading.gif' className="loading"></img>
         }
         {this.state.view === 'home' &&
-          <QuoteList quotes={this.state.quotes} />
+          <QuoteList quotes={this.state.quotes} tags={this.state.tags}/>
         }
         {this.state.view === 'add' &&
           <AddQuote tags={this.state.tags} fetchData={this.fetchData} />

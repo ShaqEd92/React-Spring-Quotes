@@ -1,56 +1,58 @@
 import React, { Fragment, Component } from 'react';
-import { Card } from 'semantic-ui-react';
-import { Icon } from 'semantic-ui-react';
+import { Card, Icon } from 'semantic-ui-react';
 import underscore from 'underscore'
+import ViewQuote from './ViewQuote';
 import '../styles/App.css';
 
 export default class QuoteList extends Component {
 
-    state = { showAll: true, quoteId: '', singleQuote: [] }
+    state = { show: 'quotes', singleQuote: [] }
 
     handleClick = (id) => {
-        if(id === 'all'){
+        if (id === 'quotes' || id === 'tags') {
             this.setState({
-                showAll: true,
-                id: ''
+                show: id,
             })
             return true;
         }
-        this.setState({
-            quote_id: id
-        })
         let oneQuote = this.props.quotes.filter(q => q.id === id);
         setTimeout(() => {
             this.setState({
                 singleQuote: oneQuote,
-                showAll: false
+                show: 'one'
             })
-            console.log(this.state.singleQuote)
         }, 500);
     }
 
     allQuotes = underscore.shuffle(this.props.quotes).map(q =>
         <Card ui centered card key={q.id} onClick={() => this.handleClick(q.id)}>
             <Card.Content description={q.content} />
-            <Card.Content extra description={q.author}/>
+            <Card.Content extra description={q.author} />
+        </Card>
+    );
+
+    allTags = underscore.shuffle(this.props.tags).map(q =>
+        <Card ui centered card key={q.id}>
+            <Card.Content description={q.name} />
         </Card>
     );
 
     render() {
         return (
             <Fragment>
-                <br/>
-                <h1>Quotes | Tags</h1>
-                <Icon name='home' size='huge' className='home' onClick={() => this.handleClick('all')}/>
-                <br/>
-                <div id="quotes" className='ui grid container'>
-                    {this.state.showAll ? this.allQuotes :
-                        <Card ui centered card>
-                            <Card.Content description={this.state.singleQuote[0].content} />
-                            <Card.Content extra description={this.state.singleQuote[0].author} />
-                            {this.state.singleQuote[0].tags.map(t => <p>- {t.name}</p>)}
-                        </Card>
+                <br />
+                <h1>
+                    <span style={{ cursor: 'pointer' }} onClick={() => this.handleClick('quotes')}>Quotes</span> |
+                    <span style={{ cursor: 'pointer' }} onClick={() => this.handleClick('tags')}> Tags</span>
+                </h1>
+                <Icon name='home' size='huge' className='home' onClick={() => this.handleClick('quotes')} />
+                <br />
+                    {this.state.show === 'one' &&
+                        <ViewQuote singleQuote={this.state.singleQuote[0]} />
                     }
+                <div id="quotes" className='ui grid container'>
+                    {this.state.show === 'quotes' && this.allQuotes}
+                    {this.state.show === 'tags' && this.allTags}
                 </div>
             </Fragment>
         );

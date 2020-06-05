@@ -4,7 +4,7 @@ import '../styles/App.css';
 
 export default class AddQuote extends Component {
 
-    state = { newTags: [], assignedTags: [], quoteSubmitted: false}
+    state = { newTags: [], assignedTags: [], quoteSubmitted: false }
 
     options = this.props.tags.map(t => ({ key: t.tag_id, text: t.name, value: t.name }))
 
@@ -55,48 +55,49 @@ export default class AddQuote extends Component {
     render() {
         return (
             <Fragment>
-                <br/>
+                <br />
                 <h1>Add a Quote</h1>
-                <br/>
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group>
-                        <Form.TextArea
-                            width={16}
-                            label='Quote'
-                            placeholder='Add another great quote to the list...'
-                            name='quote'
+                <div className="form-container">
+                    <Form onSubmit={this.handleSubmit}>
+                        <Form.Group>
+                            <Form.TextArea
+                                width={16}
+                                label='Quote'
+                                placeholder='Add another great quote to the list...'
+                                name='quote'
+                                onChange={this.handleChange}
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Input
+                                width={16}
+                                label='Author'
+                                placeholder="Enter quote's author..."
+                                name='author'
+                                onChange={this.handleChange}
+                            />
+                        </Form.Group>
+                        <Form.Select
+                            label='Select appropriate tag(s)'
+                            options={this.options}
+                            placeholder='Select tag'
+                            name='existingTag'
                             onChange={this.handleChange}
                         />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Input
-                            width={16}
-                            label='Author'
-                            placeholder="Enter quote's author..."
-                            name='author'
-                            onChange={this.handleChange}
-                        />
-                    </Form.Group>
-                    <Form.Select
-                        label='Select appropriate tag(s)'
-                        options={this.options}
-                        placeholder='Select tag'
-                        name='existingTag'
-                        onChange={this.handleChange}
-                    />
-                    <br />
-                    <Form.Button>Submit Quote</Form.Button>
-                </Form>
+                        <br />
+                        <Form.Button>Submit Quote</Form.Button>
+                    </Form>
 
-                <Form id="tagForm" onSubmit={this.handleTagSubmit}>
-                    <Form.Input
-                        label='Add new tag(s)'
-                        name='addedTag'
-                        onChange={this.handleChange}
-                    />
-                    <br />
-                    <Form.Button>+</Form.Button>
-                </Form>
+                    <Form id="tagForm" onSubmit={this.handleTagSubmit}>
+                        <Form.Input
+                            label='Add new tag(s)'
+                            name='addedTag'
+                            onChange={this.handleChange}
+                        />
+                        <br />
+                        <Form.Button>+</Form.Button>
+                    </Form>
+                </div>
 
                 <div className='tagsList'>
                     <h4>Added Tags</h4>
