@@ -63,7 +63,7 @@ export default class App extends Component {
         }
 
         {!this.state.loaded &&
-          <img src='../loading.gif' className="loading"></img>
+          <img src='../loading.gif' className="loading" alt='loading wheel'></img>
         }
         {this.state.view === 'home' &&
           <QuoteList quotes={this.state.quotes} tags={this.state.tags}/>

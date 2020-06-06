@@ -72,16 +72,6 @@ h4{
   top: 78%;
 }
 
-.tagsList{
-  display: inline-block;
-  position: absolute;
-  width: 20%;
-  top: 18%;
-  left: 95%;
-  -webkit-transform: translateX(-95%);
-  transform: translateX(-95%)
-}
-
 .ui.form .field{
   font-size: 1.15em; 
   display: inline-block;
@@ -112,12 +102,20 @@ h4{
   width: 60%;
   display: inline-block;
   position: absolute;
-  padding: 0 3% 2% 3%;
+  padding: 1% 5% 2% 5%;
   top: 16%;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   background-color: #242038;
+  color: #8E8DBE;
+}
+
+/* Form select container */
+.css-2b097c-container{
+  margin-top: 2%;
+  font-size: 1.15em; 
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
   color: #8E8DBE;
 }
 

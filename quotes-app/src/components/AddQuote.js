@@ -1,12 +1,13 @@
 import React, { Fragment, Component } from 'react';
 import { Form } from 'semantic-ui-react';
+import Select from 'react-select'
 import '../styles/App.css';
 
 export default class AddQuote extends Component {
 
-    state = { newTags: [], assignedTags: [], quoteSubmitted: false }
+    state = { newTags: [], quoteSubmitted: false }
 
-    options = this.props.tags.map(t => ({ key: t.tag_id, text: t.name, value: t.name }))
+    options = this.props.tags.map(t => ({ key: t.id, label: t.name, value: t.name }))
 
     addedTags = this.state.newTags.map(t => <p><button key={t}>{t.name}</button></p>)
 
@@ -16,16 +17,31 @@ export default class AddQuote extends Component {
         })
     }
 
+    handleSelectChange = (event) => {
+        setTimeout(() => {
+            const newTag = {
+                name: event.value,
+            }
+            this.setState({
+                newTags: [...this.state.newTags, newTag]
+            })
+            console.log(this.state.newTags)
+        }, 200);
+    }
+
     handleTagSubmit = (event) => {
         event.preventDefault();
         let value = event.target.addedTag.value;
         event.target.addedTag.value = '';
-        const newTag = {
-            name: value,
-        }
-        this.setState({
-            newTags: [...this.state.newTags, newTag]
-        })
+        setTimeout(() => {
+            const newTag = {
+                name: value,
+            }
+            this.setState({
+                newTags: [...this.state.newTags, newTag]
+            })
+            console.log(this.state.newTags)
+        }, 200);
     }
 
     handleSubmit = async (event) => {
@@ -50,6 +66,7 @@ export default class AddQuote extends Component {
             body: JSON.stringify(postData),
         });
         this.props.fetchData();
+        this.render();
     }
 
     render() {
@@ -77,33 +94,25 @@ export default class AddQuote extends Component {
                                 onChange={this.handleChange}
                             />
                         </Form.Group>
-                        <Form.Select
-                            label='Select appropriate tag(s)'
+                        <Select
+                            placeholder='Select tag(s)'
+                            onChange={this.handleSelectChange}
                             options={this.options}
-                            placeholder='Select tag'
-                            name='existingTag'
-                            onChange={this.handleChange}
                         />
                         <br />
                         <Form.Button>Submit Quote</Form.Button>
                     </Form>
-
+                    <br />
                     <Form id="tagForm" onSubmit={this.handleTagSubmit}>
                         <Form.Input
-                            label='Add new tag(s)'
+                            placeholder='Add new tag...'
                             name='addedTag'
                             onChange={this.handleChange}
                         />
-                        <br />
+                        &nbsp; &nbsp;
                         <Form.Button>+</Form.Button>
                     </Form>
                 </div>
-
-                <div className='tagsList'>
-                    <h4>Added Tags</h4>
-                    {this.addedTags}
-                </div>
-
             </Fragment >
         )
     }
