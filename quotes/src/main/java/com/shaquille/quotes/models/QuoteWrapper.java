@@ -20,11 +20,4 @@ public class QuoteWrapper {
         return theTags;
     }
 
-    public void setTheQuote(Quote thequote) {
-        this.theQuote = thequote;
-    }
-
-    public void setTheTags(List<Tag> theTags) {
-        this.theTags = theTags;
-    }
 }

@@ -45,11 +45,11 @@ public class QuoteController {
     @PostMapping
     public ResponseEntity<Quote> create(@Valid @RequestBody QuoteWrapper quoteWithTags) throws URISyntaxException {
         Quote quote = quoteWithTags.getTheQuote();
-        quoteRepository.save(quote);
-        for(Tag tag : quoteWithTags.getTheTags()){
-            tagRepository.save(tag);
+        for(Tag tag : quoteWithTags.getTheTags()) {
             quote.addTag(tag);
+            tagRepository.save(tag);
         }
+        quoteRepository.save(quote);
         return ResponseEntity.created(new URI("api/quote/" + quote.getId())).body(quote);
     }
 

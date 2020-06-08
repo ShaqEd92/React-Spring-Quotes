@@ -4,6 +4,13 @@ import '../styles/App.css';
 
 const ViewQuote = (props) => {
 
+    const handleDelete = async () => {
+        console.log('clicked')
+        await fetch(`/api/quotes/${props.singleQuote.id}`, {
+            method: 'DELETE'
+        });
+    }
+
     return (
         <div className="single-quote">
             <p>
@@ -13,6 +20,13 @@ const ViewQuote = (props) => {
                     name='edit'
                     title='Edit this quote'
                     onClick=''
+                    style={{ cursor: 'pointer', outlineStyle: 'none' }}
+                />
+                &nbsp; &nbsp;
+                <Icon
+                    name='delete'
+                    title='Delete this quote'
+                    onClick={handleDelete}
                     style={{ cursor: 'pointer', outlineStyle: 'none' }}
                 />
             </p>
