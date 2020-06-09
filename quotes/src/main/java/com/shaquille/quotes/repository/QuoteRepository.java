@@ -1,6 +1,6 @@
-package com.shaquille.quotes.repositories;
+package com.shaquille.quotes.repository;
 
-import com.shaquille.quotes.models.Quote;
+import com.shaquille.quotes.model.Quote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

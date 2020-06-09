@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Icon } from 'semantic-ui-react';
+import NavBar from './NavBar';
 import QuoteList from './QuoteList';
 import AddQuote from './AddQuote';
-import ViewTags from './ViewTags';
 import '../styles/App.css';
 
 export default class App extends Component {
@@ -40,13 +39,8 @@ export default class App extends Component {
     }, 2000);
   };
 
-  setVisible = (val) => {
-    this.setState({
-      visible: val
-    })
-  };
-
-  handleClick = (show) => {
+  handleViewChange = (show) => {
+    console.log('app click')
     this.setState({
       view: show
     })
@@ -55,24 +49,17 @@ export default class App extends Component {
   render() {
     return (
       <Fragment>
-        {this.state.view === 'home' &&
-          <Icon name='add' title='Add a Quote' size='huge' className='add circle' onClick={() => this.handleClick('add')} />
-        }
-        {(this.state.view !== 'home' && this.state.loaded) &&
-          <Icon name='home' size='huge' className='home' onClick={() => this.handleClick('home')} />
-        }
-
-        {!this.state.loaded &&
-          <img src='../loading.gif' className="loading" alt='loading wheel'></img>
+        {!this.state.loaded ?
+          <img src='../loading.gif' className="loading" alt='loading wheel'></img> :
+          <NavBar
+            handleClick={this.handleViewChange}
+          />
         }
         {this.state.view === 'home' &&
-          <QuoteList quotes={this.state.quotes} tags={this.state.tags}/>
+          <QuoteList quotes={this.state.quotes} tags={this.state.tags} />
         }
         {this.state.view === 'add' &&
           <AddQuote tags={this.state.tags} fetchData={this.fetchData} />
-        }
-        {this.state.view === 'tags' &&
-          <ViewTags />
         }
       </Fragment>
     );

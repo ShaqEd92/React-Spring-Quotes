@@ -26,22 +26,6 @@ h4{
   text-decoration: underline;
 }
 
-.home{
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 1%;
-  cursor: pointer;
-}
-
-.add{
-  position: fixed;
-  top: 0;
-  right: 0;
-  padding: 1%;
-  cursor: pointer;
-}
-
 #quotes{
   padding: 1% 5%;
   width: 90%;
@@ -103,7 +87,7 @@ h4{
   display: inline-block;
   position: absolute;
   padding: 1% 5% 2% 5%;
-  top: 16%;
+  top: 22%;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
@@ -123,4 +107,15 @@ h4{
   font-size: 1.8em;
   font-style: italic;
   margin: 2%;
+}
+
+.ui.tabular.menu{
+  border-bottom: 1px solid #7A306C;
+}
+
+.ui.tabular.menu .active.item{
+  background: #7A306C;
+  border-left: 1px solid #7A306C;
+  border-right: 1px solid #7A306C;
+  border-top: 2px solid #7A306C;
 }

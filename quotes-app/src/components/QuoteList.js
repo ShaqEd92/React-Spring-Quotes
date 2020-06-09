@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react';
-import { Card, Icon } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import underscore from 'underscore'
 import ViewQuote from './ViewQuote';
 import '../styles/App.css';
@@ -41,15 +41,16 @@ export default class QuoteList extends Component {
         return (
             <Fragment>
                 <br />
-                <h1>
-                    <span style={{ cursor: 'pointer' }} onClick={() => this.handleClick('quotes')}>Quotes</span> |
+                {this.state.show !== 'one' &&
+                    <h1>
+                        <span style={{ cursor: 'pointer' }} onClick={() => this.handleClick('quotes')}>Quotes</span> |
                     <span style={{ cursor: 'pointer' }} onClick={() => this.handleClick('tags')}> Tags</span>
-                </h1>
-                <Icon name='home' size='huge' className='home' onClick={() => this.handleClick('quotes')} />
+                    </h1>
+                }
                 <br />
-                    {this.state.show === 'one' &&
-                        <ViewQuote singleQuote={this.state.singleQuote[0]} />
-                    }
+                {this.state.show === 'one' &&
+                    <ViewQuote singleQuote={this.state.singleQuote[0]} />
+                }
                 <div id="quotes" className='ui grid container'>
                     {this.state.show === 'quotes' && this.allQuotes}
                     {this.state.show === 'tags' && this.allTags}

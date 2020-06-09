@@ -1,7 +1,7 @@
-package com.shaquille.quotes.controllers;
+package com.shaquille.quotes.controller;
 
-import com.shaquille.quotes.models.Tag;
-import com.shaquille.quotes.repositories.TagRepository;
+import com.shaquille.quotes.model.Tag;
+import com.shaquille.quotes.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

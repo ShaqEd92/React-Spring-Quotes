@@ -1,4 +1,4 @@
-package com.shaquille.quotes.models;
+package com.shaquille.quotes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

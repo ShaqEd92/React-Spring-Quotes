@@ -1,6 +1,6 @@
-package com.shaquille.quotes.repositories;
+package com.shaquille.quotes.repository;
 
-import com.shaquille.quotes.models.Tag;
+import com.shaquille.quotes.model.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

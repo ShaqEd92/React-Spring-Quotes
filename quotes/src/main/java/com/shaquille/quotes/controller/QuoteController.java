@@ -1,9 +1,9 @@
-package com.shaquille.quotes.controllers;
+package com.shaquille.quotes.controller;
 
-import com.shaquille.quotes.models.Quote;
-import com.shaquille.quotes.models.QuoteWrapper;
-import com.shaquille.quotes.models.Tag;
-import com.shaquille.quotes.repositories.QuoteRepository;
+import com.shaquille.quotes.model.Quote;
+import com.shaquille.quotes.model.QuoteWrapper;
+import com.shaquille.quotes.model.Tag;
+import com.shaquille.quotes.repository.QuoteRepository;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashSet;
@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.Set;
 import javax.validation.Valid;
 
-import com.shaquille.quotes.repositories.TagRepository;
+import com.shaquille.quotes.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
