@@ -15,6 +15,7 @@ export default class QuoteList extends Component {
             })
             return true;
         }
+        this.props.handleActiveItem('single')
         let oneQuote = this.props.quotes.filter(q => q.id === id);
         setTimeout(() => {
             this.setState({
@@ -42,9 +43,16 @@ export default class QuoteList extends Component {
             <Fragment>
                 <br />
                 {this.state.show !== 'one' &&
-                    <h1>
-                        <span style={{ cursor: 'pointer' }} onClick={() => this.handleClick('quotes')}>Quotes</span> |
-                    <span style={{ cursor: 'pointer' }} onClick={() => this.handleClick('tags')}> Tags</span>
+                    <h1 style={{ cursor: 'pointer' }}>
+                        <span style={this.state.show === 'quotes' ? { fontWeight: 'bold' } : { fontWeight: 'normal' }} onClick={() => this.handleClick('quotes')}>
+                            Quotes&nbsp;
+                        </span>
+                        |
+                        <span
+                            style={this.state.show === 'tags' ? { fontWeight: 'bold' } : { fontWeight: 'normal' }}
+                            onClick={() => this.handleClick('tags')}>
+                            &nbsp;Tags
+                        </span>
                     </h1>
                 }
                 <br />

@@ -6,7 +6,7 @@ import '../styles/App.css';
 
 export default class App extends Component {
 
-  state = { loaded: false, quotes: [], tags: [], visible: true, view: '' }
+  state = { loaded: false, quotes: [], tags: [], visible: true, view: '', activeItem: '' }
 
   fetchQuotesData = async () => {
     const resp = await fetch('/api/quotes')
@@ -34,17 +34,24 @@ export default class App extends Component {
     setTimeout(() => {
       this.setState({
         loaded: true,
-        view: 'home'
+        view: 'home',
+        activeItem: 'home'
       })
     }, 2000);
   };
 
   handleViewChange = (show) => {
-    console.log('app click')
     this.setState({
       view: show
     })
   };
+
+  handleActiveItem = (item) => {
+    if(item !== 'single') this.handleViewChange(item);
+    this.setState({
+      activeItem: item
+    })
+  }
 
   render() {
     return (
@@ -52,14 +59,21 @@ export default class App extends Component {
         {!this.state.loaded ?
           <img src='../loading.gif' className="loading" alt='loading wheel'></img> :
           <NavBar
-            handleClick={this.handleViewChange}
+            handleClick={this.handleActiveItem}
+            activeItem={this.state.activeItem}
           />
         }
         {this.state.view === 'home' &&
-          <QuoteList quotes={this.state.quotes} tags={this.state.tags} />
+          <QuoteList
+            quotes={this.state.quotes}
+            tags={this.state.tags}
+            handleActiveItem={this.handleActiveItem}
+          />
         }
         {this.state.view === 'add' &&
-          <AddQuote tags={this.state.tags} fetchData={this.fetchData} />
+          <AddQuote
+            tags={this.state.tags}
+            fetchData={this.fetchData} />
         }
       </Fragment>
     );
