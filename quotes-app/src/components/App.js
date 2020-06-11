@@ -11,8 +11,9 @@ export default class App extends Component {
     loaded: false,
     quotes: [],
     tags: [],
-    visible: true,
+    singleQuote: [],
     view: '',
+    homeView: 'quotes',
     activeItem: ''
   }
 
@@ -48,9 +49,32 @@ export default class App extends Component {
     }, 2000);
   };
 
+  handleClick = (id) => {
+    if (id === 'quotes' || id === 'tags') {
+      this.setState({
+        homeView: id
+      })
+      return true;
+    }
+    this.handleActiveItem(id)
+    let oneQuote = this.state.quotes.filter(q => q.id === id);
+    setTimeout(() => {
+      this.setState({
+        singleQuote: oneQuote,
+        homeView: 'one'
+      })
+    }, 500);
+  }
+
   handleViewChange = (show) => {
     this.setState({
       view: show
+    })
+  };
+
+  handleHomeView = (show) => {
+    this.setState({
+      homeView: show
     })
   };
 
@@ -76,6 +100,7 @@ export default class App extends Component {
           <img src='../loading.gif' className="loading" alt='loading wheel'></img> :
           <NavBar
             handleClick={this.handleActiveItem}
+            handleHomeView={this.handleHomeView}
             handleDelete={this.handleDelete}
             activeItem={this.state.activeItem}
           />
@@ -84,7 +109,10 @@ export default class App extends Component {
           <QuoteList
             quotes={this.state.quotes}
             tags={this.state.tags}
+            singleQuote={this.state.singleQuote[0]}
+            homeView={this.state.homeView}
             handleActiveItem={this.handleActiveItem}
+            handleClick={this.handleClick}
             handleDelete={this.handleDelete}
           />
         }

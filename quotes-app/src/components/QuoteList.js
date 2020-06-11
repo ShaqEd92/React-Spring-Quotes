@@ -1,79 +1,57 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment } from 'react';
 import { Card } from 'semantic-ui-react';
 import underscore from 'underscore'
 import ViewQuote from './ViewQuote';
 import '../styles/App.css';
 
-export default class QuoteList extends Component {
+const QuoteList = (props) => {
 
-    state = {
-        show: 'quotes',
-        singleQuote: []
+    const handleDelete = () => {
+        props.handleDelete(props.singleQuote[0].id);
     }
 
-    handleDelete = () => {
-        this.props.handleDelete(this.state.singleQuote[0].id);
-    }
-
-    handleClick = (id) => {
-        if (id === 'quotes' || id === 'tags') {
-            this.setState({
-                show: id,
-            })
-            return true;
-        }
-        this.props.handleActiveItem(id)
-        let oneQuote = this.props.quotes.filter(q => q.id === id);
-        setTimeout(() => {
-            this.setState({
-                singleQuote: oneQuote,
-                show: 'one'
-            })
-        }, 500);
-    }
-
-    allQuotes = underscore.shuffle(this.props.quotes).map(q =>
-        <Card ui centered card key={q.id} onClick={() => this.handleClick(q.id)}>
+    const allQuotes = underscore.shuffle(props.quotes).map(q =>
+        <Card ui centered card key={q.id} onClick={() => props.handleClick(q.id)}>
             <Card.Content description={q.content} />
             <Card.Content extra description={q.author} />
         </Card>
     );
 
-    allTags = underscore.shuffle(this.props.tags).map(q =>
+    const allTags = underscore.shuffle(props.tags).map(q =>
         <Card ui centered card key={q.id}>
             <Card.Content description={q.name} />
         </Card>
     );
 
-    render() {
-        return (
-            <Fragment>
-                <br />
-                {this.state.show !== 'one' &&
-                    <h1 style={{ cursor: 'pointer' }}>
-                        <span style={this.state.show === 'quotes' ? { fontWeight: 'bold' } : { fontWeight: 'normal' }} onClick={() => this.handleClick('quotes')}>
-                            Quotes&nbsp;
+    return (
+        <Fragment>
+            <br />
+            {props.homeView !== 'one' &&
+                <h1 style={{ cursor: 'pointer' }}>
+                    <span style={props.homeView === 'quotes' ? { fontWeight: 'bold' } : { fontWeight: 'normal' }} onClick={() => props.handleClick('quotes')}>
+                        Quotes&nbsp;
                         </span>
                         |
                         <span
-                            style={this.state.show === 'tags' ? { fontWeight: 'bold' } : { fontWeight: 'normal' }}
-                            onClick={() => this.handleClick('tags')}>
-                            &nbsp;Tags
+                        style={props.homeView === 'tags' ? { fontWeight: 'bold' } : { fontWeight: 'normal' }}
+                        onClick={() => props.handleClick('tags')}>
+                        &nbsp;Tags
                         </span>
-                    </h1>
-                }
-                <br />
-                {this.state.show === 'one' &&
-                    <ViewQuote
-                        singleQuote={this.state.singleQuote[0]}
-                        handleDelete={this.handleDelete}
-                    />
-                }
-                <div id="quotes" className='ui grid container'>
-                    {this.state.show === 'quotes' && this.allQuotes}
-                    {this.state.show === 'tags' && this.allTags}
-                </div>
-            </Fragment>
-        );
-    };
+                </h1>
+            }
+            <br />
+            {props.homeView === 'one' &&
+                <ViewQuote
+                    singleQuote={props.singleQuote}
+                    handleDelete={handleDelete}
+                />
+            }
+            <div id="quotes" className='ui grid container'>
+                {props.homeView === 'quotes' && allQuotes}
+                {props.homeView === 'tags' && allTags}
+            </div>
+        </Fragment>
+    );
 };
+
+export default QuoteList;

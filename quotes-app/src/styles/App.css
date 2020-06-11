@@ -104,9 +104,19 @@ h4{
 }
 
 .single-quote{
+  width: 65%;
   font-size: 1.8em;
   font-style: italic;
-  margin: 2%;
+  margin: auto;
+}
+
+.single-quote p{
+  font-style: normal;
+  text-decoration: underline;
+}
+
+.tagsList{
+  display:inline-block;
 }
 
 .ui.tabular.menu{

@@ -11,7 +11,10 @@ const NavBar = (props) => {
                     icon='home large'
                     title='Home'
                     active={props.activeItem === 'home'}
-                    onClick={() => props.handleClick('home')}
+                    onClick={() => {
+                        props.handleClick('home')
+                        props.handleHomeView('quotes')
+                    }}
                 />
                 <Menu.Item
                     icon='plus large'
@@ -21,9 +24,14 @@ const NavBar = (props) => {
                 />
                 {isNumber(props.activeItem) &&
                     <Menu.Item
+                        icon='quote right large'
+                        active={isNumber(props.activeItem)}
+                    />
+                }
+                {isNumber(props.activeItem) &&
+                    <Menu.Item
                         icon='edit large'
                         title='Edit Quote'
-                        active={props.activeItem === 'edit'}
                         onClick={() => { props.handleClick('add') }}
                     />
                 }
