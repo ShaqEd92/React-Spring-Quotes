@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { Input, Menu } from 'semantic-ui-react'
+import { isNumber } from 'underscore'
 
 const NavBar = (props) => {
 
@@ -18,7 +19,7 @@ const NavBar = (props) => {
                     active={props.activeItem === 'add'}
                     onClick={() => { props.handleClick('add') }}
                 />
-                {props.activeItem === 'single' &&
+                {isNumber(props.activeItem) &&
                     <Menu.Item
                         icon='edit large'
                         title='Edit Quote'
@@ -26,11 +27,11 @@ const NavBar = (props) => {
                         onClick={() => { props.handleClick('add') }}
                     />
                 }
-                {props.activeItem === 'single' &&
+                {isNumber(props.activeItem) &&
                     <Menu.Item
                         icon='delete large'
                         title='Delete Quote'
-                        onClick={() => { props.handleClick('add') }}
+                        onClick={() => { props.handleDelete(props.activeItem) }}
                     />
                 }
                 <Menu.Menu position='right'>

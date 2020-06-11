@@ -6,7 +6,14 @@ import '../styles/App.css';
 
 export default class QuoteList extends Component {
 
-    state = { show: 'quotes', singleQuote: [] }
+    state = {
+        show: 'quotes',
+        singleQuote: []
+    }
+
+    handleDelete = () => {
+        this.props.handleDelete(this.state.singleQuote[0].id);
+    }
 
     handleClick = (id) => {
         if (id === 'quotes' || id === 'tags') {
@@ -15,7 +22,7 @@ export default class QuoteList extends Component {
             })
             return true;
         }
-        this.props.handleActiveItem('single')
+        this.props.handleActiveItem(id)
         let oneQuote = this.props.quotes.filter(q => q.id === id);
         setTimeout(() => {
             this.setState({
@@ -57,7 +64,10 @@ export default class QuoteList extends Component {
                 }
                 <br />
                 {this.state.show === 'one' &&
-                    <ViewQuote singleQuote={this.state.singleQuote[0]} />
+                    <ViewQuote
+                        singleQuote={this.state.singleQuote[0]}
+                        handleDelete={this.handleDelete}
+                    />
                 }
                 <div id="quotes" className='ui grid container'>
                     {this.state.show === 'quotes' && this.allQuotes}
