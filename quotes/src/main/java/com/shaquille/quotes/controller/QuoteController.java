@@ -4,12 +4,14 @@ import com.shaquille.quotes.model.Quote;
 import com.shaquille.quotes.model.QuoteWrapper;
 import com.shaquille.quotes.model.Tag;
 import com.shaquille.quotes.repository.QuoteRepository;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import com.shaquille.quotes.repository.TagRepository;
@@ -29,14 +31,14 @@ public class QuoteController {
     private TagRepository tagRepository;
 
     @GetMapping
-    public ResponseEntity<?> list(){
+    public ResponseEntity<?> list() {
         Optional<List<Quote>> quotes = Optional.of(quoteRepository.findAll());
         return quotes.map(resp -> ResponseEntity.ok().body(resp))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> get(@PathVariable Long id){
+    public ResponseEntity<?> get(@PathVariable Long id) {
         Optional<Quote> quote = quoteRepository.findById(id);
         return quote.map(resp -> ResponseEntity.ok().body(resp))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -45,9 +47,15 @@ public class QuoteController {
     @PostMapping
     public ResponseEntity<Quote> create(@Valid @RequestBody QuoteWrapper quoteWithTags) throws URISyntaxException {
         Quote quote = quoteWithTags.getTheQuote();
-        for(Tag tag : quoteWithTags.getTheTags()) {
+        for (Tag tag : quoteWithTags.getTheTags()) {
             quote.addTag(tag);
-            tagRepository.save(tag);
+            int existingTags = tagRepository.findAll()
+                    .stream()
+                    .filter(t -> t.getName().equalsIgnoreCase(tag.getName()))
+                    .collect(Collectors.toList())
+                    .size();
+            if (existingTags < 1)
+                tagRepository.save(tag);
         }
         quoteRepository.save(quote);
         return ResponseEntity.created(new URI("api/quote/" + quote.getId())).body(quote);
@@ -60,7 +68,7 @@ public class QuoteController {
     }
 
     @PutMapping("{id}/add")
-    public ResponseEntity<Quote> addTag(@PathVariable Long id, @Valid @RequestBody Quote quote, @Valid @RequestBody Tag tag){
+    public ResponseEntity<Quote> addTag(@PathVariable Long id, @Valid @RequestBody Quote quote, @Valid @RequestBody Tag tag) {
         Quote result = quoteRepository.getOne(id);
         Set<Tag> updatedTags = result.getTags();
         updatedTags.add(tag);

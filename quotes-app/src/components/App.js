@@ -58,12 +58,10 @@ export default class App extends Component {
     }
     this.handleActiveItem(id)
     let oneQuote = this.state.quotes.filter(q => q.id === id);
-    setTimeout(() => {
       this.setState({
         singleQuote: oneQuote,
         homeView: 'one'
       })
-    }, 500);
   }
 
   handleViewChange = (show) => {

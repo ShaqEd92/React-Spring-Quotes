@@ -20,4 +20,11 @@ class QuoteControllerTest {
         assertEquals(2,quote.getTags().size());
     }
 
+    @Test
+    void noRepeatedTags(){
+        Tag tag1 = new Tag("Same");
+        Tag tag2 = new Tag("Same");
+        assertEquals(tag1,tag2);
+    }
+
 }

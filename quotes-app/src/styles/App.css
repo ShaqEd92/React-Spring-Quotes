@@ -129,3 +129,14 @@ h4{
   border-right: 1px solid #7A306C;
   border-top: 2px solid #7A306C;
 }
+
+.ui.raised.segment, .ui.raised.segments{
+  background-color: #242038;
+  color: #8E8DBE;
+}
+
+.ui.violet.ribbon.label{
+  position: absolute;
+  top: 7.5%;
+  left: -1.85%;
+}
