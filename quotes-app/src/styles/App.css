@@ -133,6 +133,7 @@ h4{
 .ui.raised.segment, .ui.raised.segments{
   background-color: #242038;
   color: #8E8DBE;
+  padding: 5%;
 }
 
 .ui.violet.ribbon.label{
