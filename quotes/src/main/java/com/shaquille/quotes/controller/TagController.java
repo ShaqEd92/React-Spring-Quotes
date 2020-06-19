@@ -1,18 +1,11 @@
 package com.shaquille.quotes.controller;
 
 import com.shaquille.quotes.model.Tag;
-import com.shaquille.quotes.repository.TagRepository;
+import com.shaquille.quotes.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -25,37 +18,31 @@ import java.util.Optional;
 public class TagController {
 
     @Autowired
-    private TagRepository tagRepository;
+    private TagService tagService;
 
     @GetMapping
-    public ResponseEntity<?> list(){
-        Optional<List<Tag>> tags = Optional.of(tagRepository.findAll());
+    public ResponseEntity<?> listTags(){
+        Optional<List<Tag>> tags = Optional.of(tagService.listTags());
         return tags.map(resp -> ResponseEntity.ok().body(resp))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> get(@PathVariable Long id){
-        Optional<Tag> tag = tagRepository.findById(id);
+    public ResponseEntity<?> getTag(@PathVariable Long id){
+        Optional<Tag> tag = tagService.getTag(id);
         return tag.map(resp -> ResponseEntity.ok().body(resp))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    public ResponseEntity<Tag> create(@Valid @RequestBody Tag tag) throws URISyntaxException {
-        Tag result = tagRepository.save(tag);
+    public ResponseEntity<Tag> createTag(@Valid @RequestBody Tag tag) throws URISyntaxException {
+        Tag result = tagService.createTag(tag);
         return ResponseEntity.created(new URI("api/tag/" + result.getId())).body(result);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<Tag> update(@PathVariable Long id, @Valid @RequestBody Tag tag) {
-        Tag result = tagRepository.save(tag);
-        return ResponseEntity.ok(result);
-    }
-
     @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-        tagRepository.deleteById(id);
+    public ResponseEntity<?> deleteTag(@PathVariable Long id) {
+        tagService.deleteTag(id);
         return ResponseEntity.ok().build();
     }
 
