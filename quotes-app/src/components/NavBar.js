@@ -28,11 +28,11 @@ const NavBar = (props) => {
                         active={isNumber(props.activeItem)}
                     />
                 }
-                {isNumber(props.activeItem) &&
+                {isNumber(props.activeItem) && props.homeView === 'oneQuote' &&
                     <Menu.Item
                         icon='edit large'
                         title='Edit Quote'
-                        onClick={() => { props.handleClick('add') }}
+                        onClick={() => { props.handleClick('edit') }}
                     />
                 }
                 {isNumber(props.activeItem) &&

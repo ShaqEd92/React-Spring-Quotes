@@ -3,6 +3,7 @@ import { isNumber } from 'underscore';
 import NavBar from './NavBar';
 import QuoteList from './QuoteList';
 import AddQuote from './AddQuote';
+import EditQuote from './EditQuote';
 import '../styles/App.css';
 
 export default class App extends Component {
@@ -80,7 +81,7 @@ export default class App extends Component {
     this.setState({ singleTag: oneTag })
     setTimeout(() => {
       this.fetchQuotesForTag();
-      this.setState({ homeView: 'oneTag' })      
+      this.setState({ homeView: 'oneTag' })
     }, 300);
   }
 
@@ -122,6 +123,7 @@ export default class App extends Component {
             handleHomeView={this.handleHomeView}
             handleDelete={this.handleDelete}
             activeItem={this.state.activeItem}
+            homeView={this.state.homeView}
           />
         }
         {this.state.view === 'home' &&
@@ -140,7 +142,13 @@ export default class App extends Component {
         {this.state.view === 'add' &&
           <AddQuote
             tags={this.state.tags}
-            fetchData={this.fetchData}
+            handleViewChange={this.handleViewChange}
+          />
+        }
+        {this.state.view === 'edit' &&
+          <EditQuote
+            tags={this.state.tags}
+            singleQuote={this.state.singleQuote[0]}
             handleViewChange={this.handleViewChange}
           />
         }

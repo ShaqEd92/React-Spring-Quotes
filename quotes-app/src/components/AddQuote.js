@@ -5,11 +5,9 @@ import '../styles/App.css';
 
 export default class AddQuote extends Component {
 
-    state = { newTags: [], quoteSubmitted: false }
+    state = { newTags: [] }
 
     options = this.props.tags.map(t => ({ key: t.id, label: t.name, value: t.name }))
-
-    addedTags = this.state.newTags.map(t => <p><button key={t}>{t.name}</button></p>)
 
     handleChange = (event) => {
         this.setState({
@@ -65,7 +63,6 @@ export default class AddQuote extends Component {
             },
             body: JSON.stringify(postData),
         });
-        this.props.fetchData();
         this.props.handleViewChange('home')
     }
 
