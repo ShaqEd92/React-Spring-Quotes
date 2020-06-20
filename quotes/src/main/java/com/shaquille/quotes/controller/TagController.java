@@ -34,12 +34,6 @@ public class TagController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
-    public ResponseEntity<Tag> createTag(@Valid @RequestBody Tag tag) throws URISyntaxException {
-        Tag result = tagService.createTag(tag);
-        return ResponseEntity.created(new URI("api/tag/" + result.getId())).body(result);
-    }
-
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteTag(@PathVariable Long id) {
         tagService.deleteTag(id);

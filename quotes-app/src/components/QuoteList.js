@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Card } from 'semantic-ui-react';
 import underscore from 'underscore'
 import ViewQuote from './ViewQuote';
+import ViewTag from './ViewTag';
 import '../styles/App.css';
 
 const QuoteList = (props) => {
@@ -17,16 +18,16 @@ const QuoteList = (props) => {
         </Card>
     );
 
-    const allTags = underscore.shuffle(props.tags).map(q =>
-        <Card ui centered card key={q.id}>
-            <Card.Content description={q.name} />
+    const allTags = underscore.shuffle(props.tags).map(t =>
+        <Card ui centered card key={t.id} onClick={() => props.handleTagClick(t.id)}>
+            <Card.Content description={t.name} />
         </Card>
     );
 
     return (
         <Fragment>
             <br />
-            {props.homeView !== 'one' &&
+            {props.homeView !== 'oneQuote' && props.homeView !== 'oneTag' &&
                 <h1 style={{ cursor: 'pointer' }}>
                     <span style={props.homeView === 'quotes' ? { fontWeight: 'bold' } : { fontWeight: 'normal' }} onClick={() => props.handleClick('quotes')}>
                         Quotes&nbsp;
@@ -40,9 +41,16 @@ const QuoteList = (props) => {
                 </h1>
             }
             <br />
-            {props.homeView === 'one' &&
+            {props.homeView === 'oneQuote' &&
                 <ViewQuote
                     singleQuote={props.singleQuote}
+                    handleDelete={handleDelete}
+                />
+            }
+            {props.homeView === 'oneTag' &&
+                <ViewTag
+                    singleTag={props.singleTag}
+                    quotes={props.quotes}
                     handleDelete={handleDelete}
                 />
             }

@@ -41,6 +41,13 @@ public class QuoteController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("tag/{name}")
+    public ResponseEntity<?> listQuotesForSpecificTag(@PathVariable String name) {
+        Optional<List<Quote>> quotes = Optional.of(quoteService.listQuotesForSpecificTag(name));
+        return quotes.map(resp -> ResponseEntity.ok().body(resp))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @PostMapping
     public ResponseEntity<Quote> createQuote(@Valid @RequestBody QuoteAndTagWrapper quoteAndTags) throws URISyntaxException {
         Quote quote = quoteService.createQuote(quoteAndTags.getTheQuote());

@@ -12,6 +12,7 @@ export default class App extends Component {
     quotes: [],
     tags: [],
     singleQuote: [],
+    singleTag: [],
     view: '',
     homeView: 'quotes',
     activeItem: ''
@@ -30,6 +31,15 @@ export default class App extends Component {
     const tagsData = await resp.json();
     this.setState({
       tags: tagsData
+    })
+  };
+
+  fetchQuotesForTag = async () => {
+    const resp = await fetch(`/api/quotes/tag/${this.state.singleTag[0].name}`)
+    const data = await resp.json();
+    console.log(data)
+    this.setState({
+      quotes: data
     })
   };
 
@@ -58,13 +68,24 @@ export default class App extends Component {
     }
     this.handleActiveItem(id)
     let oneQuote = this.state.quotes.filter(q => q.id === id);
-      this.setState({
-        singleQuote: oneQuote,
-        homeView: 'one'
-      })
+    this.setState({
+      singleQuote: oneQuote,
+      homeView: 'oneQuote'
+    })
+  }
+
+  handleTagClick = (id) => {
+    this.handleActiveItem(id);
+    let oneTag = this.state.tags.filter(t => t.id === id);
+    this.setState({ singleTag: oneTag })
+    setTimeout(() => {
+      this.fetchQuotesForTag();
+      this.setState({ homeView: 'oneTag' })      
+    }, 300);
   }
 
   handleViewChange = (show) => {
+    if (show === 'home') this.fetchQuotesData();
     this.setState({
       view: show
     })
@@ -108,16 +129,20 @@ export default class App extends Component {
             quotes={this.state.quotes}
             tags={this.state.tags}
             singleQuote={this.state.singleQuote[0]}
+            singleTag={this.state.singleTag[0]}
             homeView={this.state.homeView}
             handleActiveItem={this.handleActiveItem}
             handleClick={this.handleClick}
+            handleTagClick={this.handleTagClick}
             handleDelete={this.handleDelete}
           />
         }
         {this.state.view === 'add' &&
           <AddQuote
             tags={this.state.tags}
-            fetchData={this.fetchData} />
+            fetchData={this.fetchData}
+            handleViewChange={this.handleViewChange}
+          />
         }
       </Fragment>
     );

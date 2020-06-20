@@ -66,7 +66,7 @@ export default class AddQuote extends Component {
             body: JSON.stringify(postData),
         });
         this.props.fetchData();
-        
+        this.props.handleViewChange('home')
     }
 
     render() {
