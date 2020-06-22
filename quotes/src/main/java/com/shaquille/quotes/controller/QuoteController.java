@@ -63,6 +63,22 @@ public class QuoteController {
         return ResponseEntity.created(new URI("api/quote/" + quote.getId())).body(quote);
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<Quote> editQuote(@PathVariable Long id, @Valid @RequestBody QuoteAndTagWrapper quoteAndTags){
+        Optional<Quote> quote = Optional.of(quoteService.updateQuote(id, quoteAndTags.getTheQuote()));
+        HashSet<Tag> tags = new HashSet<>();
+        for(Tag tag : quoteAndTags.getTheTags()){
+            if(!tagService.doesTagExist(tag.getName())){
+                tags.add(tagService.createTag(tag));
+            } else {
+                tags.add(tagService.findTag(tag.getName()));
+            }
+        }
+        quoteService.assignTags(quote.get(), tags);
+        return quote.map(resp -> ResponseEntity.ok().body(resp))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteQuote(@PathVariable Long id) {
         quoteService.deleteQuote(id);

@@ -1,26 +1,27 @@
 import React, { Fragment, Component } from 'react';
 import { Button, Form, Divider, Grid, Segment } from 'semantic-ui-react';
-import Select from 'react-select'
+import Select from 'react-select';
 import '../styles/App.css';
 
 export default class EditQuote extends Component {
 
     state = {
-        newTags: [],
-        prevContent: this.props.singleQuote.content,
-        prevAuthor: this.props.singleQuote.author
+        updatedContent: this.props.singleQuote.content,
+        updatedAuthor: this.props.singleQuote.author,
+        updatedTags: [...this.props.singleQuote.tags],
+        removedTag: []
     }
 
     options = this.props.tags.map(t => ({ key: t.id, label: t.name, value: t.name }))
 
     handleContentChange = (event) => {
         const { target: { value } } = event;
-        this.setState({ prevContent: value });
+        this.setState({ updatedContent: value });
     }
 
     handleAuthorChange = (event) => {
         const { target: { value } } = event;
-        this.setState({ prevAuthor: value });
+        this.setState({ updatedAuthor: value });
     }
 
     handleSelectChange = (event) => {
@@ -29,10 +30,16 @@ export default class EditQuote extends Component {
                 name: event.value,
             }
             this.setState({
-                newTags: [...this.state.newTags, newTag]
+                updatedTags: [...this.state.updatedTags, newTag]
             })
-            console.log(this.state.newTags)
+            console.log(this.state.updatedTags)
         }, 200);
+    }
+
+    handleRemoveTag = (tag) => {
+        console.log('clicked')
+        const remainingTags = this.state.updatedTags.filter(t => t.name !== tag.name);
+        this.setState({ updatedTags: remainingTags})
     }
 
     handleTagSubmit = (event) => {
@@ -44,34 +51,29 @@ export default class EditQuote extends Component {
                 name: value,
             }
             this.setState({
-                newTags: [...this.state.newTags, newTag]
+                updatedTags: [...this.state.updatedTags, newTag]
             })
-            console.log(this.state.newTags)
+            console.log(this.state.updatedTags)
         }, 200);
     }
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        let content = event.target.quote.value;
-        let author = event.target.author.value;
-        event.target.quote.value = '';
-        event.target.author.value = '';
-        const postData = {
+        const putData = {
             theQuote: {
-                content: content,
-                author: author
+                content: this.state.updatedContent,
+                author: this.state.updatedAuthor
             },
-            theTags: this.state.newTags
+            theTags: this.state.updatedTags
         }
-        await fetch('/api/quotes', {
-            method: 'POST',
+        await fetch(`/api/quotes/${this.props.singleQuote.id}`, {
+            method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(postData),
+            body: JSON.stringify(putData),
         });
-        this.props.fetchData();
         this.props.handleViewChange('home')
     }
 
@@ -88,7 +90,7 @@ export default class EditQuote extends Component {
                                 <Form.Group>
                                     <Form.TextArea
                                         width={16}
-                                        value={this.state.prevContent}
+                                        value={this.state.updatedContent}
                                         onChange={this.handleContentChange}
                                     />
                                 </Form.Group>
@@ -96,7 +98,7 @@ export default class EditQuote extends Component {
                                 <Form.Group>
                                     <Form.Input
                                         width={16}
-                                        value={this.state.prevAuthor}
+                                        value={this.state.updatedAuthor}
                                         onChange={this.handleAuthorChange}
                                     />
                                 </Form.Group>
@@ -109,7 +111,11 @@ export default class EditQuote extends Component {
                             {this.props.singleQuote.tags.map(t =>
                                 <Button.Group>
                                     <Button content={t.name} />
-                                    <Button labelPosition='right' icon='delete' />
+                                    <Button
+                                        onClick={() => this.handleRemoveTag(t)}
+                                        labelPosition='right'
+                                        icon='delete'
+                                    />
                                 </Button.Group>
                             )}
                             <Select

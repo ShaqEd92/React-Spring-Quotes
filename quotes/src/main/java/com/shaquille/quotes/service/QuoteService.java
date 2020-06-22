@@ -43,6 +43,13 @@ public class QuoteService {
         return quote;
     }
 
+    public Quote updateQuote(Long id, Quote quoteBody){
+        Quote quote = quoteRepository.getOne(id);
+        quote.setContent(quoteBody.getContent());
+        quote.setAuthor(quoteBody.getAuthor());
+        return quoteRepository.saveAndFlush(quote);
+    }
+
     public void assignTags(Quote quote, HashSet<Tag> tags) {
         quote.setTags(tags);
         quoteRepository.saveAndFlush(quote);

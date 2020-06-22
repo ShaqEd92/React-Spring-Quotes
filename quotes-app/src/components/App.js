@@ -150,6 +150,7 @@ export default class App extends Component {
             tags={this.state.tags}
             singleQuote={this.state.singleQuote[0]}
             handleViewChange={this.handleViewChange}
+            fetchData={this.fetchData}
           />
         }
       </Fragment>
