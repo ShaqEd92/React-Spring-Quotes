@@ -35,6 +35,11 @@ export default class App extends Component {
     })
   };
 
+  fetchData = () => {
+    this.fetchQuotesData();
+    this.fetchTagsData();
+  }
+
   fetchQuotesForTag = async () => {
     const resp = await fetch(`/api/quotes/tag/${this.state.singleTag[0].name}`)
     const data = await resp.json();
@@ -43,10 +48,13 @@ export default class App extends Component {
     })
   };
 
-  fetchData = () => {
-    this.fetchQuotesData();
-    this.fetchTagsData();
-  }
+  fetchQuotesForAuthor = async (name) => {
+    const resp = await fetch(`/api/quotes/author/${name}`)
+    const data = await resp.json();
+    this.setState({
+      quotes: data
+    })
+  };
 
   componentDidMount() {
     this.fetchData();
@@ -134,6 +142,7 @@ export default class App extends Component {
             tags={this.state.tags}
             singleQuote={this.state.singleQuote[0]}
             singleTag={this.state.singleTag[0]}
+            fetchQuotesForAuthor={this.fetchQuotesForAuthor}
             homeView={this.state.homeView}
             handleActiveItem={this.handleActiveItem}
             handleClick={this.handleClick}

@@ -12,9 +12,9 @@ const QuoteList = (props) => {
     }
 
     const allQuotes = underscore.shuffle(props.quotes).map(q =>
-        <Card ui centered card key={q.id} onClick={() => props.handleClick(q.id)}>
-            <Card.Content description={q.content} />
-            <Card.Content extra description={q.author} />
+        <Card ui centered card key={q.id} style={{cursor:'pointer'}}>
+            <Card.Content description={q.content} onClick={() => props.handleClick(q.id)}/>
+            <Card.Content extra description={q.author} onClick={() => props.fetchQuotesForAuthor(q.author)} />
         </Card>
     );
 

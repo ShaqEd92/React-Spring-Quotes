@@ -38,6 +38,14 @@ public class QuoteService {
         return quotesForTag;
     }
 
+    public List<Quote> listQuotesForSpecificAuthor(String name) {
+        List<Quote> allQuotes = listQuotes();
+        List<Quote> quotesForAuthor = allQuotes.stream()
+                .filter(quote -> quote.getAuthor().equalsIgnoreCase(name))
+                .collect(Collectors.toList());
+        return quotesForAuthor;
+    }
+
     public Quote createQuote(Quote quote) {
         quoteRepository.saveAndFlush(quote);
         return quote;

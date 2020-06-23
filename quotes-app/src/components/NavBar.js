@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Input, Menu } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 import { isNumber } from 'underscore'
 
 const NavBar = (props) => {
@@ -42,15 +42,6 @@ const NavBar = (props) => {
                         onClick={() => { props.handleDelete(props.activeItem) }}
                     />
                 }
-                <Menu.Menu position='right'>
-                    <Menu.Item>
-                        <Input
-                            transparent
-                            icon={{ name: 'search', link: true }}
-                            placeholder='Search quotes...'
-                        />
-                    </Menu.Item>
-                </Menu.Menu>
             </Menu>
         </Fragment>
     )
