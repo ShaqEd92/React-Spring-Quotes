@@ -32,14 +32,12 @@ export default class EditQuote extends Component {
             this.setState({
                 updatedTags: [...this.state.updatedTags, newTag]
             })
-            console.log(this.state.updatedTags)
         }, 200);
     }
 
     handleRemoveTag = (tag) => {
-        console.log('clicked')
         const remainingTags = this.state.updatedTags.filter(t => t.name !== tag.name);
-        this.setState({ updatedTags: remainingTags})
+        this.setState({ updatedTags: remainingTags })
     }
 
     handleTagSubmit = (event) => {
@@ -74,7 +72,11 @@ export default class EditQuote extends Component {
             },
             body: JSON.stringify(putData),
         });
-        this.props.handleViewChange('home')
+        this.props.handleViewChange('home');            
+        setTimeout(() => {
+            this.props.handleClick(this.props.singleQuote.id)
+        }, 500);
+        this.props.handleHomeView('oneQuote')
     }
 
     render() {

@@ -38,7 +38,6 @@ export default class App extends Component {
   fetchQuotesForTag = async () => {
     const resp = await fetch(`/api/quotes/tag/${this.state.singleTag[0].name}`)
     const data = await resp.json();
-    console.log(data)
     this.setState({
       quotes: data
     })
@@ -85,6 +84,7 @@ export default class App extends Component {
     }, 300);
   }
 
+  // Component to show
   handleViewChange = (show) => {
     if (show === 'home') this.fetchQuotesData();
     this.setState({
@@ -92,12 +92,14 @@ export default class App extends Component {
     })
   };
 
+  // For main display component, determines what exactly is shown
   handleHomeView = (show) => {
     this.setState({
       homeView: show
     })
   };
 
+  // For nav bar
   handleActiveItem = (item) => {
     if (!isNumber(item)) this.handleViewChange(item);
     this.setState({
@@ -149,8 +151,10 @@ export default class App extends Component {
           <EditQuote
             tags={this.state.tags}
             singleQuote={this.state.singleQuote[0]}
-            handleViewChange={this.handleViewChange}
             fetchData={this.fetchData}
+            handleClick={this.handleClick}
+            handleHomeView={this.handleHomeView}
+            handleViewChange={this.handleViewChange}
           />
         }
       </Fragment>
