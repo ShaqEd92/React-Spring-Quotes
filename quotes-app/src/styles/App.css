@@ -24,10 +24,21 @@ h2{
   font-family: oblique;
 }
 
+h3{
+  font-size: 1.5em;
+  font-family: oblique;
+  margin-top: 2%;
+}
+
 h4{
   font-size: 1.1em;
   font-family: oblique;
   text-decoration: underline;
+}
+
+ul{
+  list-style: none;
+  text-align: left;
 }
 
 #quotes{
@@ -67,8 +78,8 @@ h4{
 
 .ui.form .field label {
   font: 1.1em oblique;
-  color: #7A306C;
-  margin-top: 2%;
+  color: #8E8DBE;
+  margin: 2%;
 }
 
 .ui.form .field button {
@@ -91,8 +102,8 @@ h4{
   display: inline-block;
   position: absolute;
   padding: 1% 5% 2% 5%;
-  top: 22%;
-  left: 50%;
+  top: 18%;
+  left: 40%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   background-color: #242038;
@@ -104,6 +115,19 @@ h4{
   margin-top: 2%;
   font-size: 1.15em; 
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  color: #8E8DBE;
+}
+
+.tagsList{
+  border: 3px solid #8E8DBE;
+  border-radius: 15%;
+  width: 20%;
+  display: inline-block;
+  position: absolute;
+  padding: 1% 5% 2% 5%;
+  top: 18%;
+  right: 5%;
+  background-color: #242038;
   color: #8E8DBE;
 }
 
@@ -119,7 +143,7 @@ h4{
   text-decoration: underline;
 }
 
-.tagsList{
+.quoteTags{
   display:inline-block;
 }
 

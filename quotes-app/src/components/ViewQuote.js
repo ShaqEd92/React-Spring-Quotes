@@ -17,7 +17,7 @@ const ViewQuote = (props) => {
             <br />
             {props.singleQuote.tags.length === 0 ? <Label as='a' color='#7A306C' tag>There are currently no tags</Label> :
                 props.singleQuote.tags.map(t =>
-                    <div className="tagsList">
+                    <div className="quoteTags">
                         <Label as='a' color='#7A306C' tag>{t.name}</Label> &nbsp;
                     </div>)
             }

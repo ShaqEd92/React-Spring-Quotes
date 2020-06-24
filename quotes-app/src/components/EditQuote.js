@@ -9,10 +9,20 @@ export default class EditQuote extends Component {
         updatedContent: this.props.singleQuote.content,
         updatedAuthor: this.props.singleQuote.author,
         updatedTags: [...this.props.singleQuote.tags],
-        removedTag: []
+        removedTag: [],
+        tagOptions: this.props.tags
     }
 
-    options = this.props.tags.map(t => ({ key: t.id, label: t.name, value: t.name }))
+    componentDidMount(){
+        setTimeout(() => {
+            this.props.singleQuote.tags.map(tag => this.updateTagOptions(tag));            
+        }, 500);
+    }
+
+    updateTagOptions = (tag) => {
+        const remainingOptions = this.state.tagOptions.filter(t => t.name !== tag.name);
+        this.setState({ tagOptions: remainingOptions });
+    }
 
     handleContentChange = (event) => {
         const { target: { value } } = event;
@@ -32,12 +42,8 @@ export default class EditQuote extends Component {
             this.setState({
                 updatedTags: [...this.state.updatedTags, newTag]
             })
+            this.updateTagOptions(newTag);
         }, 200);
-    }
-
-    handleRemoveTag = (tag) => {
-        const remainingTags = this.state.updatedTags.filter(t => t.name !== tag.name);
-        this.setState({ updatedTags: remainingTags })
     }
 
     handleTagSubmit = (event) => {
@@ -51,8 +57,17 @@ export default class EditQuote extends Component {
             this.setState({
                 updatedTags: [...this.state.updatedTags, newTag]
             })
-            console.log(this.state.updatedTags)
+            this.updateTagOptions(newTag);
         }, 200);
+    }
+
+    handleRemoveTag = (tag) => {
+        const remainingTags = this.state.updatedTags.filter(t => t.name !== tag.name);
+        const updatedOptions = [...this.state.tagOptions, tag]
+        this.setState({ 
+            updatedTags: remainingTags,
+            tagOptions: updatedOptions
+        })
     }
 
     handleSubmit = async (event) => {
@@ -72,7 +87,7 @@ export default class EditQuote extends Component {
             },
             body: JSON.stringify(putData),
         });
-        this.props.handleViewChange('home');            
+        this.props.handleViewChange('home');
         setTimeout(() => {
             this.props.handleClick(this.props.singleQuote.id)
         }, 500);
@@ -110,20 +125,23 @@ export default class EditQuote extends Component {
 
                         <Grid.Column>
                             <h2>Tags</h2>
-                            {this.props.singleQuote.tags.map(t =>
-                                <Button.Group>
-                                    <Button content={t.name} />
-                                    <Button
-                                        onClick={() => this.handleRemoveTag(t)}
-                                        labelPosition='right'
-                                        icon='delete'
-                                    />
-                                </Button.Group>
+                            {this.state.updatedTags.map(t =>
+                                <Fragment>
+                                    <Button.Group style={{marginBottom: '2%'}}>
+                                        <Button content={t.name} />
+                                        <Button
+                                            onClick={() => this.handleRemoveTag(t)}
+                                            labelPosition='right'
+                                            icon='delete'
+                                        />
+                                    </Button.Group>
+                                    &nbsp; &nbsp;
+                                </Fragment>
                             )}
                             <Select
                                 placeholder='Select tag(s)'
                                 onChange={this.handleSelectChange}
-                                options={this.options}
+                                options={this.state.tagOptions.map(t => ({ key: t.id, label: t.name, value: t.name }))}
                             />
                             <br />
                             <br />

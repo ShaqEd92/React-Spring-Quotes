@@ -5,9 +5,15 @@ import '../styles/App.css';
 
 export default class AddQuote extends Component {
 
-    state = { newTags: [] }
+    state = {
+        newTags: [],
+        existingTags: this.props.tags
+    }
 
-    options = this.props.tags.map(t => ({ key: t.id, label: t.name, value: t.name }))
+    updateTagOptions = (tag) => {
+        const remainingTags = this.state.existingTags.filter(t => t.name !== tag.name);
+        this.setState({ existingTags: remainingTags });
+    }
 
     handleChange = (event) => {
         this.setState({
@@ -23,7 +29,7 @@ export default class AddQuote extends Component {
             this.setState({
                 newTags: [...this.state.newTags, newTag]
             })
-            console.log(this.state.newTags)
+            this.updateTagOptions(newTag);
         }, 200);
     }
 
@@ -38,7 +44,7 @@ export default class AddQuote extends Component {
             this.setState({
                 newTags: [...this.state.newTags, newTag]
             })
-            console.log(this.state.newTags)
+            this.updateTagOptions(newTag);
         }, 200);
     }
 
@@ -70,7 +76,6 @@ export default class AddQuote extends Component {
         return (
             <Fragment>
                 <br />
-                <h1>Add a Quote</h1>
                 <div className="form-container">
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group>
@@ -94,7 +99,7 @@ export default class AddQuote extends Component {
                         <Select
                             placeholder='Select tag(s)'
                             onChange={this.handleSelectChange}
-                            options={this.options}
+                            options={this.state.existingTags.map(t => ({ key: t.id, label: t.name, value: t.name }))}
                         />
                         <br />
                         <Form.Button>Submit Quote</Form.Button>
@@ -109,6 +114,14 @@ export default class AddQuote extends Component {
                         &nbsp; &nbsp;
                         <Form.Button>+</Form.Button>
                     </Form>
+                </div>
+                <div className='tagsList'>
+                    <h3>Added Tags</h3>
+                    <ul>
+                        {this.state.newTags.map(tag => (
+                            <li key={tag.name}>{tag.name}</li>
+                        ))}
+                    </ul>
                 </div>
             </Fragment >
         )
