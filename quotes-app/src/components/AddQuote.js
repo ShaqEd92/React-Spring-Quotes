@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import { Form } from 'semantic-ui-react';
+import Alert from 'react-bootstrap/Alert';
 import Select from 'react-select'
 import '../styles/App.css';
 
@@ -7,7 +8,15 @@ export default class AddQuote extends Component {
 
     state = {
         newTags: [],
-        existingTags: this.props.tags
+        existingTags: this.props.tags,
+        invalidQuoteAuthor: false,
+        invalidTag: false
+    }
+
+    isValid = (str) => {
+        const trimmedStr = str.trim();
+        if (trimmedStr.length > 0) { return true }
+        else return false
     }
 
     updateTagOptions = (tag) => {
@@ -37,15 +46,19 @@ export default class AddQuote extends Component {
         event.preventDefault();
         let value = event.target.addedTag.value;
         event.target.addedTag.value = '';
-        setTimeout(() => {
-            const newTag = {
-                name: value,
-            }
-            this.setState({
-                newTags: [...this.state.newTags, newTag]
-            })
-            this.updateTagOptions(newTag);
-        }, 200);
+        if (this.isValid(value)) {
+            setTimeout(() => {
+                const newTag = {
+                    name: value,
+                }
+                this.setState({
+                    newTags: [...this.state.newTags, newTag]
+                })
+                this.updateTagOptions(newTag);
+            }, 200);
+        } else {
+            this.setState({ invalidTag: true })
+        }
     }
 
     handleSubmit = async (event) => {
@@ -54,28 +67,42 @@ export default class AddQuote extends Component {
         let author = event.target.author.value;
         event.target.quote.value = '';
         event.target.author.value = '';
-        const postData = {
-            theQuote: {
-                content: content,
-                author: author
-            },
-            theTags: this.state.newTags
+        if (this.isValid(content) && this.isValid(author)) {
+            const postData = {
+                theQuote: {
+                    content: content,
+                    author: author
+                },
+                theTags: this.state.newTags
+            }
+            await fetch('/api/quotes', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData),
+            });
+            this.props.handleViewChange('home')
+        } else {
+            this.setState({ invalidQuoteAuthor: true })
         }
-        await fetch('/api/quotes', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(postData),
-        });
-        this.props.handleViewChange('home')
     }
 
     render() {
         return (
             <Fragment>
                 <br />
+                {this.state.invalidQuoteAuthor &&
+                    <Alert className='emptyAlerts' variant='warning' onClose={() => this.setState({ invalidQuoteAuthor: false})} dismissible>
+                        Quote and Author fields cannot be empty. If author is unknown, enter 'Anonymous'.
+                    </Alert>
+                }
+                {this.state.invalidTag &&
+                    <Alert className='emptyAlerts' variant='warning' onClose={() => this.setState({ invalidTag: false})} dismissible>
+                        If adding new tag, field cannot be empty.
+                    </Alert>
+                }
                 <div className="form-container">
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group>

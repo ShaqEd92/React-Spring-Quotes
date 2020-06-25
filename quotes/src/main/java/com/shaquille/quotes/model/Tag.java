@@ -2,13 +2,14 @@ package com.shaquille.quotes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity(name = "tags")
 public class Tag {
@@ -17,9 +18,6 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tag_id;
 
-    @NotBlank
-    @NotEmpty
-    @NotNull
     private String name;
 
     @JsonIgnore

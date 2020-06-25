@@ -1,13 +1,10 @@
 package com.shaquille.quotes.service;
 
-import com.shaquille.quotes.model.Quote;
 import com.shaquille.quotes.model.Tag;
 import com.shaquille.quotes.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.net.URISyntaxException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 

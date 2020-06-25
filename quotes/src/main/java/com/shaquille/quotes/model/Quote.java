@@ -7,9 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -21,14 +18,8 @@ public class Quote implements Comparable<Quote>{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long quote_id;
 
-    @NotBlank
-    @NotEmpty
-    @NotNull
     private String content;
 
-    @NotBlank
-    @NotEmpty
-    @NotNull
     private String author;
 
     @ManyToMany
@@ -41,7 +32,7 @@ public class Quote implements Comparable<Quote>{
     public Quote() {
     }
 
-    public Quote(@NotBlank @NotEmpty @NotNull String content, @NotBlank @NotEmpty @NotNull String author) {
+    public Quote(String content, String author) {
         this.content = content;
         this.author = author;
         this.tags = new HashSet<>();
