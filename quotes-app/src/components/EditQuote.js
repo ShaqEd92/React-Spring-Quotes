@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { Button, Form, Divider, Grid, Segment } from 'semantic-ui-react';
 import Select from 'react-select';
+import Alert from 'react-bootstrap/Alert';
 import '../styles/App.css';
 
 export default class EditQuote extends Component {
@@ -10,13 +11,21 @@ export default class EditQuote extends Component {
         updatedAuthor: this.props.singleQuote.author,
         updatedTags: [...this.props.singleQuote.tags],
         removedTag: [],
-        tagOptions: this.props.tags
+        tagOptions: this.props.tags,
+        invalidQuoteAuthor: false,
+        invalidTag: false
     }
 
-    componentDidMount(){
+    componentDidMount() {
         setTimeout(() => {
-            this.props.singleQuote.tags.map(tag => this.updateTagOptions(tag));            
+            this.props.singleQuote.tags.map(tag => this.updateTagOptions(tag));
         }, 500);
+    }
+
+    isValid = (str) => {
+        const trimmedStr = str.trim();
+        if (trimmedStr.length > 0) { return true }
+        else return false
     }
 
     updateTagOptions = (tag) => {
@@ -50,21 +59,25 @@ export default class EditQuote extends Component {
         event.preventDefault();
         let value = event.target.addedTag.value;
         event.target.addedTag.value = '';
-        setTimeout(() => {
-            const newTag = {
-                name: value,
-            }
-            this.setState({
-                updatedTags: [...this.state.updatedTags, newTag]
-            })
-            this.updateTagOptions(newTag);
-        }, 200);
+        if (this.isValid(value)) {
+            setTimeout(() => {
+                const newTag = {
+                    name: value,
+                }
+                this.setState({
+                    updatedTags: [...this.state.updatedTags, newTag]
+                })
+                this.updateTagOptions(newTag);
+            }, 200);
+        } else {
+            this.setState({ invalidTag: true })
+        }
     }
 
     handleRemoveTag = (tag) => {
         const remainingTags = this.state.updatedTags.filter(t => t.name !== tag.name);
         const updatedOptions = [...this.state.tagOptions, tag]
-        this.setState({ 
+        this.setState({
             updatedTags: remainingTags,
             tagOptions: updatedOptions
         })
@@ -72,32 +85,45 @@ export default class EditQuote extends Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        const putData = {
-            theQuote: {
-                content: this.state.updatedContent,
-                author: this.state.updatedAuthor
-            },
-            theTags: this.state.updatedTags
+        if (this.isValid(this.state.updatedContent) && this.isValid(this.state.updatedAuthor)) {
+            const putData = {
+                theQuote: {
+                    content: this.state.updatedContent,
+                    author: this.state.updatedAuthor
+                },
+                theTags: this.state.updatedTags
+            }
+            await fetch(`/api/quotes/${this.props.singleQuote.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(putData),
+            });
+            this.props.handleViewChange('home');
+            setTimeout(() => {
+                this.props.handleClick(this.props.singleQuote.id)
+            }, 500);
+            this.props.handleHomeView('oneQuote')
+        } else {
+            this.setState({ invalidQuoteAuthor: true })
         }
-        await fetch(`/api/quotes/${this.props.singleQuote.id}`, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(putData),
-        });
-        this.props.handleViewChange('home');
-        setTimeout(() => {
-            this.props.handleClick(this.props.singleQuote.id)
-        }, 500);
-        this.props.handleHomeView('oneQuote')
     }
 
     render() {
         return (
             <Fragment>
-                <h1>Edit Quote</h1>
+                {this.state.invalidQuoteAuthor &&
+                    <Alert className='emptyAlerts' variant='warning' onClose={() => this.setState({ invalidQuoteAuthor: false})} dismissible>
+                        Quote and Author fields cannot be empty. If author is unknown, enter 'Anonymous'.
+                    </Alert>
+                }
+                {this.state.invalidTag &&
+                    <Alert className='emptyAlerts' variant='warning' onClose={() => this.setState({ invalidTag: false})} dismissible>
+                        If adding new tag, field cannot be empty.
+                    </Alert>
+                }
                 <Segment style={{ background: 'transparent' }}>
                     <Grid columns={2} relaxed='very'>
 
@@ -127,7 +153,7 @@ export default class EditQuote extends Component {
                             <h2>Tags</h2>
                             {this.state.updatedTags.map(t =>
                                 <Fragment>
-                                    <Button.Group style={{marginBottom: '2%'}}>
+                                    <Button.Group style={{ marginBottom: '2%' }}>
                                         <Button content={t.name} />
                                         <Button
                                             onClick={() => this.handleRemoveTag(t)}
