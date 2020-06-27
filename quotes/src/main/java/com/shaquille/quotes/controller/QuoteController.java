@@ -33,6 +33,11 @@ public class QuoteController {
     @Autowired
     private TagService tagService;
 
+    @Autowired
+    public QuoteController(QuoteService quoteService) {
+        this.quoteService = quoteService;
+    }
+
     @GetMapping
     public ResponseEntity<?> listQuotes() {
         Optional<List<Quote>> quotes = Optional.of(quoteService.listQuotes());

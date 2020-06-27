@@ -8,19 +8,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class QuotesApplicationTests {
 
-    static class QuoteControllerTest {
-
-        @Test
-        void noDuplicateTags() {
-            Quote quote = new Quote("Test quote", "Tester");
-            Tag tag1 = new Tag("Same");
-            Tag tag2 = new Tag("Same");
-            Tag tag3 = new Tag("Different");
-            quote.addTag(tag1);
-            quote.addTag(tag2);
-            quote.addTag(tag3);
-            assertEquals(2, quote.getTags().size());
-        }
-
+    @Test
+    public void contextLoads() {
     }
+
+    @Test
+    void noDuplicateTags() {
+        Quote quote = new Quote("Test quote", "Tester");
+        Tag tag1 = new Tag("Same");
+        Tag tag2 = new Tag("Same");
+        Tag tag3 = new Tag("Different");
+        quote.addTag(tag1);
+        quote.addTag(tag2);
+        quote.addTag(tag3);
+        assertEquals(2, quote.getTags().size());
+    }
+
 }
