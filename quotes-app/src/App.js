@@ -101,54 +101,48 @@ const App = () => {
     window.location.reload();
   };
 
-  {
-    return (
-      <Router>
-        {!loaded ? (
-          <img
-            src="../loading.gif"
-            className="loading"
-            alt="loading wheel"
-          ></img>
-        ) : (
-          <NavBar
-            handleClick={handleActiveItem}
-            handleHomeView={handleHomeView}
-            handleDelete={handleDelete}
-            activeItem={activeItem}
-            homeView={homeView}
-          />
-        )}
-        {view === "home" && (
-          <QuoteList
-            quotes={quotes}
-            tags={tags}
-            singleQuote={singleQuote[0]}
-            singleTag={singleTag[0]}
-            fetchQuotesForAuthor={fetchQuotesForAuthor}
-            homeView={homeView}
-            handleActiveItem={handleActiveItem}
-            handleClick={handleClick}
-            handleTagClick={handleTagClick}
-            handleDelete={handleDelete}
-          />
-        )}
-        {view === "add" && (
-          <AddQuote tags={tags} handleViewChange={handleViewChange} />
-        )}
-        {view === "edit" && (
-          <EditQuote
-            tags={tags}
-            singleQuote={singleQuote[0]}
-            fetchData={fetchData}
-            handleClick={handleClick}
-            handleHomeView={handleHomeView}
-            handleViewChange={handleViewChange}
-          />
-        )}
-      </Router>
-    );
-  }
+  return (
+    <Router>
+      {!loaded ? (
+        <img src="../loading.gif" className="loading" alt="loading wheel"></img>
+      ) : (
+        <NavBar
+          handleClick={handleActiveItem}
+          handleHomeView={handleHomeView}
+          handleDelete={handleDelete}
+          activeItem={activeItem}
+          homeView={homeView}
+        />
+      )}
+      {view === "home" && (
+        <QuoteList
+          quotes={quotes}
+          tags={tags}
+          singleQuote={singleQuote[0]}
+          singleTag={singleTag[0]}
+          fetchQuotesForAuthor={fetchQuotesForAuthor}
+          homeView={homeView}
+          handleActiveItem={handleActiveItem}
+          handleClick={handleClick}
+          handleTagClick={handleTagClick}
+          handleDelete={handleDelete}
+        />
+      )}
+      {view === "add" && (
+        <AddQuote tags={tags} handleViewChange={handleViewChange} />
+      )}
+      {view === "edit" && (
+        <EditQuote
+          tags={tags}
+          singleQuote={singleQuote[0]}
+          fetchData={fetchData}
+          handleClick={handleClick}
+          handleHomeView={handleHomeView}
+          handleViewChange={handleViewChange}
+        />
+      )}
+    </Router>
+  );
 };
 
 export default App;

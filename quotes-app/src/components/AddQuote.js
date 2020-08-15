@@ -5,6 +5,10 @@ import Select from "react-select";
 import "../App.css";
 
 const AddQuote = (props) => {
+  const [quote, setQuote] = useState({
+    content: "",
+    author: "",
+  });
   const [newTags, setNewTags] = useState([]);
   const [existingTags, setExistingTags] = useState(props.tags);
   const [invalidQuoteAuthor, setInvalidQuoteAuthor] = useState(false);
@@ -22,10 +26,11 @@ const AddQuote = (props) => {
     setExistingTags(remainingTags);
   };
 
-  const handleChange = (event) => {
-    // setState({
-    //     [event.target.name]: event.target.value
-    // })
+  const handleChange = ({ target }) => {
+    setQuote({
+      ...quote,
+      [target.name]: target.value,
+    });
   };
 
   const handleSelectChange = (event) => {
@@ -51,7 +56,7 @@ const AddQuote = (props) => {
         updateTagOptions(newTag);
       }, 200);
     } else {
-      setInvalidTag(true)
+      setInvalidTag(true);
     }
   };
 
@@ -82,85 +87,84 @@ const AddQuote = (props) => {
       setInvalidQuoteAuthor(true);
     }
   };
-  {
-    return (
-      <>
-        <br />
-        {invalidQuoteAuthor && (
-          <Alert
-            className="emptyAlerts"
-            variant="warning"
-            onClose={() => setInvalidQuoteAuthor(false)}
-            dismissible
-          >
-            Quote and Author fields cannot be empty. If author is unknown, enter
-            'Anonymous'.
-          </Alert>
-        )}
-        {invalidTag && (
-          <Alert
-            className="emptyAlerts"
-            variant="warning"
-            onClose={() => setInvalidTag(false)}
-            dismissible
-          >
-            If adding new tag, field cannot be empty.
-          </Alert>
-        )}
-        <div className="form-container">
-          <Form onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.TextArea
-                width={16}
-                label="Quote"
-                placeholder="Add another great quote to the list..."
-                name="quote"
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Input
-                width={16}
-                label="Author"
-                placeholder="Enter quote's author..."
-                name="author"
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Select
-              placeholder="Select tag(s)"
-              onChange={handleSelectChange}
-              options={existingTags.map((t) => ({
-                key: t.id,
-                label: t.name,
-                value: t.name,
-              }))}
-            />
-            <br />
-            <Form.Button>Submit Quote</Form.Button>
-          </Form>
-          <br />
-          <Form id="tagForm" onSubmit={handleTagSubmit}>
-            <Form.Input
-              placeholder="Add new tag..."
-              name="addedTag"
+
+  return (
+    <>
+      <br />
+      {invalidQuoteAuthor && (
+        <Alert
+          className="emptyAlerts"
+          variant="warning"
+          onClose={() => setInvalidQuoteAuthor(false)}
+          dismissible
+        >
+          Quote and Author fields cannot be empty. If author is unknown, enter
+          'Anonymous'.
+        </Alert>
+      )}
+      {invalidTag && (
+        <Alert
+          className="emptyAlerts"
+          variant="warning"
+          onClose={() => setInvalidTag(false)}
+          dismissible
+        >
+          If adding new tag, field cannot be empty.
+        </Alert>
+      )}
+      <div className="form-container">
+        <Form onSubmit={handleSubmit}>
+          <Form.Group>
+            <Form.TextArea
+              width={16}
+              label="Quote"
+              placeholder="Add another great quote to the list..."
+              name="quote"
               onChange={handleChange}
             />
-            &nbsp; &nbsp;
-            <Form.Button>+</Form.Button>
-          </Form>
-        </div>
-        <div className="tagsList">
-          <h3>Added Tags</h3>
-          <ul>
-            {newTags.map((tag) => (
-              <li key={tag.name}>{tag.name}</li>
-            ))}
-          </ul>
-        </div>
-      </>
-    );
-  }
+          </Form.Group>
+          <Form.Group>
+            <Form.Input
+              width={16}
+              label="Author"
+              placeholder="Enter quote's author..."
+              name="author"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Select
+            placeholder="Select tag(s)"
+            onChange={handleSelectChange}
+            options={existingTags.map((t) => ({
+              key: t.id,
+              label: t.name,
+              value: t.name,
+            }))}
+          />
+          <br />
+          <Form.Button>Submit Quote</Form.Button>
+        </Form>
+        <br />
+        <Form id="tagForm" onSubmit={handleTagSubmit}>
+          <Form.Input
+            placeholder="Add new tag..."
+            name="addedTag"
+            onChange={handleChange}
+          />
+          &nbsp; &nbsp;
+          <Form.Button>+</Form.Button>
+        </Form>
+      </div>
+      <div className="tagsList">
+        <h3>Added Tags</h3>
+        <ul>
+          {newTags.map((tag) => (
+            <li key={tag.name}>{tag.name}</li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
 };
 
 export default AddQuote;
