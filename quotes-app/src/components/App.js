@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { isNumber } from "underscore";
 import NavBar from "./NavBar";
@@ -7,115 +7,93 @@ import AddQuote from "./AddQuote";
 import EditQuote from "./EditQuote";
 import "../styles/App.css";
 
-class App extends Component {
-  state = {
-    loaded: false,
-    quotes: [],
-    tags: [],
-    singleQuote: [],
-    singleTag: [],
-    view: "",
-    homeView: "quotes",
-    activeItem: "",
-  };
+const App = () => {
+  const [loaded, setLoaded] = useState(false);
+  const [quotes, setQuotes] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [singleQuote, setSingleQuote] = useState({});
+  const [singleTag, setSingleTag] = useState([]);
+  const [view, setView] = useState("");
+  const [homeView, setHomeView] = useState("quotes");
+  const [activeItem, setActiveItem] = useState("");
 
-  fetchQuotesData = async () => {
+  useEffect(() => {
+    fetchData();
+    setTimeout(() => {
+      setLoaded(true);
+      setView("home");
+      setActiveItem("home");
+    }, 2000);
+  });
+
+  const fetchQuotesData = async () => {
     const resp = await fetch("/api/quotes");
     const quotesData = await resp.json();
-    this.setState({
-      quotes: quotesData,
-    });
+    setQuotes(quotesData);
   };
 
-  fetchTagsData = async () => {
+  const fetchTagsData = async () => {
     const resp = await fetch("/api/tags");
     const tagsData = await resp.json();
-    this.setState({
-      tags: tagsData,
-    });
+    setTags(tagsData);
   };
 
-  fetchData = () => {
-    this.fetchQuotesData();
-    this.fetchTagsData();
+  const fetchData = () => {
+    fetchQuotesData();
+    fetchTagsData();
   };
 
-  fetchQuotesForTag = async () => {
-    const resp = await fetch(`/api/quotes/tag/${this.state.singleTag[0].name}`);
+  const fetchQuotesForTag = async () => {
+    const resp = await fetch(`/api/quotes/tag/${singleTag[0].name}`);
     const data = await resp.json();
-    this.setState({
-      quotes: data,
-    });
+    setQuotes(data);
   };
 
-  fetchQuotesForAuthor = async (name) => {
+  const fetchQuotesForAuthor = async (name) => {
     const resp = await fetch(`/api/quotes/author/${name}`);
     const data = await resp.json();
-    this.setState({
-      quotes: data,
-    });
+    setQuotes(data);
   };
 
-  componentDidMount() {
-    this.fetchData();
-    setTimeout(() => {
-      this.setState({
-        loaded: true,
-        view: "home",
-        activeItem: "home",
-      });
-    }, 2000);
-  }
-
-  handleClick = (id) => {
+  const handleClick = (id) => {
     if (id === "quotes" || id === "tags") {
-      this.setState({
-        homeView: id,
-      });
+      setHomeView(id);
       return true;
     }
-    this.handleActiveItem(id);
-    let oneQuote = this.state.quotes.filter((q) => q.id === id);
-    this.setState({
-      singleQuote: oneQuote,
-      homeView: "oneQuote",
-    });
+    handleActiveItem(id);
+    let oneQuote = quotes.filter((q) => q.id === id);
+    setSingleQuote(oneQuote);
+    setHomeView(oneQuote);
   };
 
-  handleTagClick = (id) => {
-    this.handleActiveItem(id);
-    let oneTag = this.state.tags.filter((t) => t.id === id);
-    this.setState({ singleTag: oneTag });
+  const handleTagClick = (id) => {
+    handleActiveItem(id);
+    let oneTag = tags.filter((t) => t.id === id);
+    setSingleTag(oneTag);
     setTimeout(() => {
-      this.fetchQuotesForTag();
-      this.setState({ homeView: "oneTag" });
+      fetchQuotesForTag();
+      setHomeView("oneTag");
     }, 300);
   };
 
   // Component to show
-  handleViewChange = (show) => {
-    if (show === "home") this.fetchQuotesData();
-    this.setState({
-      view: show,
-    });
+  const handleViewChange = (show) => {
+    if (show === "home") fetchQuotesData();
+    setView(show);
   };
 
   // For main display component, determines what exactly is shown
-  handleHomeView = (show) => {
-    this.setState({
-      homeView: show,
-    });
+  const handleHomeView = (show) => {
+    setHomeView(show);
   };
 
   // For nav bar
-  handleActiveItem = (item) => {
-    if (!isNumber(item)) this.handleViewChange(item);
-    this.setState({
-      activeItem: item,
-    });
+  const handleActiveItem = (item) => {
+    if (!isNumber(item)) handleViewChange(item);
+    setActiveItem(item);
   };
 
-  handleDelete = async (id) => {
+  const handleDelete = async (id) => {
     console.log("clicked");
     await fetch(`/api/quotes/${id}`, {
       method: "DELETE",
@@ -123,10 +101,10 @@ class App extends Component {
     window.location.reload();
   };
 
-  render() {
+  {
     return (
-      <>
-        {!this.state.loaded ? (
+      <Router>
+        {!loaded ? (
           <img
             src="../loading.gif"
             className="loading"
@@ -134,46 +112,43 @@ class App extends Component {
           ></img>
         ) : (
           <NavBar
-            handleClick={this.handleActiveItem}
-            handleHomeView={this.handleHomeView}
-            handleDelete={this.handleDelete}
-            activeItem={this.state.activeItem}
-            homeView={this.state.homeView}
+            handleClick={handleActiveItem}
+            handleHomeView={handleHomeView}
+            handleDelete={handleDelete}
+            activeItem={activeItem}
+            homeView={homeView}
           />
         )}
-        {this.state.view === "home" && (
+        {view === "home" && (
           <QuoteList
-            quotes={this.state.quotes}
-            tags={this.state.tags}
-            singleQuote={this.state.singleQuote[0]}
-            singleTag={this.state.singleTag[0]}
-            fetchQuotesForAuthor={this.fetchQuotesForAuthor}
-            homeView={this.state.homeView}
-            handleActiveItem={this.handleActiveItem}
-            handleClick={this.handleClick}
-            handleTagClick={this.handleTagClick}
-            handleDelete={this.handleDelete}
+            quotes={quotes}
+            tags={tags}
+            singleQuote={singleQuote[0]}
+            singleTag={singleTag[0]}
+            fetchQuotesForAuthor={fetchQuotesForAuthor}
+            homeView={homeView}
+            handleActiveItem={handleActiveItem}
+            handleClick={handleClick}
+            handleTagClick={handleTagClick}
+            handleDelete={handleDelete}
           />
         )}
-        {this.state.view === "add" && (
-          <AddQuote
-            tags={this.state.tags}
-            handleViewChange={this.handleViewChange}
-          />
+        {view === "add" && (
+          <AddQuote tags={tags} handleViewChange={handleViewChange} />
         )}
-        {this.state.view === "edit" && (
+        {view === "edit" && (
           <EditQuote
-            tags={this.state.tags}
-            singleQuote={this.state.singleQuote[0]}
-            fetchData={this.fetchData}
-            handleClick={this.handleClick}
-            handleHomeView={this.handleHomeView}
-            handleViewChange={this.handleViewChange}
+            tags={tags}
+            singleQuote={singleQuote[0]}
+            fetchData={fetchData}
+            handleClick={handleClick}
+            handleHomeView={handleHomeView}
+            handleViewChange={handleViewChange}
           />
         )}
-      </>
+      </Router>
     );
   }
-}
+};
 
 export default App;
