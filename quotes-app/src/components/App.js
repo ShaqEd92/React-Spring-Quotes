@@ -1,59 +1,59 @@
-import React, { Component, Fragment } from 'react';
-import { isNumber } from 'underscore';
-import NavBar from './NavBar';
-import QuoteList from './QuoteList';
-import AddQuote from './AddQuote';
-import EditQuote from './EditQuote';
-import '../styles/App.css';
+import React, { Component, useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { isNumber } from "underscore";
+import NavBar from "./NavBar";
+import QuoteList from "./QuoteList";
+import AddQuote from "./AddQuote";
+import EditQuote from "./EditQuote";
+import "../styles/App.css";
 
-export default class App extends Component {
-
+class App extends Component {
   state = {
     loaded: false,
     quotes: [],
     tags: [],
     singleQuote: [],
     singleTag: [],
-    view: '',
-    homeView: 'quotes',
-    activeItem: ''
-  }
+    view: "",
+    homeView: "quotes",
+    activeItem: "",
+  };
 
   fetchQuotesData = async () => {
-    const resp = await fetch('/api/quotes')
+    const resp = await fetch("/api/quotes");
     const quotesData = await resp.json();
     this.setState({
-      quotes: quotesData
-    })
+      quotes: quotesData,
+    });
   };
 
   fetchTagsData = async () => {
-    const resp = await fetch('/api/tags')
+    const resp = await fetch("/api/tags");
     const tagsData = await resp.json();
     this.setState({
-      tags: tagsData
-    })
+      tags: tagsData,
+    });
   };
 
   fetchData = () => {
     this.fetchQuotesData();
     this.fetchTagsData();
-  }
+  };
 
   fetchQuotesForTag = async () => {
-    const resp = await fetch(`/api/quotes/tag/${this.state.singleTag[0].name}`)
+    const resp = await fetch(`/api/quotes/tag/${this.state.singleTag[0].name}`);
     const data = await resp.json();
     this.setState({
-      quotes: data
-    })
+      quotes: data,
+    });
   };
 
   fetchQuotesForAuthor = async (name) => {
-    const resp = await fetch(`/api/quotes/author/${name}`)
+    const resp = await fetch(`/api/quotes/author/${name}`);
     const data = await resp.json();
     this.setState({
-      quotes: data
-    })
+      quotes: data,
+    });
   };
 
   componentDidMount() {
@@ -61,73 +61,78 @@ export default class App extends Component {
     setTimeout(() => {
       this.setState({
         loaded: true,
-        view: 'home',
-        activeItem: 'home'
-      })
+        view: "home",
+        activeItem: "home",
+      });
     }, 2000);
-  };
+  }
 
   handleClick = (id) => {
-    if (id === 'quotes' || id === 'tags') {
+    if (id === "quotes" || id === "tags") {
       this.setState({
-        homeView: id
-      })
+        homeView: id,
+      });
       return true;
     }
-    this.handleActiveItem(id)
-    let oneQuote = this.state.quotes.filter(q => q.id === id);
+    this.handleActiveItem(id);
+    let oneQuote = this.state.quotes.filter((q) => q.id === id);
     this.setState({
       singleQuote: oneQuote,
-      homeView: 'oneQuote'
-    })
-  }
+      homeView: "oneQuote",
+    });
+  };
 
   handleTagClick = (id) => {
     this.handleActiveItem(id);
-    let oneTag = this.state.tags.filter(t => t.id === id);
-    this.setState({ singleTag: oneTag })
+    let oneTag = this.state.tags.filter((t) => t.id === id);
+    this.setState({ singleTag: oneTag });
     setTimeout(() => {
       this.fetchQuotesForTag();
-      this.setState({ homeView: 'oneTag' })
+      this.setState({ homeView: "oneTag" });
     }, 300);
-  }
+  };
 
   // Component to show
   handleViewChange = (show) => {
-    if (show === 'home') this.fetchQuotesData();
+    if (show === "home") this.fetchQuotesData();
     this.setState({
-      view: show
-    })
+      view: show,
+    });
   };
 
   // For main display component, determines what exactly is shown
   handleHomeView = (show) => {
     this.setState({
-      homeView: show
-    })
+      homeView: show,
+    });
   };
 
   // For nav bar
   handleActiveItem = (item) => {
     if (!isNumber(item)) this.handleViewChange(item);
     this.setState({
-      activeItem: item
-    })
-  }
+      activeItem: item,
+    });
+  };
 
   handleDelete = async (id) => {
-    console.log('clicked')
+    console.log("clicked");
     await fetch(`/api/quotes/${id}`, {
-      method: 'DELETE'
+      method: "DELETE",
     });
     window.location.reload();
-  }
+  };
 
   render() {
     return (
-      <Fragment>
-        {!this.state.loaded ?
-          <img src='../loading.gif' className="loading" alt='loading wheel'></img> :
+      <>
+        {!this.state.loaded ? (
+          <img
+            src="../loading.gif"
+            className="loading"
+            alt="loading wheel"
+          ></img>
+        ) : (
           <NavBar
             handleClick={this.handleActiveItem}
             handleHomeView={this.handleHomeView}
@@ -135,8 +140,8 @@ export default class App extends Component {
             activeItem={this.state.activeItem}
             homeView={this.state.homeView}
           />
-        }
-        {this.state.view === 'home' &&
+        )}
+        {this.state.view === "home" && (
           <QuoteList
             quotes={this.state.quotes}
             tags={this.state.tags}
@@ -149,14 +154,14 @@ export default class App extends Component {
             handleTagClick={this.handleTagClick}
             handleDelete={this.handleDelete}
           />
-        }
-        {this.state.view === 'add' &&
+        )}
+        {this.state.view === "add" && (
           <AddQuote
             tags={this.state.tags}
             handleViewChange={this.handleViewChange}
           />
-        }
-        {this.state.view === 'edit' &&
+        )}
+        {this.state.view === "edit" && (
           <EditQuote
             tags={this.state.tags}
             singleQuote={this.state.singleQuote[0]}
@@ -165,8 +170,10 @@ export default class App extends Component {
             handleHomeView={this.handleHomeView}
             handleViewChange={this.handleViewChange}
           />
-        }
-      </Fragment>
+        )}
+      </>
     );
-  };
-};
+  }
+}
+
+export default App;
