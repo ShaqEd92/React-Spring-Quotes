@@ -174,3 +174,11 @@ ul{
   width: 75%;
   margin: auto;
 }
+
+NavLink{
+  text-decoration: none;
+}
+
+NavLink:hover{
+  background-color: silver;
+}

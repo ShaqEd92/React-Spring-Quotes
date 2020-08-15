@@ -25,7 +25,7 @@ export function saveQuote(quoteWithTags) {
   return fetch(baseUrl, {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify(quote),
+    body: JSON.stringify(quoteWithTags),
   })
     .then(handleResponse)
     .catch(handleError);
@@ -35,7 +35,7 @@ export function editQuote(quote) {
   return fetch(baseUrl + quote.id, {
     method: "PUT",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify(player),
+    body: JSON.stringify(quote),
   })
     .then(handleResponse)
     .catch(handleError);

@@ -10,7 +10,7 @@ const EditQuote = (props) => {
     author: props.singleQuote.author,
   });
   const [updatedTags, setUpdatedTags] = useState(props.singleQuote.tags);
-  const [removedTag, setRemovedTag] = useState([]);
+  // const [removedTag, setRemovedTag] = useState([]);
   const [tagOptions, setTagOptions] = useState(props.tags);
   const [invalidQuoteAuthor, setInvalidQuoteAuthor] = useState(false);
   const [invalidTag, setInvalidTag] = useState(false);
