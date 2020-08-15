@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { isNumber } from "underscore";
-import NavBar from "./NavBar";
-import QuoteList from "./QuoteList";
-import AddQuote from "./AddQuote";
-import EditQuote from "./EditQuote";
-import "../styles/App.css";
+import NavBar from "./components/NavBar";
+import QuoteList from "./components/QuoteList";
+import AddQuote from "./components/AddQuote";
+import EditQuote from "./components/EditQuote";
+import "./App.css";
 
 const App = () => {
   const [loaded, setLoaded] = useState(false);

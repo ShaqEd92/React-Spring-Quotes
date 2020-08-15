@@ -2,7 +2,7 @@ import React, { Fragment, Component } from 'react';
 import { Button, Form, Divider, Grid, Segment } from 'semantic-ui-react';
 import Select from 'react-select';
 import Alert from 'react-bootstrap/Alert';
-import '../styles/App.css';
+import '../App.css';
 
 export default class EditQuote extends Component {
 

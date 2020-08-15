@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Label } from 'semantic-ui-react';
-import '../styles/App.css';
+import '../App.css';
 
 const ViewTag = (props) => {
 

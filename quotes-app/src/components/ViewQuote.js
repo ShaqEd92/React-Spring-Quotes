@@ -1,6 +1,6 @@
 import React from 'react';
 import { Label, Grid, Segment } from 'semantic-ui-react';
-import '../styles/App.css';
+import '../App.css';
 
 const ViewQuote = (props) => {
 

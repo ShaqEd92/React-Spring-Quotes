@@ -3,7 +3,7 @@ import { Card } from 'semantic-ui-react';
 import underscore from 'underscore'
 import ViewQuote from './ViewQuote';
 import ViewTag from './ViewTag';
-import '../styles/App.css';
+import '../App.css';
 
 const QuoteList = (props) => {
 
