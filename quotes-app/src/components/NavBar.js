@@ -1,23 +1,38 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
+import "../App.css";
 
 const NavBar = () => {
   return (
     <>
       <Menu attached="top" tabular>
-        <NavLink to="/" style={{ textDecoration: "none" }}>
+        <NavLink
+          to="/"
+          activeClassName="is-active"
+          style={{ textDecoration: "none" }}
+        >
           <Menu.Item icon="home large" />
         </NavLink>
-        <NavLink to="/" style={{ textDecoration: "none" }}>
+        <NavLink
+          to="/add-quote"
+          activeClassName="is-active"
+          style={{ textDecoration: "none" }}
+        >
           <Menu.Item icon="plus large" />
         </NavLink>
-        <NavLink to="/" style={{ textDecoration: "none" }}>
-          <Menu.Item icon="edit large" />
+        <NavLink
+          to="/edit-quote"
+          activeClassName="is-active"
+          style={{ textDecoration: "none" }}
+        >
+          <Menu.Item
+            icon="edit large"
+            activeClassName="is-active"
+            style={{ cursor: "pointer" }}
+          />
         </NavLink>
-        <NavLink to="/" style={{ textDecoration: "none" }}>
-          <Menu.Item icon="trash large" />
-        </NavLink>
+        <Menu.Item icon="trash large" style={{ cursor: "pointer" }} />
       </Menu>
     </>
   );

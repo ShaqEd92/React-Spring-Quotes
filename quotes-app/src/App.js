@@ -3,14 +3,14 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
   NavLink,
 } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import QuotesList from "./components/QuotesList";
+import QuotesOrTagsList from "./components/QuotesOrTagsList";
 import ViewQuote from "./components/ViewQuote";
 import AddQuote from "./components/AddQuote";
 import EditQuote from "./components/EditQuote";
-import TagsList from "./components/TagsList";
 import ViewTag from "./components/ViewTag";
 import { getQuotes } from "./api/quotesApi";
 import { getTags } from "./api/tagsApi";
@@ -31,24 +31,34 @@ const App = () => {
     <Router>
       <NavBar></NavBar>
 
+      <h1>
+        <NavLink to="/view/quotes" activeClassName="active-view">
+          Quotes&nbsp;
+        </NavLink>
+        |
+        <NavLink to="/view/tags" activeClassName="active-view">
+          &nbsp;Tags
+        </NavLink>
+      </h1>
+
       <Switch>
         <Route exact path="/">
-          <QuotesList quotes={quotes} />
+          <Redirect to="/view/quotes" />
         </Route>
-        <Route path="/quote">
+        <Route path="/view/:slug">
+          <QuotesOrTagsList quotes={quotes} tags={tags} />
+        </Route>
+        <Route path="/quote/:slug">
           <ViewQuote />
         </Route>
         <Route path="/add-quote">
           <AddQuote />
         </Route>
-        <Route path="/edit-quote">
+        <Route path="/edit-quote/:slug">
           <EditQuote />
         </Route>
-        <Route path="/tags">
-          <TagsList></TagsList>
-        </Route>
-        <Route path="/tag">
-          <ViewTag tags={tags} />
+        <Route path="/tag/:slug">
+          <ViewTag />
         </Route>
       </Switch>
     </Router>
