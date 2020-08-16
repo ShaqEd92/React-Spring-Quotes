@@ -19,13 +19,15 @@ import "./App.css";
 const App = () => {
   const [quotes, setQuotes] = useState([]);
   const [tags, setTags] = useState([]);
-  // const [singleQuote, setSingleQuote] = useState({});
-  // const [singleTag, setSingleTag] = useState([]);
 
   useEffect(() => {
-    if (quotes.length === 0) getQuotes().then((_quotes) => setQuotes(_quotes));
-    if (tags.length === 0) getTags().then((_tags) => setTags(_tags));
+    if (quotes.length === 0) fetchData();
   });
+
+  const fetchData = () => {
+    getQuotes().then((_quotes) => setQuotes(_quotes));
+    getTags().then((_tags) => setTags(_tags));
+  };
 
   return (
     <Router>
@@ -45,6 +47,9 @@ const App = () => {
         <Route exact path="/">
           <Redirect to="/view/quotes" />
         </Route>
+        <Route exact path="/view">
+          <Redirect to="/view/quotes" />
+        </Route>
         <Route path="/view/:slug">
           <QuotesOrTagsList quotes={quotes} tags={tags} />
         </Route>
@@ -52,7 +57,7 @@ const App = () => {
           <ViewQuote />
         </Route>
         <Route path="/add-quote">
-          <AddQuote />
+          <AddQuote fetchData={fetchData} tags={tags} />
         </Route>
         <Route path="/edit-quote/:slug">
           <EditQuote />

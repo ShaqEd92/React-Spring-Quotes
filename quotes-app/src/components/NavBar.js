@@ -2,13 +2,14 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 import "../App.css";
+import "../styles/NavBar.css";
 
 const NavBar = () => {
   return (
     <>
       <Menu attached="top" tabular>
         <NavLink
-          to="/"
+          to="/view"
           activeClassName="is-active"
           style={{ textDecoration: "none" }}
         >

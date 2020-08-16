@@ -1,0 +1,23 @@
+.ui.tabular.menu {
+  border-bottom: 1px solid #7a306c;
+}
+
+.ui.tabular.menu .active.item {
+  background: #7a306c;
+  border-left: 1px solid #7a306c;
+  border-right: 1px solid #7a306c;
+  border-top: 2px solid #7a306c;
+}
+
+.ui.raised.segment,
+.ui.raised.segments {
+  background-color: #242038;
+  color: #8e8dbe;
+  padding: 5%;
+}
+
+.ui.violet.ribbon.label {
+  position: absolute;
+  top: 7.5%;
+  left: -1.85%;
+}

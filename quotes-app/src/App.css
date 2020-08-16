@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  font-family: oblique;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #7a306c;
@@ -18,49 +17,9 @@ a:hover{
   color: #242038;
 }
 
-h1 {
-  font-size: 2.6em;
-  font-family: oblique;
-}
-
-h2 {
-  font-family: oblique;
-}
-
-h3 {
-  font-size: 1.5em;
-  font-family: oblique;
-  margin-top: 2%;
-}
-
-h4 {
-  font-size: 1.1em;
-  font-family: oblique;
-  text-decoration: underline;
-}
-
 ul {
   list-style: none;
   text-align: left;
-}
-
-.ui.card {
-  width: 90%;
-  margin: 2%;
-}
-
-.ui.card > .content {
-  background-color: #242038;
-  font-size: 1.15em;
-}
-
-.ui.card > .content.extra {
-  background-color: #242038;
-  font-style: italic;
-}
-
-.ui.card > .content > .description {
-  color: #8e8dbe;
 }
 
 #quotes {
@@ -70,61 +29,31 @@ ul {
   vertical-align: top;
 }
 
-#tagForm {
-  top: 78%;
-}
-
-.ui.form .field {
-  font-size: 1.15em;
-  display: inline-block;
-}
-
-.ui.form .field label {
-  font: 1.1em oblique;
-  color: #8e8dbe;
-  margin: 2%;
-}
-
-.ui.form .field button {
-  font: 1em oblique;
-  color: #7a306c;
-  margin-top: 3%;
+.add-container{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 75%;
+  margin: auto;
+  padding: 1%;
 }
 
 .form-container {
-  border: 3px solid #8e8dbe;
-  border-radius: 15%;
-  width: 60%;
-  display: inline-block;
-  position: absolute;
-  padding: 1% 5% 2% 5%;
-  top: 18%;
-  left: 40%;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
   background-color: #242038;
   color: #8e8dbe;
-}
-
-/* Form select container */
-.css-2b097c-container {
-  margin-top: 2%;
-  font-size: 1.15em;
-  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
-  color: #8e8dbe;
+  border: 3px solid #8e8dbe;
+  border-radius: 10%;
+  padding: 1% 5% 2% 5%;
+  flex: 4;
 }
 
 .tagsList {
-  border: 3px solid #8e8dbe;
-  border-radius: 15%;
-  width: 20%;
-  display: inline-block;
-  position: absolute;
-  padding: 1% 5% 2% 5%;
-  top: 18%;
-  right: 5%;
   background-color: #242038;
   color: #8e8dbe;
+  border: 3px solid #8e8dbe;
+  border-radius: 10%;
+  padding: 1% 5% 2% 5%;
+  flex: 1;
 }
 
 .single-quote {
@@ -143,30 +72,6 @@ ul {
   display: inline-block;
 }
 
-.ui.tabular.menu {
-  border-bottom: 1px solid #7a306c;
-}
-
-.ui.tabular.menu .active.item {
-  background: #7a306c;
-  border-left: 1px solid #7a306c;
-  border-right: 1px solid #7a306c;
-  border-top: 2px solid #7a306c;
-}
-
-.ui.raised.segment,
-.ui.raised.segments {
-  background-color: #242038;
-  color: #8e8dbe;
-  padding: 5%;
-}
-
-.ui.violet.ribbon.label {
-  position: absolute;
-  top: 7.5%;
-  left: -1.85%;
-}
-
 .emptyAlerts {
   width: 75%;
   margin: auto;
@@ -178,4 +83,56 @@ ul {
 
 .active-view{
   font-weight: bold;
+}
+
+/* FORM */
+
+.ui.form .fields {
+  display: flex;
+  justify-content: center;
+}
+
+.ui.form .field {
+  display: inline-block
+}
+
+.ui.form .field label {
+  font-size: 1.15em;
+  color: #8e8dbe;
+  margin: 1vh;
+}
+
+.ui.form .field button {
+  color: #7a306c;
+  margin-top: 2vh;
+}
+
+/* Form select container */
+.css-2b097c-container {
+  font-size: 1.15em;
+  color: #8e8dbe;
+  width: 52%;
+  margin: auto;
+  padding: 1vh;
+}
+
+/* CARD */
+
+.ui.card {
+  width: 90%;
+  margin: 2%;
+}
+
+.ui.card > .content {
+  background-color: #242038;
+  font-size: 1.15em;
+}
+
+.ui.card > .content.extra {
+  background-color: #242038;
+  font-style: italic;
+}
+
+.ui.card > .content > .description {
+  color: #8e8dbe;
 }
