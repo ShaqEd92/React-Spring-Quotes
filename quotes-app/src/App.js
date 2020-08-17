@@ -13,6 +13,7 @@ import AddQuote from "./components/AddQuote";
 import EditQuote from "./components/EditQuote";
 import ViewTag from "./components/ViewTag";
 import ViewAuthor from "./components/ViewAuthor";
+import Footer from "./components/Footer.js";
 import { getQuotes } from "./api/quotesApi";
 import { getTags } from "./api/tagsApi";
 import "./App.css";
@@ -77,6 +78,8 @@ const App = () => {
           <ViewAuthor setId={setId} />
         </Route>
       </Switch>
+
+      <Footer />
     </Router>
   );
 };
