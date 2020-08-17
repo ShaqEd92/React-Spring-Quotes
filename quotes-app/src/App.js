@@ -12,6 +12,7 @@ import ViewQuote from "./components/ViewQuote";
 import AddQuote from "./components/AddQuote";
 import EditQuote from "./components/EditQuote";
 import ViewTag from "./components/ViewTag";
+import ViewAuthor from "./components/ViewAuthor";
 import { getQuotes } from "./api/quotesApi";
 import { getTags } from "./api/tagsApi";
 import "./App.css";
@@ -23,7 +24,7 @@ const App = () => {
 
   useEffect(() => {
     if (quotes.length === 0) fetchData();
-  });
+  }, [quotes]);
 
   const fetchData = () => {
     getQuotes().then((_quotes) => setQuotes(_quotes));
@@ -70,7 +71,10 @@ const App = () => {
           <EditQuote setId={setId} />
         </Route>
         <Route path="/tag/:slug">
-          <ViewTag />
+          <ViewTag setId={setId} />
+        </Route>
+        <Route path="/author/:slug">
+          <ViewAuthor setId={setId} />
         </Route>
       </Switch>
     </Router>

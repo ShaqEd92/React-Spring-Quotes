@@ -7,11 +7,10 @@ import "../App.css";
 const QuotesOrTagsList = (props) => {
   let view = useParams().slug;
 
-  const [quotes, setQuotes] = useState([])
+  const [quotes, setQuotes] = useState([]);
 
   useEffect(() => {
-    console.log(props.quotes)
-    setQuotes(props.quotes)
+    setQuotes(props.quotes);
     props.setId(null);
   }, [props]);
 
@@ -20,7 +19,9 @@ const QuotesOrTagsList = (props) => {
       <Link to={`/quote/${q.id}`} className="card-content">
         <Card.Content description={q.content} />
       </Link>
-      <Card.Content extra description={q.author} />
+      <Link to={`/author/${q.author}`} className="card-content">
+        <Card.Content extra description={q.author} />
+      </Link>
     </Card>
   ));
 

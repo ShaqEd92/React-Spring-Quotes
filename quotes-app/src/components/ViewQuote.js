@@ -20,9 +20,11 @@ const ViewQuote = (props) => {
         <div className="single-quote">
           <Grid.Column>
             <Segment raised size="huge">
-              <Label as="a" color="violet" ribbon icon="pencil">
-                {quote.author}
-              </Label>
+              <Link to={`/author/${quote.author}`}>
+                <Label as="a" color="violet" ribbon icon="pencil">
+                  {quote.author}
+                </Label>
+              </Link>
               {quote.content}
             </Segment>
           </Grid.Column>

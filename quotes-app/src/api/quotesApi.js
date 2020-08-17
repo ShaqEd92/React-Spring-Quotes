@@ -17,8 +17,8 @@ export function getQuotesForTag(name) {
     .catch(handleError);
 }
 
-export function getQuotesForAuthor(author) {
-  return fetch("/quotes/author/" + author)
+export function getQuotesForAuthor(name) {
+  return fetch("/quotes/author/" + name)
     .then(handleResponse)
     .catch(handleError);
 }

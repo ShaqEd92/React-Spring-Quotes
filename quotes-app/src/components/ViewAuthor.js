@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Label } from "semantic-ui-react";
-import { getQuotesForTag } from "../api/quotesApi";
-import { getTag } from "../api/tagsApi";
+import { getQuotesForAuthor } from "../api/quotesApi";
 import "../App.css";
 
 const ViewTag = (props) => {
-  let id = useParams().slug;
+  let name = useParams().slug;
 
-  const [tag, setTag] = useState();
+  const [author, setAuthor] = useState();
   const [quotes, setQuotes] = useState([]);
 
   useEffect(() => {
-    getTag(id).then((_tag) => setTag(_tag));
+    setAuthor(name)
     props.setId(null);
-  }, [id]);
+  }, [name, props]);
 
   useEffect(() => {
-    if (tag) getQuotesForTag(tag.name).then((_quotes) => setQuotes(_quotes));
-  }, [tag]);
+    getQuotesForAuthor(name).then((_quotes) => setQuotes(_quotes));
+  }, [name]);
 
   return (
     <>
-      {tag && (
+      {author && (
         <div style={{ padding: "2%" }}>
           <Label as="a" color="#7A306C" size="huge" tag>
-            {tag.name}
+            {author}
           </Label>
           {quotes.map((quote) => (
             <div className="quote-box">
