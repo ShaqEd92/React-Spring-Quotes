@@ -1,10 +1,19 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
+import { deleteQuote } from "../api/quotesApi";
 import "../App.css";
 import "../styles/NavBar.css";
 
 const NavBar = (props) => {
+  let history = useHistory();
+
+  const handleClick = () => {
+      deleteQuote(props.id).catch((err) => console.log(err));
+      history.push("/");  
+      window.location.reload();
+  };
+
   return (
     <>
       <Menu attached="top" tabular>
@@ -35,7 +44,11 @@ const NavBar = (props) => {
                 style={{ cursor: "pointer" }}
               />
             </NavLink>
-            <Menu.Item icon="trash large" style={{ cursor: "pointer" }} />
+            <Menu.Item
+              icon="trash large"
+              style={{ cursor: "pointer" }}
+              onClick={handleClick}
+            />
           </>
         )}
       </Menu>

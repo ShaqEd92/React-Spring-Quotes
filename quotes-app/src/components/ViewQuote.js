@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Label, Grid, Segment } from "semantic-ui-react";
 import { getQuote } from "../api/quotesApi";
 import "../App.css";
@@ -34,9 +34,11 @@ const ViewQuote = (props) => {
           ) : (
             quote.tags.map((t) => (
               <div className="quoteTags">
-                <Label as="a" color="#7A306C" tag>
-                  {t.name}
-                </Label>{" "}
+                <Link to={`/tag/${t.id}`}>
+                  <Label as="a" color="#7A306C" tag>
+                    {t.name}
+                  </Label>{" "}
+                </Link>
                 &nbsp;
               </div>
             ))

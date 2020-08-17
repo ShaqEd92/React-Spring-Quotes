@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Card, Label } from "semantic-ui-react";
 import _ from "underscore";
@@ -7,11 +7,15 @@ import "../App.css";
 const QuotesOrTagsList = (props) => {
   let view = useParams().slug;
 
+  const [quotes, setQuotes] = useState([])
+
   useEffect(() => {
+    console.log(props.quotes)
+    setQuotes(props.quotes)
     props.setId(null);
   }, [props]);
 
-  const allQuotes = _.shuffle(props.quotes).map((q) => (
+  const allQuotes = _.shuffle(quotes).map((q) => (
     <Card ui centered card key={q.id} style={{ cursor: "pointer" }}>
       <Link to={`/quote/${q.id}`} className="card-content">
         <Card.Content description={q.content} />

@@ -11,12 +11,14 @@ export function getQuote(id) {
     .catch(handleError);
 }
 
-export function getQuotesForTag(tag) {
-  return fetch(`/quotes/tag/${tag}`).then(handleResponse).catch(handleError);
+export function getQuotesForTag(name) {
+  return fetch("/quotes/tag/" + name)
+    .then(handleResponse)
+    .catch(handleError);
 }
 
 export function getQuotesForAuthor(author) {
-  return fetch(`/quotes/author/${author}`)
+  return fetch("/quotes/author/" + author)
     .then(handleResponse)
     .catch(handleError);
 }

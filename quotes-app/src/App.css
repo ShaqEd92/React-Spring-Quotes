@@ -64,6 +64,14 @@ ul {
   padding: 2%;
 }
 
+.quote-box{
+  border: 2px dotted #242038;
+  font-size: 1.45em;
+  margin: 2% auto;
+  padding: 1%;
+  width: 75%;
+}
+
 .quoteTags {
   display: inline-block;
 }

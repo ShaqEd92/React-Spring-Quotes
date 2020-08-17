@@ -32,7 +32,7 @@ const App = () => {
 
   return (
     <Router>
-      <NavBar id={id} />
+      <NavBar id={id} quotes={quotes} setQuotes={setQuotes} />
       <br />
       <h1>
         <NavLink to="/view/quotes" activeClassName="active-view">
