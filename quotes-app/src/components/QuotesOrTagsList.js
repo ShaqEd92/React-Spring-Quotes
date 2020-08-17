@@ -27,9 +27,11 @@ const QuotesOrTagsList = (props) => {
 
   const allTags = _.shuffle(props.tags).map((t) => (
     <p>
-      <Label as="a" color="#7A306C" key={t.id} tag>
-        {t.name}
-      </Label>
+      <Link to={`/tag/${t.id}`}>
+        <Label as="a" color="#7A306C" key={t.id} tag>
+          {t.name}
+        </Label>
+      </Link>
       <br />
     </p>
   ));
