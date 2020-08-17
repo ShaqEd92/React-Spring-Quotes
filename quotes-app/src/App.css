@@ -61,11 +61,7 @@ ul {
   font-size: 1.8em;
   font-style: italic;
   margin: auto;
-}
-
-.single-quote p {
-  font-style: normal;
-  text-decoration: underline;
+  padding: 2%;
 }
 
 .quoteTags {
@@ -123,9 +119,15 @@ ul {
   margin: 2%;
 }
 
-.ui.card > .content {
+.card-content {
   background-color: #242038;
+  color: #8e8dbe;
   font-size: 1.15em;
+  padding: 2%;
+}
+
+.card-content:hover{
+  color: silver;
 }
 
 .ui.card > .content.extra {

@@ -31,8 +31,8 @@ const App = () => {
 
   return (
     <Router>
-      <NavBar></NavBar>
-
+      <NavBar />
+      <br />
       <h1>
         <NavLink to="/view/quotes" activeClassName="active-view">
           Quotes&nbsp;

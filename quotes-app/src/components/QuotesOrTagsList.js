@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { Link, useParams } from "react-router-dom";
 import { Card, Label } from "semantic-ui-react";
 import _ from "underscore";
 import "../App.css";
@@ -9,7 +9,9 @@ const QuotesOrTagsList = (props) => {
 
   const allQuotes = _.shuffle(props.quotes).map((q) => (
     <Card ui centered card key={q.id} style={{ cursor: "pointer" }}>
-      <Card.Content description={q.content} />
+      <Link to={`/quote/${q.id}`} className="card-content">
+        <Card.Content description={q.content} />
+      </Link>
       <Card.Content extra description={q.author} />
     </Card>
   ));
