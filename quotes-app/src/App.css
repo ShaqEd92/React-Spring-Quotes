@@ -8,11 +8,11 @@ body {
   width: 100%;
 }
 
-a{
+a {
   color: #7a306c;
 }
 
-a:hover{
+a:hover {
   text-decoration: none;
   color: #242038;
 }
@@ -29,7 +29,7 @@ ul {
   vertical-align: top;
 }
 
-.add-container{
+.add-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -73,11 +73,11 @@ ul {
   margin: auto;
 }
 
-.is-active{
+.is-active {
   background-color: #7a306c;
 }
 
-.active-view{
+.active-view {
   font-weight: bold;
 }
 
@@ -89,7 +89,7 @@ ul {
 }
 
 .ui.form .field {
-  display: inline-block
+  display: inline-block;
 }
 
 .ui.form .field label {
@@ -126,7 +126,7 @@ ul {
   padding: 2%;
 }
 
-.card-content:hover{
+.card-content:hover {
   color: silver;
 }
 
@@ -137,4 +137,23 @@ ul {
 
 .ui.card > .content > .description {
   color: #8e8dbe;
+}
+
+/* EDIT QUOTE STYLES */
+
+.edit-container {
+  background: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: auto;
+  padding: 3% 1%;
+  width: 95%;
+}
+
+.edit-box {
+  flex: 1;
+  border: 2px dotted #7a306c;
+  padding: 2% 0;
+  margin: 1%;
 }

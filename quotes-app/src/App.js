@@ -52,11 +52,7 @@ const App = () => {
           <Redirect to="/view/quotes" />
         </Route>
         <Route path="/view/:slug">
-          <QuotesOrTagsList
-            quotes={quotes}
-            tags={tags}
-            setId={setId}
-          />
+          <QuotesOrTagsList quotes={quotes} tags={tags} setId={setId} />
         </Route>
         <Route path="/quote/:slug">
           <ViewQuote setId={setId} />
@@ -71,7 +67,7 @@ const App = () => {
           />
         </Route>
         <Route path="/edit-quote/:slug">
-          <EditQuote />
+          <EditQuote setId={setId} />
         </Route>
         <Route path="/tag/:slug">
           <ViewTag />

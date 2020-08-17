@@ -31,11 +31,11 @@ export function saveQuote(quoteWithTags) {
     .catch(handleError);
 }
 
-export function editQuote(quote) {
-  return fetch(baseUrl + quote.id, {
+export function editQuote(quoteWrapper, id) {
+  return fetch(baseUrl + id, {
     method: "PUT",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify(quote),
+    body: JSON.stringify(quoteWrapper),
   })
     .then(handleResponse)
     .catch(handleError);

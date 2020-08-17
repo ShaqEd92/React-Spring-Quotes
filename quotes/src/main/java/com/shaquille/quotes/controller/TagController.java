@@ -28,6 +28,13 @@ public class TagController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("quote/{id}")
+    public ResponseEntity<?> listRemainingTags(@PathVariable Long id){
+        Optional<List<Tag>> tags = Optional.of(tagService.listRemainingTags(id));
+        return tags.map(resp -> ResponseEntity.ok().body(resp))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<?> getTag(@PathVariable Long id){
         Optional<Tag> tag = tagService.getTag(id);

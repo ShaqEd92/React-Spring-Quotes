@@ -5,6 +5,10 @@ export function getTags() {
   return fetch(baseUrl).then(handleResponse).catch(handleError);
 }
 
+export function getOtherTags(id) {
+  return fetch("/tags/quote/" + id).then(handleResponse).catch(handleError);
+}
+
 export function getTag(id) {
   return fetch(baseUrl + id)
     .then(handleResponse)
