@@ -1,11 +1,10 @@
 import React from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 import "../App.css";
 import "../styles/NavBar.css";
 
-const NavBar = () => {
-  let view = useParams().slug;
+const NavBar = (props) => {
   return (
     <>
       <Menu attached="top" tabular>
@@ -23,10 +22,10 @@ const NavBar = () => {
         >
           <Menu.Item icon="plus large" />
         </NavLink>
-        {(view !== "quotes" || view !== "tags") && (
+        {props.id && (
           <>
             <NavLink
-              to="/edit-quote"
+              to={`/edit-quote/${props.id}`}
               activeClassName="is-active"
               style={{ textDecoration: "none" }}
             >

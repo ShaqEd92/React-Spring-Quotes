@@ -19,6 +19,7 @@ import "./App.css";
 const App = () => {
   const [quotes, setQuotes] = useState([]);
   const [tags, setTags] = useState([]);
+  const [id, setId] = useState(false);
 
   useEffect(() => {
     if (quotes.length === 0) fetchData();
@@ -31,7 +32,7 @@ const App = () => {
 
   return (
     <Router>
-      <NavBar />
+      <NavBar id={id} />
       <br />
       <h1>
         <NavLink to="/view/quotes" activeClassName="active-view">
@@ -51,13 +52,23 @@ const App = () => {
           <Redirect to="/view/quotes" />
         </Route>
         <Route path="/view/:slug">
-          <QuotesOrTagsList quotes={quotes} tags={tags} />
+          <QuotesOrTagsList
+            quotes={quotes}
+            tags={tags}
+            setId={setId}
+          />
         </Route>
         <Route path="/quote/:slug">
-          <ViewQuote />
+          <ViewQuote setId={setId} />
         </Route>
         <Route path="/add-quote">
-          <AddQuote fetchData={fetchData} tags={tags} />
+          <AddQuote
+            fetchData={fetchData}
+            quotes={quotes}
+            setQuotes={setQuotes}
+            tags={tags}
+            setId={setId}
+          />
         </Route>
         <Route path="/edit-quote/:slug">
           <EditQuote />

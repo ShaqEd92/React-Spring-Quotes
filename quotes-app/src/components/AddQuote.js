@@ -20,6 +20,7 @@ const AddQuote = (props) => {
 
   useEffect(() => {
     setExistingTags(props.tags);
+    props.setId(null);
   }, [props]);
 
   const isValid = (str) => {
@@ -75,9 +76,8 @@ const AddQuote = (props) => {
         theQuote: quote,
         theTags: newTags,
       };
-      saveQuote(postData);
+      saveQuote(postData).then(_quote => props.setQuotes([...props.quotes, _quote]))
       history.push("/");
-      window.location.reload();
     } else {
       setInvalidQuoteAuthor(true);
     }

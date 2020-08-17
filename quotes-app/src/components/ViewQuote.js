@@ -4,14 +4,15 @@ import { Label, Grid, Segment } from "semantic-ui-react";
 import { getQuote } from "../api/quotesApi";
 import "../App.css";
 
-const ViewQuote = () => {
+const ViewQuote = (props) => {
   let id = useParams().slug;
 
   const [quote, setQuote] = useState();
 
   useEffect(() => {
     getQuote(id).then((_quote) => setQuote(_quote));
-  });
+    props.setId(id);
+  }, [props, id]);
 
   return (
     <>
