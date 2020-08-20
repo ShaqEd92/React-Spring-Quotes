@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Label } from "semantic-ui-react";
 import { getQuotesForAuthor } from "../api/quotesApi";
-import "../App.css";
+import "../styles/App.css";
 
 const ViewTag = (props) => {
   let name = useParams().slug;

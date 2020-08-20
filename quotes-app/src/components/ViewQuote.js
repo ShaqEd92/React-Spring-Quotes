@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Label, Grid, Segment } from "semantic-ui-react";
+import { Label } from "semantic-ui-react";
 import { getQuote } from "../api/quotesApi";
-import "../App.css";
+import "../styles/App.css";
 
 const ViewQuote = (props) => {
   let id = useParams().slug;
@@ -18,30 +18,32 @@ const ViewQuote = (props) => {
     <>
       {quote && (
         <div className="single-quote">
-          <Grid.Column>
-            <Segment raised size="huge">
-              <Link to={`/author/${quote.author}`}>
-                <Label as="a" color="violet" ribbon icon="pencil">
-                  {quote.author}
-                </Label>
-              </Link>
-              {quote.content}
-            </Segment>
-          </Grid.Column>
+          <div className="quote-box">
+            <p>"{quote.content}"</p>
+          </div>
+          <Link
+            to={`/author/${quote.author}`}
+            style={{ textDecoration: "none", color: "#8e8dbe" }}
+          >
+            <p>{quote.author}</p>
+          </Link>
           <br />
           {quote.tags.length === 0 ? (
-            <Label as="a" color="#7A306C" tag>
-              There are currently no tags
+            <Label tag>
+              <span style={{ fontSize: "1.25rem", color: "#7a306c" }}>
+                There are currently no tags
+              </span>
             </Label>
           ) : (
             quote.tags.map((t) => (
-              <div className="quoteTags">
+              <div className="quote-tags">
                 <Link to={`/tag/${t.id}`}>
-                  <Label as="a" color="#7A306C" tag>
-                    {t.name}
-                  </Label>{" "}
+                  <Label tag>
+                    <span style={{ fontSize: "1.25rem", color: "#7a306c" }}>
+                      {t.name}
+                    </span>
+                  </Label>
                 </Link>
-                &nbsp;
               </div>
             ))
           )}

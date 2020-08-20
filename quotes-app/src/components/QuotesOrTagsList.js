@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Card, Label } from "semantic-ui-react";
 import _ from "underscore";
-import "../App.css";
+import "../styles/App.css";
 
 const QuotesOrTagsList = (props) => {
   let view = useParams().slug;
@@ -20,7 +20,9 @@ const QuotesOrTagsList = (props) => {
         <Card.Content description={q.content} />
       </Link>
       <Link to={`/author/${q.author}`} className="card-content">
-        <Card.Content extra description={q.author} />
+        <Card.Content>
+          <span style={{ fontStyle: "italic" }}>{q.author}</span>
+        </Card.Content>
       </Link>
     </Card>
   ));
@@ -28,8 +30,11 @@ const QuotesOrTagsList = (props) => {
   const allTags = _.shuffle(props.tags).map((t) => (
     <p>
       <Link to={`/tag/${t.id}`}>
-        <Label as="a" color="#7A306C" key={t.id} tag>
-          {t.name}
+        <Label key={t.id} tag>
+          <span style={{ fontSize: "1.25rem", color: "#7a306c" }}>
+            {" "}
+            {t.name}
+          </span>
         </Label>
       </Link>
       <br />

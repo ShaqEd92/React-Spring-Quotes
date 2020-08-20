@@ -16,7 +16,7 @@ import ViewAuthor from "./components/ViewAuthor";
 import Footer from "./components/Footer.js";
 import { getQuotes } from "./api/quotesApi";
 import { getTags } from "./api/tagsApi";
-import "./App.css";
+import "./styles/App.css";
 
 const App = () => {
   const [quotes, setQuotes] = useState([]);
@@ -34,52 +34,54 @@ const App = () => {
 
   return (
     <Router>
-      <NavBar id={id} quotes={quotes} setQuotes={setQuotes} />
-      <br />
-      <h1>
-        <NavLink to="/view/quotes" activeClassName="active-view">
-          Quotes&nbsp;
-        </NavLink>
-        |
-        <NavLink to="/view/tags" activeClassName="active-view">
-          &nbsp;Tags
-        </NavLink>
-      </h1>
+      <div className="wrapper">
+        <NavBar id={id} quotes={quotes} setQuotes={setQuotes} />
+        <br />
+        <h1>
+          <NavLink to="/view/quotes" activeClassName="active-view">
+            Quotes&nbsp;
+          </NavLink>
+          |
+          <NavLink to="/view/tags" activeClassName="active-view">
+            &nbsp;Tags
+          </NavLink>
+        </h1>
 
-      <Switch>
-        <Route exact path="/">
-          <Redirect to="/view/quotes" />
-        </Route>
-        <Route exact path="/view">
-          <Redirect to="/view/quotes" />
-        </Route>
-        <Route path="/view/:slug">
-          <QuotesOrTagsList quotes={quotes} tags={tags} setId={setId} />
-        </Route>
-        <Route path="/quote/:slug">
-          <ViewQuote setId={setId} />
-        </Route>
-        <Route path="/add-quote">
-          <AddQuote
-            fetchData={fetchData}
-            quotes={quotes}
-            setQuotes={setQuotes}
-            tags={tags}
-            setId={setId}
-          />
-        </Route>
-        <Route path="/edit-quote/:slug">
-          <EditQuote setId={setId} />
-        </Route>
-        <Route path="/tag/:slug">
-          <ViewTag setId={setId} />
-        </Route>
-        <Route path="/author/:slug">
-          <ViewAuthor setId={setId} />
-        </Route>
-      </Switch>
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/view/quotes" />
+          </Route>
+          <Route exact path="/view">
+            <Redirect to="/view/quotes" />
+          </Route>
+          <Route path="/view/:slug">
+            <QuotesOrTagsList quotes={quotes} tags={tags} setId={setId} />
+          </Route>
+          <Route path="/quote/:slug">
+            <ViewQuote setId={setId} />
+          </Route>
+          <Route path="/add-quote">
+            <AddQuote
+              fetchData={fetchData}
+              quotes={quotes}
+              setQuotes={setQuotes}
+              tags={tags}
+              setId={setId}
+            />
+          </Route>
+          <Route path="/edit-quote/:slug">
+            <EditQuote setId={setId} />
+          </Route>
+          <Route path="/tag/:slug">
+            <ViewTag setId={setId} />
+          </Route>
+          <Route path="/author/:slug">
+            <ViewAuthor setId={setId} />
+          </Route>
+        </Switch>
 
-      <Footer />
+        <Footer />
+      </div>
     </Router>
   );
 };

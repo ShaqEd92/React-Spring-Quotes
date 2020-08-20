@@ -1,12 +1,16 @@
 import React from "react";
-import "../App.css";
+import "../styles/App.css";
 
 const Footer = () => {
   const footer = {
-    height: "2.5vw",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    height: "3vh",
     width: "100vw",
     backgroundColor: "black",
     color: "white",
+    fontSize: "1.35rem",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -18,7 +22,7 @@ const Footer = () => {
       <a
         href="https://ShaqEd92.github.io"
         target="blank"
-        style={{ color: "#8e8dbe" }}
+        style={{ color: "#8e8dbe", fontSize: "1.35rem" }}
       >
         Shaquille Edwards
       </a>

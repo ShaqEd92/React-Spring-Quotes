@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Label } from "semantic-ui-react";
 import { getQuotesForTag } from "../api/quotesApi";
 import { getTag } from "../api/tagsApi";
-import "../App.css";
+import "../styles/App.css";
 
 const ViewTag = (props) => {
   let id = useParams().slug;

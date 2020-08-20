@@ -4,7 +4,7 @@ import { Form } from "semantic-ui-react";
 import Alert from "react-bootstrap/Alert";
 import Select from "react-select";
 import { saveQuote } from "../api/quotesApi";
-import "../App.css";
+import "../styles/App.css";
 
 const AddQuote = (props) => {
   let history = useHistory();
@@ -76,7 +76,9 @@ const AddQuote = (props) => {
         theQuote: quote,
         theTags: newTags,
       };
-      saveQuote(postData).then(_quote => props.setQuotes([...props.quotes, _quote]))
+      saveQuote(postData).then((_quote) =>
+        props.setQuotes([...props.quotes, _quote])
+      );
       history.push("/");
     } else {
       setInvalidQuoteAuthor(true);
@@ -111,20 +113,21 @@ const AddQuote = (props) => {
       <div className="add-container">
         <div className="form-container">
           <Form onSubmit={handleSubmit}>
+            <h5>Quote</h5>
             <Form.Group>
               <Form.TextArea
                 width={14}
-                label="Quote"
                 placeholder="Add another great quote to the list..."
                 name="content"
                 value={quote.content}
                 onChange={handleChange}
               />
             </Form.Group>
+            <br />
+            <h5>Author</h5>
             <Form.Group>
               <Form.Input
                 width={8}
-                label="Author"
                 placeholder="Enter quote's author..."
                 name="author"
                 value={quote.author}
@@ -140,7 +143,6 @@ const AddQuote = (props) => {
                 value: t.name,
               }))}
             />
-            <br />
             <Form.Button>Submit Quote</Form.Button>
           </Form>
           <br />
@@ -154,9 +156,8 @@ const AddQuote = (props) => {
             <Form.Button>+</Form.Button>
           </Form>
         </div>
-        <div style={{ flex: 1 }}></div>
         <div className="tagsList">
-          <h4>Added Tags</h4>
+          <h5>Added Tags</h5>
           <ul>
             {newTags.map((tag) => (
               <li key={tag.name}>{tag.name}</li>

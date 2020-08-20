@@ -5,7 +5,7 @@ import Select from "react-select";
 import Alert from "react-bootstrap/Alert";
 import { getQuote, editQuote } from "../api/quotesApi";
 import { getOtherTags } from "../api/tagsApi";
-import "../App.css";
+import "../styles/App.css";
 
 const EditQuote = (props) => {
   let id = useParams().slug;
@@ -122,7 +122,7 @@ const EditQuote = (props) => {
       <div className="edit-container">
         <div className="edit-box">
           <Form onSubmit={handleSubmit}>
-            <h4>Quote</h4>
+            <h5>Quote</h5>
             <Form.Group>
               <Form.TextArea
                 width={12}
@@ -131,7 +131,7 @@ const EditQuote = (props) => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <h4>Author</h4>
+            <h5>Author</h5>
             <Form.Group>
               <Form.Input
                 width={8}
@@ -144,7 +144,7 @@ const EditQuote = (props) => {
           </Form>
         </div>
         <div className="edit-box">
-          <h4>Tags</h4>
+          <h5>Tags</h5>
           {updatedQuote.tags.map((t) => (
             <>
               <Button.Group style={{ marginBottom: "2%" }}>
