@@ -81,6 +81,9 @@ ul {
           justify-content: space-between;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
   width: 85%;
   margin: auto;
   padding: 1%;
@@ -92,6 +95,9 @@ ul {
   padding: 1% 5% 2% 5%;
   -ms-flex-preferred-size: 45%;
       flex-basis: 45%;
+  margin: auto;
+  margin-bottom: 2vh;
+  min-height: 55vh;
 }
 
 .tagsList {
@@ -101,6 +107,8 @@ ul {
   padding: 1% 5% 2% 5%;
   -ms-flex-preferred-size: 45%;
       flex-basis: 45%;
+  margin: auto;
+  min-height: 55vh;
 }
 
 .single-quote {
@@ -137,7 +145,8 @@ ul {
 }
 
 /* FORM */
-.ui.form .field .ui.input input, .ui.form .fields .field .ui.input input {
+.ui.form .field .ui.input input,
+.ui.form .fields .field .ui.input input {
   font-family: "Libre Caslon Display", serif;
 }
 
@@ -208,17 +217,20 @@ ul {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   margin: auto;
   padding: 3% 1%;
   width: 95%;
 }
 
 .edit-box {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -ms-flex-preferred-size: 45%;
+      flex-basis: 45%;
   border: 2px dotted #7a306c;
-  padding: 2% 0;
-  margin: 1%;
+  padding: 2% 1%;
+  margin: auto;
+  margin-bottom: 2%;
 }
 /*# sourceMappingURL=App.css.map */

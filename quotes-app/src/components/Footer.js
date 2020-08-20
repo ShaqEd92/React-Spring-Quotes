@@ -6,7 +6,7 @@ const Footer = () => {
     position: "absolute",
     bottom: 0,
     left: 0,
-    height: "3vh",
+    height: "5vh",
     width: "100vw",
     backgroundColor: "black",
     color: "white",

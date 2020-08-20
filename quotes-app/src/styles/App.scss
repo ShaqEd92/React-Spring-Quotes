@@ -76,6 +76,7 @@ ul {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  align-items: stretch;
   width: 85%;
   margin: auto;
   padding: 1%;
@@ -86,6 +87,9 @@ ul {
   border-radius: 10%;
   padding: 1% 5% 2% 5%;
   flex-basis: 45%;
+  margin: auto;
+  margin-bottom: 2vh;
+  min-height: 55vh;
 }
 
 .tagsList {
@@ -94,6 +98,8 @@ ul {
   border-radius: 10%;
   padding: 1% 5% 2% 5%;
   flex-basis: 45%;
+  margin: auto;
+  min-height: 55vh;
 }
 
 .single-quote {
@@ -195,14 +201,16 @@ ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: flex-start;
   margin: auto;
   padding: 3% 1%;
   width: 95%;
 }
 
 .edit-box {
-  flex: 1;
+  flex-basis: 45%;
   border: 2px dotted $secondary;
-  padding: 2% 0;
-  margin: 1%;
+  padding: 2% 1%;
+  margin: auto;
+  margin-bottom: 2%;
 }
