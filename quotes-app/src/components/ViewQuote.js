@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Label } from "semantic-ui-react";
 import { getQuote } from "../api/quotesApi";
-import "../styles/App.css";
 
-const ViewQuote = (props) => {
+const ViewQuote = ({ setId }) => {
   let id = useParams().slug;
 
   const [quote, setQuote] = useState();
 
   useEffect(() => {
     getQuote(id).then((_quote) => setQuote(_quote));
-    props.setId(id);
-  }, [props, id]);
+    setId(id);
+  }, [setId, id]);
 
   return (
     <>
@@ -29,20 +27,20 @@ const ViewQuote = (props) => {
           </Link>
           <br />
           {quote.tags.length === 0 ? (
-            <Label tag>
+            <div>
               <span style={{ fontSize: "1.25rem", color: "#7a306c" }}>
                 There are currently no tags
               </span>
-            </Label>
+            </div>
           ) : (
             quote.tags.map((t) => (
               <div className="quote-tags">
                 <Link to={`/tag/${t.id}`}>
-                  <Label tag>
+                  <div>
                     <span style={{ fontSize: "1.25rem", color: "#7a306c" }}>
                       {t.name}
                     </span>
-                  </Label>
+                  </div>
                 </Link>
               </div>
             ))

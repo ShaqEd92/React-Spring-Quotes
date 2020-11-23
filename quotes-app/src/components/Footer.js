@@ -1,5 +1,4 @@
 import React from "react";
-import "../styles/App.css";
 
 const Footer = () => {
   const footer = {
@@ -20,7 +19,7 @@ const Footer = () => {
     <div style={footer}>
       Created by&nbsp;
       <a
-        href="https://ShaqEd92.github.io"
+        href="https://www.ShaqEdwards.com"
         target="blank"
         style={{ color: "#8e8dbe", fontSize: "1.35rem" }}
       >

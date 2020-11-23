@@ -1,58 +1,46 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
 import { deleteQuote } from "../api/quotesApi";
-import "../styles/App.css";
-import "../styles/NavBar.css";
 
-const NavBar = (props) => {
+const NavBar = ({ id }) => {
   let history = useHistory();
 
   const handleClick = () => {
-    deleteQuote(props.id).catch((err) => console.log(err));
+    deleteQuote(id).catch((err) => console.log(err));
     history.push("/");
-    window.location.reload();
   };
 
   return (
-    <>
-      <Menu attached="top" tabular>
+    <div>
+      <div>
         <NavLink
           to="/view"
           activeClassName="is-active"
           style={{ textDecoration: "none" }}
         >
-          <Menu.Item icon="home large" />
+          <p>Home Icon</p>
         </NavLink>
         <NavLink
           to="/add-quote"
           activeClassName="is-active"
           style={{ textDecoration: "none" }}
         >
-          <Menu.Item icon="plus large" />
+          <p>Add Icon</p>
         </NavLink>
-        {props.id && (
+        {id && (
           <>
             <NavLink
-              to={`/edit-quote/${props.id}`}
+              to={`/edit-quote/${id}`}
               activeClassName="is-active"
               style={{ textDecoration: "none" }}
             >
-              <Menu.Item
-                icon="edit large"
-                activeClassName="is-active"
-                style={{ cursor: "pointer" }}
-              />
+              <p>Edit Icon</p>
             </NavLink>
-            <Menu.Item
-              icon="trash large"
-              style={{ cursor: "pointer" }}
-              onClick={handleClick}
-            />
+            <p>Delete Icon</p>
           </>
         )}
-      </Menu>
-    </>
+      </div>
+    </div>
   );
 };
 
