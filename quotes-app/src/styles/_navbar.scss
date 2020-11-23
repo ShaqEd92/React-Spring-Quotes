@@ -1,23 +1,22 @@
-.ui.tabular.menu {
-  border-bottom: 1px solid $primary;
-}
-
-.ui.tabular.menu .active.item {
-  background: $primary;
-  border-left: 1px solid $primary;
-  border-right: 1px solid $primary;
-  border-top: 2px solid $primary;
-}
-
-.ui.raised.segment,
-.ui.raised.segments {
-  background-color: #242038;
-  color: #8e8dbe;
-  padding: 5%;
-}
-
-.ui.violet.ribbon.label {
-  position: absolute;
-  top: 7.5%;
-  left: -1.85%;
+.nav-bar {
+  @include format;
+  height: 10vh;
+  width: 100%;
+  background-color: black;
+  box-shadow: 3px 3px 5px 3px $color1;
+  div {
+    @include format;
+    justify-content: space-between;
+    height: 75%;
+    width: 75%;
+    h1 {
+      color: $color2;
+    }
+    a {
+      svg {
+        height: 50px;
+        width: auto;
+      }
+    }
+  }
 }

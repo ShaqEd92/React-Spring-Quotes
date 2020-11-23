@@ -6,7 +6,6 @@ import ManageQuote from "./components/ManageQuote";
 import ViewQuote from "./components/ViewQuote";
 import ViewTag from "./components/ViewTag";
 import ViewAuthor from "./components/ViewAuthor";
-import Footer from "./components/Footer.js";
 import { getQuotes } from "./api/quotesApi";
 import { getTags } from "./api/tagsApi";
 import "./styles/App.css";
@@ -26,12 +25,11 @@ const App = () => {
   };
 
   return (
-    <div className="wrapper">
+    <>
       <NavBar id={id} quotes={quotes} setQuotes={setQuotes} />
-
       <Switch>
         <Route exact path="/">
-          <HomePage quotes={quotes} tags={tags} setId={setId} />
+          <HomePage quotes={quotes} tags={tags} />
         </Route>
         <Route path="/add-quote">
           <ManageQuote
@@ -59,9 +57,7 @@ const App = () => {
           <ViewAuthor setId={setId} />
         </Route>
       </Switch>
-
-      <Footer />
-    </div>
+    </>
   );
 };
 

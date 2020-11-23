@@ -1,0 +1,46 @@
+.quote-card {
+  height: 24vh;
+  padding: 8%;
+  border: 1px dotted $color1;
+  box-shadow: 5px 5px 5px 5px silver;
+  p {
+    color: black;
+  }
+  &:hover {
+    box-shadow: 6px 6px 8px 8px gray;
+  }
+}
+
+.quote-content {
+  font-size: 18px;
+}
+
+.quote-author {
+  font-size: 15px;
+  font-style: italic;
+  text-align: right;
+  &:hover {
+    color: $color1;
+  }
+}
+
+.tag-card {
+  background-color: $color1;
+  color: $color2;
+  padding: 3% 5%;
+  font-size: 20px;
+  text-align: center;
+  border: 1px solid $color1;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+}
+
+.tag-card {
+  &:hover {
+    background-color: $color2;
+    color: $color1;
+  }
+}

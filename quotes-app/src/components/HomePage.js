@@ -1,15 +1,10 @@
-import React, { useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import React, { useState } from "react";
 import _ from "underscore";
 import QuoteCard from "./QuoteCard";
 import TagCard from "./TagCard";
 
-const HomePage = ({ quotes, tags, setId }) => {
-  let view = useParams().slug;
-
-  useEffect(() => {
-    setId(null);
-  }, [quotes, setId]);
+const HomePage = ({ quotes, tags }) => {
+  const [view, setView] = useState("quotes");
 
   const allQuotes = _.shuffle(quotes).map((quote) => (
     <QuoteCard quote={quote} />
@@ -18,17 +13,29 @@ const HomePage = ({ quotes, tags, setId }) => {
   const allTags = _.shuffle(tags).map((tag) => <TagCard tag={tag} />);
 
   return (
-    <div>
-            <h1>
-        <NavLink to="/view/quotes" activeClassName="active-view">
-          Quotes&nbsp;
-        </NavLink>
-        |
-        <NavLink to="/view/tags" activeClassName="active-view">
-          &nbsp;Tags
-        </NavLink>
-      </h1>
-      {view === "quotes" ? allQuotes : allTags}
+    <div className="home-page">
+      <main>
+        <h1>
+          <span
+            onClick={() => setView("quotes")}
+            style={view === "quotes" ? { fontWeight: "bold" } : null}
+          >
+            Quotes&nbsp;
+          </span>
+          |
+          <span
+            onClick={() => setView("tags")}
+            style={view === "tags" ? { fontWeight: "bold" } : null}
+          >
+            &nbsp;Tags
+          </span>
+        </h1>
+        <hr/>
+        <section>
+          {view === "quotes" && allQuotes}
+          {view === "tags" && allTags}
+        </section>
+      </main>
     </div>
   );
 };

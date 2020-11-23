@@ -1,0 +1,28 @@
+.home-page {
+  @include format;
+  height: 90vh;
+  main {
+    @include format;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 90%;
+    width: 90%;
+    h1 {
+      cursor: pointer;
+      color: $color1;
+      font-weight: lighter;
+    }
+    hr {
+      width: 90%;
+      margin-bottom: 2%;
+    }
+    section {
+      height: 90%;
+      width: 90%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      column-gap: 25px;
+      row-gap: 10px;
+    }
+  }
+}
