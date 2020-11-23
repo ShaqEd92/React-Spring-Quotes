@@ -1,0 +1,52 @@
+.single-quote {
+  @include format;
+  height: 90vh;
+  hr {
+    margin: 5% 0;
+  }
+}
+
+.single-card {
+  padding: 2%;
+  min-width: 45%;
+  background-color: white;
+  border: 1px dotted $color1;
+  box-shadow: 5px 5px 5px 5px silver;
+  p {
+    color: black;
+  }
+}
+
+.no-tags {
+  font-style: italic;
+}
+
+.quote-tags {
+  h3 {
+    color: black;
+    font-weight: lighter;
+  }
+  span {
+    margin-right: 3%;
+    color: $color1;
+    font-style: italic;
+    font-size: 15px;
+    border: 1px dotted $color1;
+    padding: 0.5% 1%;
+  }
+}
+
+.single-tag {
+  @include format;
+  flex-direction: column;
+  min-height: 75vh;
+  padding: 2%;
+}
+
+.tag-quotes {
+  p {
+    margin-bottom: 5%;
+    height: auto;
+    width: 100%;
+  }
+}

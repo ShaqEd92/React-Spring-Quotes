@@ -2,51 +2,58 @@ import React from "react";
 
 const QuoteForm = ({
   quote,
-  existingTags,
-  newTags,
+  tags,
+  newTag,
   onSubmit,
   onChange,
+  onTagChange,
   onSelect,
   onTagSubmit,
 }) => (
-  <div>
-    <form onSubmit={onSubmit}>
-      <h5>Quote</h5>
-      <textarea
-        placeholder="Add another great quote to the list..."
-        name="content"
-        value={quote.content}
-        onChange={onChange}
-      ></textarea>
-      <h5>Author</h5>
-      <input
-        type="text"
-        placeholder="Enter quote's author..."
-        name="author"
-        value={quote.author}
-        onChange={onChange}
-      />
-      <select onChange={onSelect}>
-        {existingTags.map((tag) => (
-          <option key={tag.id} value={tag.name}>
-            {tag.name}
-          </option>
-        ))}
-      </select>
-      <button type="submit">Submit Quote</button>
-    </form>
+  <div className="form-container">
+    <div>
+      <form onSubmit={onSubmit}>
+        <h3>Quote</h3>
+        <textarea
+          placeholder="Add another great quote to the list..."
+          rows="5"
+          name="content"
+          value={quote.content}
+          onChange={onChange}
+        ></textarea>
+        <h3>Author</h3>
+        <input
+          placeholder="Enter quote's author..."
+          name="author"
+          value={quote.author}
+          onChange={onChange}
+        />
+        <h3>Tags</h3>
+        <select onChange={onSelect}>
+          {tags.map((tag) => (
+            <option value={tag.name}>{tag.name}</option>
+          ))}
+        </select>
+        <button id="submitQuote" type="submit">
+          SAVE QUOTE
+        </button>
+      </form>
 
-    <form onSubmit={onTagSubmit}>
-      <input placeholder="Add new tag..." name="addedTag" onChange={onChange} />
-      &nbsp; &nbsp;
-      <button type="submit">+</button>
-    </form>
+      <form id="addTag" onSubmit={onTagSubmit}>
+        <input
+          placeholder="Add new tag..."
+          onChange={onTagChange}
+          value={newTag.name}
+        />
+        <button type="submit">+</button>
+      </form>
+    </div>
 
-    <div className="tagsList">
-      <h5>Added Tags</h5>
+    <div>
+      <h3>Added Tags</h3>
       <ul>
-        {newTags.map((tag) => (
-          <li key={tag.name}>{tag.name}</li>
+        {quote.tags.map((tag) => (
+          <li>{tag.name}</li>
         ))}
       </ul>
     </div>

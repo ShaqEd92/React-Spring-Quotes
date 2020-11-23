@@ -1,6 +1,7 @@
 .quote-card {
   height: 24vh;
   padding: 8%;
+  background-color: white;
   border: 1px dotted $color1;
   box-shadow: 5px 5px 5px 5px silver;
   p {
@@ -25,22 +26,47 @@
 }
 
 .tag-card {
-  background-color: $color1;
-  color: $color2;
+  background-color: white;
+  color: $color1;
   padding: 3% 5%;
   font-size: 20px;
   text-align: center;
-  border: 1px solid $color1;
-  border-radius: 25px;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  -ms-border-radius: 25px;
-  -o-border-radius: 25px;
+  border: 1px dotted black;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
 }
 
 .tag-card {
   &:hover {
-    background-color: $color2;
-    color: $color1;
+    background-color: $color1;
+    color: white;
+    opacity: 0.75;
   }
+}
+
+@media (max-width: 1400px) {
+  .quote-content {
+    font-size: 15px;
+  }
+  .quote-author {
+    font-size: 12px;
+  }
+  .tag-card {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 576px) {
 }

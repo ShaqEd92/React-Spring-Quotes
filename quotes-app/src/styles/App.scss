@@ -2,6 +2,7 @@
 @import "./mixins";
 @import "./navbar";
 @import "./home";
+@import "./view";
 @import "./card";
 @import "./form";
 @import "./footer";
@@ -12,4 +13,8 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: $color2;
+}
+
+button{
+  cursor: pointer;
 }

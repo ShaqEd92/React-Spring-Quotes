@@ -2,52 +2,39 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getQuote } from "../api/quotesApi";
 
-const ViewQuote = ({ setId }) => {
+const ViewQuote = () => {
   let id = useParams().slug;
 
   const [quote, setQuote] = useState();
 
   useEffect(() => {
     getQuote(id).then((_quote) => setQuote(_quote));
-    setId(id);
-  }, [setId, id]);
+  }, [id]);
 
   return (
-    <>
+    <div className="single-quote">
       {quote && (
-        <div className="single-quote">
-          <div className="quote-box">
-            <p>"{quote.content}"</p>
-          </div>
-          <Link
-            to={`/author/${quote.author}`}
-            style={{ textDecoration: "none", color: "#8e8dbe" }}
-          >
-            <p>{quote.author}</p>
+        <div className="single-card">
+          <p className="quote-content">"{quote.content}"</p>
+          <Link to={`/author/${quote.author}`}>
+            <p className="quote-author">{quote.author}</p>
           </Link>
-          <br />
+          <hr />
           {quote.tags.length === 0 ? (
-            <div>
-              <span style={{ fontSize: "1.25rem", color: "#7a306c" }}>
-                There are currently no tags
-              </span>
-            </div>
+            <p className="no-tags">There are currently no tags</p>
           ) : (
-            quote.tags.map((t) => (
-              <div className="quote-tags">
-                <Link to={`/tag/${t.id}`}>
-                  <div>
-                    <span style={{ fontSize: "1.25rem", color: "#7a306c" }}>
-                      {t.name}
-                    </span>
-                  </div>
+            <div className="quote-tags">
+              <p className="quote-content">Tags</p>
+              {quote.tags.map((tag) => (
+                <Link to={`/tag/${tag.id}`}>
+                  <span>{tag.name}</span>
                 </Link>
-              </div>
-            ))
+              ))}
+            </div>
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

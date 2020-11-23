@@ -83,7 +83,7 @@
 
 .home-page main hr {
   width: 90%;
-  margin-bottom: 2%;
+  margin: 2% 0;
 }
 
 .home-page main section {
@@ -98,9 +98,82 @@
   row-gap: 10px;
 }
 
+.single-quote {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 90vh;
+}
+
+.single-quote hr {
+  margin: 5% 0;
+}
+
+.single-card {
+  padding: 2%;
+  min-width: 45%;
+  background-color: white;
+  border: 1px dotted #772D8B;
+  -webkit-box-shadow: 5px 5px 5px 5px silver;
+          box-shadow: 5px 5px 5px 5px silver;
+}
+
+.single-card p {
+  color: black;
+}
+
+.no-tags {
+  font-style: italic;
+}
+
+.quote-tags h3 {
+  color: black;
+  font-weight: lighter;
+}
+
+.quote-tags span {
+  margin-right: 3%;
+  color: #772D8B;
+  font-style: italic;
+  font-size: 15px;
+  border: 1px dotted #772D8B;
+  padding: 0.5% 1%;
+}
+
+.single-tag {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 75vh;
+  padding: 2%;
+}
+
+.tag-quotes p {
+  margin-bottom: 5%;
+  height: auto;
+  width: 100%;
+}
+
 .quote-card {
   height: 24vh;
   padding: 8%;
+  background-color: white;
   border: 1px dotted #772D8B;
   -webkit-box-shadow: 5px 5px 5px 5px silver;
           box-shadow: 5px 5px 5px 5px silver;
@@ -130,22 +203,109 @@
 }
 
 .tag-card {
-  background-color: #772D8B;
-  color: #EAE8FF;
+  background-color: white;
+  color: #772D8B;
   padding: 3% 5%;
   font-size: 20px;
   text-align: center;
-  border: 1px solid #772D8B;
-  border-radius: 25px;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  -ms-border-radius: 25px;
-  -o-border-radius: 25px;
+  border: 1px dotted black;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
 }
 
 .tag-card:hover {
+  background-color: #772D8B;
+  color: white;
+  opacity: 0.75;
+}
+
+@media (max-width: 1400px) {
+  .quote-content {
+    font-size: 15px;
+  }
+  .quote-author {
+    font-size: 12px;
+  }
+  .tag-card {
+    font-size: 16px;
+  }
+}
+
+.form-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  height: 90vh;
+  width: 90%;
+  margin: auto;
+  padding: 2%;
+}
+
+.form-container div {
+  background-color: white;
+  -webkit-box-shadow: 3px 3px 3px 3px silver;
+          box-shadow: 3px 3px 3px 3px silver;
+  padding: 1% 2%;
+  width: 45%;
+}
+
+.form-container div form textarea,
+.form-container div form input,
+.form-container div form select {
+  width: 100%;
+  padding: 2%;
+}
+
+.form-container div form input,
+.form-container div form select {
+  margin-bottom: 4%;
+}
+
+.custom-select select {
+  display: none;
+}
+
+#addTag input {
+  width: 90%;
+}
+
+#addTag button {
+  width: 8%;
+  padding: 2%;
+  margin-left: 2%;
+  font-weight: bolder;
+}
+
+#submitQuote {
+  position: absolute;
+  bottom: 5vh;
+  padding: 0.5%;
+  background-color: black;
+  color: #EAE8FF;
+  border: 1px solid black;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  -webkit-box-shadow: 2px 2px 5px 1px #772D8B;
+          box-shadow: 2px 2px 5px 1px #772D8B;
+}
+
+#submitQuote:hover {
   background-color: #EAE8FF;
-  color: #772D8B;
+  color: black;
+  border: 1px solid #EAE8FF;
+  -webkit-box-shadow: 2px 2px 5px 1px black;
+          box-shadow: 2px 2px 5px 1px black;
 }
 
 body {
@@ -155,5 +315,9 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   background-color: #EAE8FF;
+}
+
+button {
+  cursor: pointer;
 }
 /*# sourceMappingURL=App.css.map */

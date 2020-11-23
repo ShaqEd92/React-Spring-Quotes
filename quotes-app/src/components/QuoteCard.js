@@ -5,7 +5,6 @@ const QuoteCard = ({ quote }) => (
   <Link to={`/quote/${quote.id}`}>
     <div key={quote.id} className="quote-card">
       <p className="quote-content">{quote.content}</p>
-      <br />
       <Link to={`/author/${quote.author}`}>
         <p className="quote-author">{quote.author}</p>
       </Link>
