@@ -1,42 +1,50 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Label } from "semantic-ui-react";
+import { Link, useParams } from "react-router-dom";
 import { getQuotesForAuthor } from "../api/quotesApi";
-import "../styles/App.css";
 
-const ViewTag = (props) => {
+const ViewAuthor = () => {
   let name = useParams().slug;
 
   const [author, setAuthor] = useState();
   const [quotes, setQuotes] = useState([]);
 
   useEffect(() => {
-    setAuthor(name)
-    props.setId(null);
-  }, [name, props]);
+    setAuthor(name);
+  }, [name]);
 
   useEffect(() => {
     getQuotesForAuthor(name).then((_quotes) => setQuotes(_quotes));
   }, [name]);
 
   return (
-    <>
+    <div className="single-tag">
       {author && (
-        <div style={{ padding: "2%" }}>
-          <Label as="a" color="#7A306C" size="huge" tag>
-            {author}
-          </Label>
+        <>
+          <p className="tag-card">{author}</p>
           {quotes.map((quote) => (
-            <div className="quote-box">
-              <p>
-                "{quote.content}" by {quote.author}
-              </p>
+            <div className="tag-quotes">
+              <div className="single-card">
+                <p className="quote-content">"{quote.content}"</p>
+                <hr />
+                {quote.tags.length === 0 ? (
+                  <p className="no-tags">There are currently no tags</p>
+                ) : (
+                  <div className="quote-tags">
+                    <p className="quote-content">Tags</p>
+                    {quote.tags.map((tag) => (
+                      <Link to={`/tag/${tag.id}`}>
+                        <span>{tag.name}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           ))}
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 
-export default ViewTag;
+export default ViewAuthor;

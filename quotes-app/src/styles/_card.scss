@@ -1,0 +1,72 @@
+.quote-card {
+  height: 24vh;
+  padding: 8%;
+  background-color: white;
+  border: 1px dotted $color1;
+  box-shadow: 5px 5px 5px 5px silver;
+  p {
+    color: black;
+  }
+  &:hover {
+    box-shadow: 6px 6px 8px 8px gray;
+  }
+}
+
+.quote-content {
+  font-size: 18px;
+}
+
+.quote-author {
+  font-size: 15px;
+  font-style: italic;
+  text-align: right;
+  &:hover {
+    color: $color1;
+  }
+}
+
+.tag-card {
+  background-color: white;
+  color: $color1;
+  padding: 3% 5%;
+  font-size: 20px;
+  text-align: center;
+  border: 1px dotted black;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+
+.tag-card {
+  &:hover {
+    background-color: $color1;
+    color: white;
+    opacity: 0.75;
+  }
+}
+
+@media (max-width: 1400px) {
+  .quote-content {
+    font-size: 15px;
+  }
+  .quote-author {
+    font-size: 12px;
+  }
+  .tag-card {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 576px) {
+}

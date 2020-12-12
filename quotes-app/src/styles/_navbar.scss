@@ -1,0 +1,22 @@
+.nav-bar {
+  @include format;
+  height: 10vh;
+  width: 100%;
+  background-color: black;
+  box-shadow: 3px 3px 5px 3px $color1;
+  div {
+    @include format;
+    justify-content: space-between;
+    height: 75%;
+    width: 75%;
+    h1 {
+      color: $color2;
+    }
+    a {
+      svg {
+        height: 50px;
+        width: auto;
+      }
+    }
+  }
+}

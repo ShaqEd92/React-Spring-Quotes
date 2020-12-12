@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Label } from "semantic-ui-react";
 import { getQuotesForTag } from "../api/quotesApi";
 import { getTag } from "../api/tagsApi";
-import "../styles/App.css";
 
-const ViewTag = (props) => {
+const ViewTag = () => {
   let id = useParams().slug;
 
   const [tag, setTag] = useState();
@@ -13,7 +11,6 @@ const ViewTag = (props) => {
 
   useEffect(() => {
     getTag(id).then((_tag) => setTag(_tag));
-    props.setId(null);
   }, [id]);
 
   useEffect(() => {
@@ -21,22 +18,20 @@ const ViewTag = (props) => {
   }, [tag]);
 
   return (
-    <>
+    <div className="single-tag">
       {tag && (
-        <div style={{ padding: "2%" }}>
-          <Label as="a" color="#7A306C" size="huge" tag>
-            {tag.name}
-          </Label>
+        <>
+          <p className="tag-card">{tag.name}</p>
           {quotes.map((quote) => (
-            <div className="quote-box">
-              <p>
+            <div className="tag-quotes">
+              <p className="quote-card">
                 "{quote.content}" by {quote.author}
               </p>
             </div>
           ))}
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 

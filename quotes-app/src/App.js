@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-  NavLink,
-} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import QuotesOrTagsList from "./components/QuotesOrTagsList";
-import ViewQuote from "./components/ViewQuote";
+import HomePage from "./components/HomePage";
 import AddQuote from "./components/AddQuote";
-import EditQuote from "./components/EditQuote";
+import ViewQuote from "./components/ViewQuote";
 import ViewTag from "./components/ViewTag";
 import ViewAuthor from "./components/ViewAuthor";
-import Footer from "./components/Footer.js";
 import { getQuotes } from "./api/quotesApi";
 import { getTags } from "./api/tagsApi";
 import "./styles/App.css";
@@ -21,7 +13,6 @@ import "./styles/App.css";
 const App = () => {
   const [quotes, setQuotes] = useState([]);
   const [tags, setTags] = useState([]);
-  const [id, setId] = useState(false);
 
   useEffect(() => {
     if (quotes.length === 0) fetchData();
@@ -33,56 +24,20 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <div className="wrapper">
-        <NavBar id={id} quotes={quotes} setQuotes={setQuotes} />
-        <br />
-        <h1>
-          <NavLink to="/view/quotes" activeClassName="active-view">
-            Quotes&nbsp;
-          </NavLink>
-          |
-          <NavLink to="/view/tags" activeClassName="active-view">
-            &nbsp;Tags
-          </NavLink>
-        </h1>
-
-        <Switch>
-          <Route exact path="/">
-            <Redirect to="/view/quotes" />
-          </Route>
-          <Route exact path="/view">
-            <Redirect to="/view/quotes" />
-          </Route>
-          <Route path="/view/:slug">
-            <QuotesOrTagsList quotes={quotes} tags={tags} setId={setId} />
-          </Route>
-          <Route path="/quote/:slug">
-            <ViewQuote setId={setId} />
-          </Route>
-          <Route path="/add-quote">
-            <AddQuote
-              fetchData={fetchData}
-              quotes={quotes}
-              setQuotes={setQuotes}
-              tags={tags}
-              setId={setId}
-            />
-          </Route>
-          <Route path="/edit-quote/:slug">
-            <EditQuote setId={setId} />
-          </Route>
-          <Route path="/tag/:slug">
-            <ViewTag setId={setId} />
-          </Route>
-          <Route path="/author/:slug">
-            <ViewAuthor setId={setId} />
-          </Route>
-        </Switch>
-
-        <Footer />
-      </div>
-    </Router>
+    <>
+      <NavBar quotes={quotes} setQuotes={setQuotes} />
+      <Switch>
+        <Route exact path="/">
+          <HomePage quotes={quotes} tags={tags} />
+        </Route>
+        <Route path="/add-quote">
+          <AddQuote quotes={quotes} setQuotes={setQuotes} tags={tags} />
+        </Route>
+        <Route path="/quote/:slug" component={ViewQuote} />
+        <Route path="/tag/:slug" component={ViewTag} />
+        <Route path="/author/:slug" component={ViewAuthor} />
+      </Switch>
+    </>
   );
 };
 
